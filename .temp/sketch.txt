@@ -8,7 +8,7 @@ XTranslate
 	XML: http://translate.yandex.ru/tr/translate?lang=en-ru&text=message
 
 Перевод по выделению текста на странице:
-1) Сразу
+1) Сразу (mouseup)
 2) После нажатия хоткея Ctrl + Shift? + (A-Z)
 
 Результаты перевода (с возможностью выбора):
