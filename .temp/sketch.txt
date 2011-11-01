@@ -1,7 +1,7 @@
 XTranslate
 
 1) Google:
-	http://translate.google.ru/translate_a/t?client=t&hl=ru&sl=en&tl=ru&multires=1&otf=2&ssel=0&tsel=0&sc=1&text=message
+	http://translate.google.com/translate_a/t?client=t&sl=en&tl=ru&text=message
 
 2) Yandex
 	JSONP: http://translate.yandex.ru/tr.json/translate?callback=json.c(0)&lang=en-ru&text=message

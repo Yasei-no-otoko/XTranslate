@@ -1,23 +1,22 @@
 // @project XTranslate (background.js)
 // @url https://github.com/extensible/XTranslate 
 
+var lang = {
+	from: 'en',
+	to: navigator.userLanguage.split('-')[0]
+};
+
 window.XTranslate = 
 {
 	vendors: {},
 	button: opera.contexts.toolbar.createItem(
 	{
-		title: 'XTranslate',
-		icon: 'icons/icon-16.png',
+		title: 'XTranslate ('+ [lang.from, '→', lang.to].join(' ') + ')',
+		icon: 'icons/flags/'+ lang.to +'.png',
 		popup: {
 			href: 'options.html',
 			width: 350,
 			height: 450
-		},
-		badge: {
-			display			: 'block',
-			backgroundColor	: 'black',
-			color			: 'white',
-			textContent		: navigator.userLanguage,
 		},
 		onclick: function(){
 			//this.icon = 'icons/flags/uk.png';
