@@ -5,6 +5,19 @@
 {
 	var port, widget, popup, selection;
 	
+	function css( name, value )
+	{
+		if( name && value ){
+			this.style[name] = value;
+		}
+		else {
+			for(var i in name){
+				this.style[i] = name[i];
+			}
+		}
+		return this;
+	}
+	
 	function handleSelection( evt )
 	{
 		selection = window.getSelection();
@@ -24,15 +37,35 @@
 	function showPopup( htmlText )
 	{
 		var
-			padding = 5,
+			first = popup.firstChild,
 			range = selection.getRangeAt(0),
 			pos = range.getBoundingClientRect(),
 			html = range.createContextualFragment( htmlText );
 		
-		popup.replaceChild(html, popup.firstChild)
-		popup.style.left = pos.left + 'px';
-		popup.style.top = (pos.top + pos.height + padding) + 'px';
-		popup.style.display = 'block';
+		first ? popup.replaceChild(html, first) : popup.appendChild(html);
+		popup.css({
+			left: pos.left + 'px',
+			top: (pos.bottom + popup.padding) + 'px',
+			margin: 0,
+			display: 'block'
+		});
+		
+		// fix position
+		var
+			win_size = {
+				width: window.innerWidth,
+				height: window.innerHeight
+			},
+			popup_size = {
+				width: popup.offsetWidth,
+				height: popup.offsetHeight
+			};
+		if( pos.left + popup_size.width > win_size.width ) {
+			popup.css('marginLeft', -popup_size.width + 'px')
+		}
+		if( pos.bottom + popup_size.height > win_size.height ) {
+			popup.css('marginTop', -(popup_size.height + pos.height ) + 'px')
+		}
 	}
 	
 	opera.extension.onmessage = function( evt )
@@ -43,7 +76,9 @@
 			widget = JSON.parse(evt.data.widget);
 			
 			popup = document.createElementNS('http://www.w3.org/1999/xhtml', 'div');
-			popup.className = popup.innerHTML = 'XTranslate';
+			popup.css = css;
+			popup.padding = 5;
+			popup.className = 'XTranslate';
 			popup.onclick = function( evt ){ evt.stopPropagation() }
 			document.documentElement.appendChild(popup);
 			
@@ -61,7 +96,7 @@
 	
 	window.addEventListener('mouseup', handleSelection, false);
 	window.addEventListener('click', function(){
-		popup.style.display = 'none';
+		popup.css('display', 'none');
 	}, false);
 	
 })();

@@ -1,0 +1,41 @@
+/*
+	@project XTranslate (injected.js)
+	@url https://github.com/extensible/XTranslate 
+	@desc css styles for popup block
+*/
+
+.XTranslate * {
+	font:normal small/120% Verdana, Geneva, sans-serif;
+	color:white;
+	margin:0;
+	padding:0;
+}
+.XTranslate {
+	position:fixed;
+	left:0;
+	top:0;
+	padding:.8em;
+	display:none;
+	z-index:1000;
+	
+	background: rgb(176,94,189); /* fallback */
+	background-image: -o-linear-gradient(bottom, rgb(39,0,234) 0%, rgb(176,94,189) 50%);
+	border-radius:10px;
+	box-shadow:0 0 15px rgba(39, 0, 234, .5);
+	border:1px solid #8B11FF;
+}
+
+.XTranslate_result {
+	max-width:300px;
+	max-height:200px;
+	overflow:auto;
+	display:block;
+}
+
+.XTranslate_wordtype dt {
+	font-weight:bold;
+	margin-top:.5em;
+}
+.XTranslate_wordtype dd {
+	padding-left:2em;
+}

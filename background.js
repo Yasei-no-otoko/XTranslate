@@ -24,9 +24,15 @@ var lang = {
 window.XTranslate = 
 {
 	vendors: {
-		get current(){ return this.all[this.active || 'google'] },
-		'set': function( name, handler ){ this.all[name] = handler },
-		'all': []
+		get current(){ return this.all[this.active || 'Google'] },
+		add: function( name, url, handler )
+		{
+			this.all[name] = {
+				url: url,
+				handler: handler
+			};
+		},
+		all: []
 	},
 	button: opera.contexts.toolbar.createItem(
 	{
@@ -54,7 +60,12 @@ opera.extension.addEventListener('connect', function(evt)
 {
 	evt.source.postMessage({
 		action: 'init',
-		css: document.querySelector('style').textContent,
+		css: function()
+		{
+			return [].slice.call(document.styleSheets[0].cssRules).map(function( rule ){
+				return rule.cssText;
+			}).join('\n');
+		}(),
 		widget: JSON.stringify(widget)
 	});
 }, false );
@@ -62,9 +73,8 @@ opera.extension.addEventListener('connect', function(evt)
 // messages handling
 opera.extension.addEventListener('message', function(evt)
 {
-	//XTranslate.vendors.current(evt);
 	dev('vendors/google.js', function(){
-		XTranslate.vendors.current(evt);
+		XTranslate.vendors.current.handler(evt);
 	});
 }, false );
 

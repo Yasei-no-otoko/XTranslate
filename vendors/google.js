@@ -1,15 +1,15 @@
 // @project XTranslate (vendors/google.js)
-// @url https://github.com/extensible/XTranslate  
+// @url https://github.com/extensible/XTranslate
 
-XTranslate.vendors.set('google', function(evt)
+XTranslate.vendors.add('Google', 'http://translate.google.com', function(evt)
 {
 	var
 		text = evt.data,
 		port = evt.source;
 	
 	ajax({
-		url: [
-			'http://translate.google.com/translate_a/t?client=t',
+		url: this.url + [
+			'/translate_a/t?client=t',
 			'&sl='+ lang.from,
 			'&tl='+ lang.to,
 			'&text='+ encodeURIComponent(text)
