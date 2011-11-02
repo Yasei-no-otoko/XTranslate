@@ -3,7 +3,7 @@
 
 var lang = {
 	get from(){
-		return (widget.preferences['lang.from'] || 'en').toUpperCase();
+		return (widget.preferences['lang.from'] || 'en');
 	},
 	set from( value ){
 		widget.preferences['lang.from'] = value;
@@ -13,7 +13,7 @@ var lang = {
 		return (
 			widget.preferences['lang.to'] || 
 			navigator.userLanguage.split('-')[0]
-		).toUpperCase();
+		);
 	},
 	set to( value ){
 		widget.preferences['lang.to'] = value;
@@ -34,11 +34,14 @@ window.XTranslate =
 			href: 'options.html',
 			width: 350,
 			height: 450
+		},
+		onclick: function(){
+			//opera.contexts.toolbar.removeItem(this)
 		}
 	}),
 	updateButton: function(){
-		this.button.title = 'XTranslate ('+ [lang.from, '→', lang.to].join(' ') + ')';
-		this.button.icon = 'icons/flags/'+ lang.to.toLowerCase() +'.png';
+		this.button.title = 'XTranslate ('+ [lang.from.toUpperCase(), '→', lang.to.toUpperCase()].join(' ') + ')';
+		this.button.icon = 'icons/flags/'+ lang.to +'.png';
 	}
 };
 

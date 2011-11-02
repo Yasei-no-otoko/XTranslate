@@ -16,16 +16,17 @@
 				.getRangeAt(0)
 				.getBoundingClientRect(),
 				
-			text = selection
-				.toString().trim()
-				.replace(/\s{2,}/g, ' ');
+			text = selection.toString()
+				.trim()
+				//.replace(/[\r\n\t]/g, '')
+				//.replace(/\s{2,}/g, ' ');
 		
 		if( text )
 		{
 			switch(evt.type)
 			{
 				case 'mouseup':
-					postMsg(text);
+					postMsg( text );
 				break;
 			}
 		}
