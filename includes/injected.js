@@ -3,51 +3,66 @@
 
 (function()
 {
-	var postMsg = function __( message ){
-		__.port.postMessage( message )
-	};
+	var port, widget, popup, selection;
 	
 	function handleSelection( evt )
 	{
-		var 
-			selection = window.getSelection(),
-			
-			position = selection
-				.getRangeAt(0)
-				.getBoundingClientRect(),
-				
-			text = selection.toString()
-				.trim()
-				//.replace(/[\r\n\t]/g, '')
-				//.replace(/\s{2,}/g, ' ');
+		selection = window.getSelection();
 		
+		var text = selection.toString().trim();
 		if( text )
 		{
 			switch(evt.type)
 			{
 				case 'mouseup':
-					postMsg( text );
+					port.postMessage( text );
 				break;
 			}
 		}
 	}
 	
-	function handleMessage( evt )
+	function showPopup( htmlText )
 	{
-		if( !evt.data ){
-			postMsg.port = evt.source;
+		var
+			padding = 5,
+			range = selection.getRangeAt(0),
+			pos = range.getBoundingClientRect(),
+			html = range.createContextualFragment( htmlText );
+		
+		popup.replaceChild(html, popup.firstChild)
+		popup.style.left = pos.left + 'px';
+		popup.style.top = (pos.top + pos.height + padding) + 'px';
+		popup.style.display = 'block';
+	}
+	
+	opera.extension.onmessage = function( evt )
+	{
+		if( evt.data.action == 'init' )
+		{
+			port = evt.source;
+			widget = JSON.parse(evt.data.widget);
+			
+			popup = document.createElementNS('http://www.w3.org/1999/xhtml', 'div');
+			popup.className = popup.innerHTML = 'XTranslate';
+			popup.onclick = function( evt ){ evt.stopPropagation() }
+			document.documentElement.appendChild(popup);
+			
+			var style = document.createElementNS('http://www.w3.org/1999/xhtml', 'style');
+			style.type = 'text/css';
+			style.textContent = evt.data.css;
+			document.documentElement.appendChild(style);
 		}
-		else {
-			alert( evt.data )
+		
+		// show popup
+		if( evt.data.html ){
+			showPopup( evt.data.html );
 		}
 	};
 	
-	function showTranslatedResults( htmlText ){
-		
-	}
-	
-	opera.extension.addEventListener('message', handleMessage, false);
 	window.addEventListener('mouseup', handleSelection, false);
+	window.addEventListener('click', function(){
+		popup.style.display = 'none';
+	}, false);
 	
 })();
 

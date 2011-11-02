@@ -24,26 +24,27 @@ XTranslate.vendors.set('google', function(evt)
 					'<div class="XTranslate_result_main">',
 						data[0][0][0],
 					 '</div>',
-					'<div class="XTranslate_result_other">',
-						function()
-						{
-							return data[1]
-								? data[1].map(function( wordtype )
-								{
-									return [
-										'<dl class="XTranslate_wordtype">',
-											'<dt>'+ wordtype[0] +'</dt>',
-											'<dd>'+ wordtype[1].join(', ') +'</dd>',
-										'</dl>'
-									].join('')
-								}).join('')
-								: '';
-						}(),
-					 '</div>',
+					function()
+					{
+						return data[1]
+							? data[1].map(function( wordtype )
+							{
+								return [
+									'<dl class="XTranslate_wordtype">',
+										'<dt>'+ wordtype[0] +'</dt>',
+										'<dd>'+ wordtype[1].join(', ') +'</dd>',
+									'</dl>'
+								].join('')
+							}).join('')
+							: '';
+					}(),
 				'</div>'
 			].join('');
 			
-			port.postMessage( html );
+			port.postMessage({
+				html: html,
+				response: response
+			});
 		}
 	});
 });
