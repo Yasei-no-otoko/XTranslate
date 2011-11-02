@@ -2,27 +2,63 @@
 // @url https://github.com/extensible/XTranslate 
 
 var lang = {
-	from: 'en',
-	to: navigator.userLanguage.split('-')[0]
+	get from(){
+		return (widget.preferences['lang.from'] || 'en').toUpperCase();
+	},
+	set from( value ){
+		widget.preferences['lang.from'] = value;
+		XTranslate.updateButton();
+	},
+	get to(){
+		return (
+			widget.preferences['lang.to'] || 
+			navigator.userLanguage.split('-')[0]
+		).toUpperCase();
+	},
+	set to( value ){
+		widget.preferences['lang.to'] = value;
+		XTranslate.updateButton();
+	}
 };
 
 window.XTranslate = 
 {
-	vendors: {},
+	vendors: {
+		get current(){ return this.all[this.active || 'google'] },
+		'set': function( name, handler ){ this.all[name] = handler },
+		'all': []
+	},
 	button: opera.contexts.toolbar.createItem(
 	{
-		title: 'XTranslate ('+ [lang.from, '→', lang.to].join(' ') + ')',
-		icon: 'icons/flags/'+ lang.to +'.png',
 		popup: {
 			href: 'options.html',
 			width: 350,
 			height: 450
-		},
-		onclick: function(){
-			//this.icon = 'icons/flags/uk.png';
 		}
-	})
+	}),
+	updateButton: function(){
+		this.button.title = 'XTranslate ('+ [lang.from, '→', lang.to].join(' ') + ')';
+		this.button.icon = 'icons/flags/'+ lang.to.toLowerCase() +'.png';
+	}
 };
+
+// add button
+opera.contexts.toolbar.addItem( XTranslate.button );
+XTranslate.updateButton();
+
+// save message port
+opera.extension.addEventListener('connect', function(evt) {
+	evt.source.postMessage('');
+}, false );
+
+// messages handling
+opera.extension.addEventListener('message', function(evt)
+{
+	//XTranslate.vendors.current(evt);
+	dev('vendors/google.js', function(){
+		XTranslate.vendors.current(evt);
+	});
+}, false );
 
 function ajax(opt) {
 	var
@@ -50,19 +86,72 @@ function ajax(opt) {
 	return ajax;
 }
 
-// add button
-opera.contexts.toolbar.addItem(
-	XTranslate.button
-);
-
-// save message port
-opera.extension.addEventListener('connect', function(evt) {
-	evt.source.postMessage('');
-}, false );
-
-// messages handling
-opera.extension.addEventListener('message', function(evt)
+function deferred( callback )
 {
-	//evt.source.postMessage( '--'+ evt.data +'--' );
-}, false );
+	var _deferred = {
+		resolved: false,
+		resolve: function( result )
+		{
+			this.resolved = true;
+			if( arguments.length ){
+				this.returnValue = function(){
+					return result;
+				}
+			}
+		},
+		data: function __( name, value ){
+			__.storage = __.storage || {};
+			return (
+				arguments.length == 2
+				? (__.storage[name] = value)
+				: __.storage[name]
+			);
+		}
+	};
+	
+	callback(_deferred);
+	
+	return function( ready ){
+		return ready 
+			? (_deferred.returnValue ? _deferred.returnValue() : _deferred)
+			: _deferred.resolved;
+	};
+}
 
+function when()	{
+	var 
+		_this = {
+			then: function( callback ){
+				this.callback = callback;
+			}
+		},
+		args = [].slice.call(arguments);
+	var checking = setInterval(function()
+	{
+		_this.cond = args.every(function(obj) {
+			 var result = obj instanceof Function ? obj() : obj;
+			 return result;
+		});
+		if( _this.cond )
+		{
+			clearInterval(checking);
+			_this.callback.apply(_this, args.map(function(obj){
+				return obj instanceof Function ? obj(true) : obj;
+			}));
+		}
+	}, 10);
+	
+	return _this;
+}
+
+
+// development mode
+function dev( filepath, callback ){
+	ajax({
+		url: filepath +'?'+ Date.now(),
+		complete: function( code ){
+			eval(code);
+			callback();
+		}
+	});
+}

@@ -1,7 +1,7 @@
 // @project XTranslate (injected.js)
 // @url https://github.com/extensible/XTranslate 
 
-+function()
+(function()
 {
 	var postMsg = function __( message ){
 		__.port.postMessage( message )
@@ -41,8 +41,12 @@
 		}
 	};
 	
+	function showTranslatedResults( htmlText ){
+		
+	}
+	
 	opera.extension.addEventListener('message', handleMessage, false);
 	window.addEventListener('mouseup', handleSelection, false);
 	
-}();
+})();
 
