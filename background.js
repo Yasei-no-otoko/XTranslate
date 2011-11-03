@@ -1,26 +1,6 @@
 // @project XTranslate (background.js)
 // @url https://github.com/extensible/XTranslate 
 
-var lang = {
-	get from(){
-		return (widget.preferences['lang.from'] || 'en');
-	},
-	set from( value ){
-		widget.preferences['lang.from'] = value;
-		XTranslate.updateButton();
-	},
-	get to(){
-		return (
-			widget.preferences['lang.to'] || 
-			navigator.userLanguage.split('-')[0]
-		);
-	},
-	set to( value ){
-		widget.preferences['lang.to'] = value;
-		XTranslate.updateButton();
-	}
-};
-
 window.XTranslate = 
 {
 	vendors: {
@@ -42,15 +22,22 @@ window.XTranslate =
 			//opera.contexts.toolbar.removeItem(this)
 		}
 	}),
-	updateButton: function(){
+	updateButton: function( lang ){
 		this.button.title = 'XTranslate ('+ [lang.from.toUpperCase(), '→', lang.to.toUpperCase()].join(' ') + ')';
 		this.button.icon = 'icons/flags/'+ lang.to +'.png';
 	}
 };
 
+settings.follow('lang lang.from lang.to', function( value, prop, lang ){
+	XTranslate.updateButton( typeof value == 'object' ? value : lang );
+});
+
 // add button
 opera.contexts.toolbar.addItem( XTranslate.button );
-XTranslate.updateButton();
+settings('lang', {
+	from: settings('lang.from') || 'en',
+	to: settings('lang.to') || navigator.userLanguage.split('-')[0]
+});
 
 // init
 opera.extension.addEventListener('connect', function(evt)
@@ -75,3 +62,13 @@ opera.extension.addEventListener('message', function(evt)
 	});
 }, false );
 
+// development mode
+function dev( filepath, callback ){
+	ajax({
+		url: filepath +'?'+ Date.now(),
+		complete: function( code ){
+			eval(code);
+			callback();
+		}
+	});
+}

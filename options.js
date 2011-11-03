@@ -5,7 +5,7 @@ window.addEventListener('DOMContentLoaded', function( evt )
 {
 	var 
 		bg = opera.extension.bgProcess,
-		dom = function( selector, ctx )
+		$ = function( selector, ctx )
 		{
 			var result = (ctx || document).querySelectorAll(selector);
 			return result.length > 2
@@ -14,7 +14,14 @@ window.addEventListener('DOMContentLoaded', function( evt )
 			;
 		};
 	
-	dom('h1').innerHTML = document.title;
+	$('h1').innerHTML = document.title;
+	
+	/*window.onclick = function()
+	{
+		bg.settings('lang.from', 'en');
+		bg.settings('lang.to', 'ru');
+		
+		alert( bg.settings.toJSON() )
+	};*/
 	
 }, false);
-

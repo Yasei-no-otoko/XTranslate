@@ -15,8 +15,8 @@ XTranslate.vendors.add(
 		ajax({
 			url: this.url + [
 				'/translate_a/t?client=t',
-				'&sl='+ lang.from,
-				'&tl='+ lang.to,
+				'&sl='+ settings('lang.from'),
+				'&tl='+ settings('lang.to'),
 				'&text='+ encodeURIComponent(text)
 			].join(''),
 			
