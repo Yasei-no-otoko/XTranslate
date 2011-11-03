@@ -25,12 +25,9 @@ window.XTranslate =
 {
 	vendors: {
 		get current(){ return this.all[this.active || 'Google'] },
-		add: function( name, url, handler )
-		{
-			this.all[name] = {
-				url: url,
-				handler: handler
-			};
+		add: function( vendor ) {
+			this.all[ vendor.name ] = vendor;
+			vendor.loadLangs();
 		},
 		all: []
 	},
@@ -38,8 +35,8 @@ window.XTranslate =
 	{
 		popup: {
 			href: 'options.html',
-			width: 350,
-			height: 450
+			width: 400,
+			height: 550
 		},
 		onclick: function(){
 			//opera.contexts.toolbar.removeItem(this)
