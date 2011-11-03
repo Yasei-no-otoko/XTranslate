@@ -6,103 +6,140 @@
 	<link rel="stylesheet" href="style.css" type="text/css" media="screen">
 	<script type="text/javascript" src="options.js"></script>
 </head>
-<body class="XTranslate_options">
+<body class="XTranslate_body">
 	
-	<h1 class="header"></h1>
-	
-	<dl class="option">
-		<dt>Show translating results</dt>
-		<dd>
-			<div>
-				<label>
-					<input type="radio" name="trigger" value="mouseup">
-					<span>Straight after selecting a text (onmouseup)</span>
-				</label>
-			</div>
-			<div>
-				<label>
-					<input type="radio" name="trigger" value="keypress" checked="checked">
-					<span>After pressing hotkey <strong>Ctrl+</strong></span>
-				</label>
-				<input type="text" name="trigger_hotkey" value="Shift+X" size="8">
-			</div>
-		</dd>
-	</dl>
-
-	<dl class="option">
-		<dt>Translation</dt>
-		<dd>
-			<span class="title">Engine:</span>
-			<div class="content">
+	<div class="XTranslate_options">
+		<h1 class="header"></h1>
+		
+		<dl class="option">
+			<dt>Show translating results</dt>
+			<dd>
 				<div>
 					<label>
-						<input type="radio" name="engine" value="Google" checked="checked">
-						<span>Google</span>
+						<input type="radio" name="trigger" value="mouseup"/>
+						<span>Straight after selecting a text (onmouseup)</span>
 					</label>
-					(<a href="http://translate.google.com" target="_blank">translate.google.com</a>)
 				</div>
 				<div>
 					<label>
-						<input type="radio" name="engine" value="Yandex">
-						<span>Yandex</span>
+						<input type="radio" name="trigger" value="keypress" checked="checked"/>
+						<span>After pressing hotkey <strong>Ctrl+</strong></span>
 					</label>
-					(<a href="http://translate.yandex.ru" target="_blank">translate.yandex.ru</a>)
+					<input type="text" name="trigger_hotkey" value="Shift+X" size="8" title="Press Ctrl+[key] for make changes"/>
 				</div>
-			</div>
-		</dd>
-		<dd>
-			<span class="title">Direction:</span>
-			<div class="content">
-				<span class="direction from">
-					<img src="icons/flags/en.png" alt="en">
-					<select name="from-lang">
-						<option value="en">English</option>
-					</select>
-				</span>
-				<span class="arrow">&rarr;</span>
-				<span class="direction to">
-					<img src="icons/flags/ru.png" alt="ru">
-					<select name="from-lang">
-						<option value="ru">Russian</option>
-					</select>
-				</span>
-			</div>
-		</dd>
-	</dl>
+			</dd>
+		</dl>
+		
+		<dl class="option">
+			<dt>Translation</dt>
+			<dd>
+				<span class="title">Engine:</span>
+				<div class="content">
+					<div>
+						<label>
+							<input type="radio" name="engine" value="Google" checked="checked"/>
+							<span>Google</span>
+						</label>
+						(<a href="http://translate.google.com" target="_blank">translate.google.com</a>)
+					</div>
+					<div>
+						<label>
+							<input type="radio" name="engine" value="Yandex"/>
+							<span>Yandex</span>
+						</label>
+						(<a href="http://translate.yandex.ru" target="_blank">translate.yandex.ru</a>)
+					</div>
+				</div>
+			</dd>
+			<dd>
+				<span class="title">Direction:</span>
+				<div class="content">
+					<span class="direction from">
+						<img src="icons/flags/en.png" alt="en">
+						<select name="from-lang">
+							<option value="en">English</option>
+						</select>
+					</span>
+					<span class="arrow">&rarr;</span>
+					<span class="direction to">
+						<img src="icons/flags/ru.png" alt="ru">
+						<select name="from-lang">
+							<option value="ru">Russian</option>
+						</select>
+					</span>
+				</div>
+			</dd>
+		</dl>
 
-
-	<dl class="option">
-		<dt>User CSS (live demo)</dt>
-		<dd>
-			<div class="XTranslate popup_demo">
-			  <div class="XTranslate_result">
-				<div class="XTranslate_result_main">Translated text</div>
-				<dl class="XTranslate_wordtype">
-				  <dt>noun</dt>
-				  <dd>Word 1, Word 2, Word N</dd>
-				</dl>
-			  </div>
-			</div>
-			<div class="user-css">
+		<dl class="option">
+			<dt>Other</dt>
+			<dd>
 				<label>
-					<span>Background</span>
-					<span><input type="text" name="user-css-bgc" value="-o-linear-gradient(bottom, rgb(39,0,234) 0%, rgb(176,94,189) 50%)"></span>
+					<input type="checkbox" name="show-button" checked="checked"/>
+					Show button on toolbar
 				</label>
-				<label>
-					<span>Color</span>
-					<span><input type="text" name="user-css-color" value="white"></span>
-				</label>
-				<label>
-					<span>Border</span>
-					<span><input type="text" name="user-css-border" value="1px solid #8B11FF"></span>
-				</label>
-				<label>
-					<span>Box-Shadow</span>
-					<span><input type="text" name="user-css-shadow" value="0 0 10px rgb(39, 0, 234)"></span>
-				</label>
-			</div>
-		</dd>
-	</dl>
+			</dd>
+		</dl>
+		
+		<dl class="option">
+			<dt>User styles (live preview)</dt>
+			<dd>
+				<div class="XTranslate popup_demo">
+				  <div class="XTranslate_result">
+					<div class="XTranslate_result_main">Translated text</div>
+					<dl class="XTranslate_wordtype">
+					  <dt>noun</dt>
+					  <dd>Word 1, Word 2, Word N</dd>
+					</dl>
+				  </div>
+				</div>
+				<div class="user-css">
+					<div>
+						<span>Background</span>
+						<span>
+							<label>color 1: <input type="color" name="user-css-bgc1" value="#2c03e9"/></label><br/>
+							<label>color 2: <input type="color" name="user-css-bgc2" value="#b05ebd"/></label><br/>
+							<label><input type="checkbox" name="user-css-bgc-linear" checked="checked"> linear</label>
+						</span>
+					</div>
+					<div>
+						<span>Border</span>
+						<span>
+							<label>color: <input type="color" name="user-css-border-color" value="#8B11FF"/></label><br/>
+							<label>width: <input type="number" name="user-css-border-width" value="1" min="0" max="5" size="3"/></label><br/>
+							<label>radius: <input type="number" name="user-css-border-radius" value="10" min="0" max="50" size="3"/></label>
+						</span>
+					</div>
+					<div>
+						<span>Text</span>
+						<span>
+							<label>color: <input type="color" name="user-css-text-color" value="#ffffff"/></label><br/>
+							<label>size: <input type="number" name="user-css-text-size" value="16" min="10" max="30" size="3"/>px</label><br/>
+							<label>
+								font:
+								<select name="user-css-text-font-family">
+									<option value="">==Default==</option>
+									<option value="Arial">Arial</option>
+									<option value="Tahoma">Tahoma</option>
+									<option value="Times New Roman">Times New Roman</option>
+									<option value="Trebuchet MS">Trebuchet MS</option>
+									<option value="Verdana">Verdana</option>
+								</select>
+							</label>
+						</span>
+					</div>
+					<div>
+						<span>Shadow</span>
+						<span>
+							<label>color: <input type="color" name="user-css-shadow-color" value="#2c03e9"/></label><br/>
+							<label>size: <input type="number" name="user-css-shadow-size" value="10" min="0" size="3"/>px</label><br/>
+						</span>
+					</div>
+					<button type="reset" name="user-css-reset">Reset</button>
+				</div>
+			</dd>
+		</dl>
+	</div>
 	
 	
 </body>

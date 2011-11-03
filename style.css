@@ -5,7 +5,7 @@
 
 /* Popup */
 	.XTranslate * {
-		font:normal small/120% Verdana, Geneva, sans-serif;
+		font:normal 13px/120% Verdana, Geneva, sans-serif;
 		color:white;
 		margin:0;
 		padding:0;
@@ -18,8 +18,8 @@
 		display:none;
 		z-index:1000;
 		
-		background: -o-linear-gradient(bottom, rgb(39,0,234) 0%, rgb(176,94,189) 50%);
-		box-shadow:0 0 10px rgb(39, 0, 234);
+		background: -o-linear-gradient(bottom, #2c03e9 0%, #b05ebd 70%);
+		box-shadow:0 0 10px #2c03e9;
 		border-radius:10px;
 		border:1px solid #8B11FF;
 	}
@@ -40,17 +40,21 @@
 	}
 
 /* Options */
+	.XTranslate_body { text-align:center; }
+	.XTranslate_options { display:inline-block; text-align:left; }
 	.XTranslate_options *,
 	.XTranslate_options input,
 	.XTranslate_options select,
-	.XTranslate_options textarea { font:medium "Times New Roman", Times, serif; }
+	.XTranslate_options textarea { font:16px "Times New Roman", Times, serif; }
 	.XTranslate_options h1,
 	.XTranslate_options strong { font-weight:bold; }
-	.XTranslate_options input[name=trigger_hotkey] { font-weight:bold; }
-	.XTranslate_options .content { margin-left:2em; }
-	.XTranslate_options .content > * { vertical-align:middle; }
 	.XTranslate_options .popup_demo { position:static; display:inline-block; margin:1em 0; }
 	.XTranslate_options .user-css { display:table; }
 	.XTranslate_options .user-css > * { display:table-row; }
-	.XTranslate_options .user-css > * > * { display:table-cell; }	
-	.XTranslate_options .user-css input { margin-left:10px; }
+	.XTranslate_options .user-css > * > *:first-child { padding-right:10px; }
+	.XTranslate_options .user-css > * > * { display:table-cell; padding-bottom:10px; }
+	.XTranslate_options > dl { display:block; padding:1em; border:1px solid silver; border-radius:10px; }
+	.XTranslate_options > dl > dd,
+	.XTranslate_options .content { margin:0; padding-left:20px; }
+	.XTranslate_options .content > * { vertical-align:middle; }
+
