@@ -27,7 +27,7 @@ window.XTranslate =
 		get current(){ return this.all[this.active || 'Google'] },
 		add: function( vendor ) {
 			this.all[ vendor.name ] = vendor;
-			vendor.loadLangs();
+			vendor.loadData();
 		},
 		all: []
 	},

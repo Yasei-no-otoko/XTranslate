@@ -54,7 +54,7 @@ XTranslate.vendors.add(
 		});
 	},
 	
-	loadLangs: function()
+	loadData: function()
 	{
 		var self = this;
 		ajax({

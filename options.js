@@ -17,3 +17,4 @@ window.addEventListener('DOMContentLoaded', function( evt )
 	dom('h1').innerHTML = document.title;
 	
 }, false);
+
