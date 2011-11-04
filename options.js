@@ -18,6 +18,8 @@ window.addEventListener('DOMContentLoaded', function( evt )
 	
 	// $('input[name^="user-css"]')
 	// alert( $('.XTranslate').currentStyle.backgroundImage )
-	//alert( bg.settings )
+	
+	alert( bg.settings )
+	bg.settings.clear();
 	
 }, false);

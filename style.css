@@ -17,8 +17,8 @@
 		color:white;
 		
 		background-color:#b05ebd;
-		background-image: -o-linear-gradient(top, #b05ebd 0%, #2c03e9 70%);
-		box-shadow:0 0 10px #2c03e9;
+		background-image: -o-linear-gradient(top, #b05ebd 0%, #8B11FF 70%);
+		box-shadow:0 0 10px #b05ebd;
 		border-radius:10px;
 		border:1px solid #8B11FF;
 	}

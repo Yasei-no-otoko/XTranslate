@@ -1,7 +1,11 @@
 // @project XTranslate (background.js)
 // @url https://github.com/extensible/XTranslate 
 
-var settings = observable('settings');
+var 
+	settings = observable('settings'),
+	css = [].slice.call(document.styleSheets[0].cssRules).filter(function(rule){
+		return rule.selectorText == '.XTranslate';
+	})[0].style;
 
 settings(
 {
@@ -16,6 +20,29 @@ settings(
 	},
 	button: {
 		show: true
+	},
+	user: {
+		css: {
+			background: {
+				color: [css.backgroundColor, css.borderColor],
+				linear: true
+			},
+			border: {
+				color: css.borderColor,
+				width: parseInt(css.borderWidth),
+				radius: parseInt(css.borderTopLeftRadius)
+			},
+			font: {
+				family: css.fontFamily.replace(/"/g, ''),
+				color: css.fontColor,
+				size: parseInt(css.fontSize)
+			},
+			shadow: {
+				color: css.backgroundColor,
+				size: parseInt(css.boxShadow.split(' ').pop()),
+				inset: css.boxShadow.indexOf('inset') > -1
+			}
+		}
 	}
 }, true);
 
