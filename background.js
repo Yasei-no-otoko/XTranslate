@@ -32,8 +32,8 @@ settings(
 				width: parseInt(css.borderWidth),
 				radius: parseInt(css.borderTopLeftRadius)
 			},
-			font: {
-				family: css.fontFamily.replace(/"/g, ''),
+			text: {
+				font: css.fontFamily.replace(/"/g, ''),
 				color: css.fontColor,
 				size: parseInt(css.fontSize)
 			},

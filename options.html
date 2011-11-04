@@ -16,16 +16,16 @@
 			<dd>
 				<div>
 					<label>
-						<input type="radio" name="trigger" value="mouseup"/>
+						<input type="radio" name="trigger.type" value="mouseup"/>
 						<span>Straight after selecting a text (onmouseup)</span>
 					</label>
 				</div>
 				<div>
 					<label>
-						<input type="radio" name="trigger" value="keypress" checked="checked"/>
+						<input type="radio" name="trigger.type" value="keypress"/>
 						<span>After pressing hotkey <strong>Ctrl+</strong></span>
 					</label>
-					<input type="text" name="trigger_hotkey" value="Shift+X" size="8" title="Press Ctrl+[key] for make changes"/>
+					<input type="text" name="trigger.hotkey" value="" size="8" title="Press Ctrl+[key] for make changes"/>
 				</div>
 			</dd>
 		</dl>
@@ -54,19 +54,15 @@
 			<dd>
 				<span class="title">Direction:</span>
 				<div class="content">
-					<span class="direction from">
-						<img src="icons/flags/en.png" alt="en">
-						<select name="from-lang">
-							<option value="en">English</option>
-						</select>
-					</span>
+					<img src="icons/flags/en.png" class="lang-from" alt="en">
+					<select name="lang.from">
+						<option value="en">English</option>
+					</select>
 					<span class="arrow">&rarr;</span>
-					<span class="direction to">
-						<img src="icons/flags/ru.png" alt="ru">
-						<select name="from-lang">
-							<option value="ru">Russian</option>
-						</select>
-					</span>
+					<img src="icons/flags/ru.png" class="lang-to" alt="ru">
+					<select name="lang.to">
+						<option value="ru">Russian</option>
+					</select>
 				</div>
 			</dd>
 		</dl>
@@ -75,7 +71,7 @@
 			<dt>Other</dt>
 			<dd>
 				<label>
-					<input type="checkbox" name="show-button" checked="checked"/>
+					<input type="checkbox" name="button.show" checked/>
 					Show button on toolbar
 				</label>
 			</dd>
@@ -98,27 +94,27 @@
 					<div>
 						<span>Background</span>
 						<span>
-							<label>color 1: <input type="color" name="user-css-bgc1" value="#b05ebd"/></label><br/>
-							<label>color 2: <input type="color" name="user-css-bgc2" value="#2c03e9"/></label><br/>
-							<label title="version 11.1+"><input type="checkbox" name="user-css-bgc-linear" checked="checked"> linear</label>
+							<label>color 1: <input type="color" name="user.css.background.color.0"/></label><br/>
+							<label>color 2: <input type="color" name="user.css.background.color.1"/></label><br/>
+							<label title="version 11.1+"><input type="checkbox" name="user.css.background.linear"> linear</label>
 						</span>
 					</div>
 					<div>
 						<span>Border</span>
 						<span>
-							<label>color: <input type="color" name="user-css-border-color" value="#8B11FF"/></label><br/>
-							<label>width: <input type="number" name="user-css-border-width" value="1" min="0" max="5" size="3"/></label><br/>
-							<label>radius: <input type="number" name="user-css-border-radius" value="10" min="0" max="50" size="3"/></label>
+							<label>color: <input type="color" name="user.css.border.color"/></label><br/>
+							<label>width: <input type="number" name="user.css.border.width" min="0" max="5" size="3"/></label><br/>
+							<label>radius: <input type="number" name="user.css.border.radius" min="0" max="50" size="3"/></label>
 						</span>
 					</div>
 					<div>
 						<span>Text</span>
 						<span>
-							<label>color: <input type="color" name="user-css-text-color" value="#ffffff"/></label><br/>
-							<label>size: <input type="number" name="user-css-text-size" value="" min="10" max="30" size="3"/></label><br/>
+							<label>color: <input type="color" name="user.css.text.color"/></label><br/>
+							<label>size: <input type="number" name="user.css.text.size" min="10" max="30" size="3"/></label><br/>
 							<label>
 								font:
-								<select name="user-css-text-font-family">
+								<select name="user.css.text.font">
 									<option value="Arial">Arial</option>
 									<option value="Tahoma">Tahoma</option>
 									<option value="Times New Roman">Times New Roman</option>
@@ -131,9 +127,9 @@
 					<div>
 						<span>Shadow</span>
 						<span>
-							<label>color: <input type="color" name="user-css-shadow-color" value="#2c03e9"/></label><br/>
-							<label>size: <input type="number" name="user-css-shadow-size" value="10" min="0" size="3"/></label><br/>
-							<label><input type="checkbox" name="user-css-shadow-inset"/> inset</label><br/>
+							<label>color: <input type="color" name="user.css.shadow.color"/></label><br/>
+							<label>size: <input type="number" name="user.css.shadow.size" min="0" size="3"/></label><br/>
+							<label><input type="checkbox" name="user.css.shadow.inset"/> inside</label><br/>
 						</span>
 					</div>
 					<button type="reset" name="user-css-reset">Reset</button>

@@ -3,7 +3,9 @@
 
 (function()
 {
-	var port, widget, popup, selection;
+	var 
+		port, widget, 
+		popup, selection;
 	
 	function css( name, value )
 	{
