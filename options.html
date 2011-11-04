@@ -37,14 +37,14 @@
 				<div class="content">
 					<div>
 						<label>
-							<input type="radio" name="engine" value="Google" checked="checked"/>
+							<input type="radio" name="vendor" value="Google" checked="checked"/>
 							<span>Google</span>
 						</label>
 						(<a href="http://translate.google.com" target="_blank">translate.google.com</a>)
 					</div>
 					<div>
 						<label>
-							<input type="radio" name="engine" value="Yandex"/>
+							<input type="radio" name="vendor" value="Yandex"/>
 							<span>Yandex</span>
 						</label>
 						(<a href="http://translate.yandex.ru" target="_blank">translate.yandex.ru</a>)
@@ -93,6 +93,7 @@
 					</dl>
 				  </div>
 				</div>
+				
 				<div class="user-css">
 					<div>
 						<span>Background</span>
@@ -114,14 +115,13 @@
 						<span>Text</span>
 						<span>
 							<label>color: <input type="color" name="user-css-text-color" value="#ffffff"/></label><br/>
-							<label>size: <input type="number" name="user-css-text-size" value="16" min="10" max="30" size="3"/></label><br/>
+							<label>size: <input type="number" name="user-css-text-size" value="" min="10" max="30" size="3"/></label><br/>
 							<label>
 								font:
 								<select name="user-css-text-font-family">
-									<option value="">==Default==</option>
 									<option value="Arial">Arial</option>
 									<option value="Tahoma">Tahoma</option>
-									<option value="Times New Roman">Times New Roman</option>
+									<option value="Times New Roman" selected>Times New Roman</option>
 									<option value="Trebuchet MS">Trebuchet MS</option>
 									<option value="Verdana">Verdana</option>
 								</select>

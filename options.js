@@ -9,11 +9,15 @@ window.addEventListener('DOMContentLoaded', function( evt )
 		{
 			var result = (ctx || document).querySelectorAll(selector);
 			return result.length > 2
-				? [].slice.call[result]
+				? [].slice.call(result)
 				: result[0]
 			;
 		};
 	
 	$('h1').innerHTML = document.title;
+	
+	// $('input[name^="user-css"]')
+	// alert( $('.XTranslate').currentStyle.backgroundImage )
+	//alert( bg.settings )
 	
 }, false);

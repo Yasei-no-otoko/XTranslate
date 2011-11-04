@@ -4,12 +4,7 @@
 */
 
 /* Popup */
-	.XTranslate * {
-		font:normal 13px/120% Verdana, Geneva, sans-serif;
-		color:white;
-		margin:0;
-		padding:0;
-	}
+	.XTranslate * { margin:0; padding:0; }
 	.XTranslate {
 		position:fixed;
 		left:0;
@@ -17,6 +12,9 @@
 		padding:.8em;
 		display:none;
 		z-index:1000;
+
+		font:16px "Times New Roman", Times, serif;
+		color:white;
 		
 		background-color:#b05ebd;
 		background-image: -o-linear-gradient(top, #b05ebd 0%, #2c03e9 70%);
@@ -42,13 +40,12 @@
 
 /* Options */
 	.XTranslate_body { text-align:center; }
-	.XTranslate_options { display:inline-block; text-align:left; }
-	.XTranslate_options *,
+	.XTranslate_options { display:inline-block; text-align:left; min-width:350px; }
+	.XTranslate_options h1,
 	.XTranslate_options input,
 	.XTranslate_options select,
 	.XTranslate_options textarea { font:16px "Times New Roman", Times, serif; }
-	.XTranslate_options h1,
-	.XTranslate_options strong { font-weight:bold; }
+	.XTranslate_options h1 { font-weight:bold; }
 	.XTranslate_options .popup_demo { position:static; display:inline-block; margin:1em 0; }
 	.XTranslate_options .user-css { display:table; }
 	.XTranslate_options .user-css > * { display:table-row; }

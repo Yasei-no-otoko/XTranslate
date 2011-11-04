@@ -3,12 +3,39 @@
 
 var settings = observable('settings');
 
+settings(
+{
+	vendor: 'Google',
+	trigger: {
+		type: 'keypress',
+		hotkey: 'Ctrl+Shift+X'
+	},
+	lang: {
+		from: 'en',
+		to: navigator.userLanguage.split('-')[0]
+	},
+	button: {
+		show: true
+	}
+}, true);
+
+settings.follow('lang.from lang.to', function( value, prop, lang ){
+	XTranslate.updateButton(lang);
+});
+
+settings.follow('button.show', function( value )
+{
+	value
+	? opera.contexts.toolbar.addItem(XTranslate.button)
+	: opera.contexts.toolbar.removeItem(XTranslate.button);
+});
+
 window.XTranslate = 
 {
 	vendors: {
 		get current(){
-			var vendor = settings('vendor') || 'Google';
-			return this.all[vendor] 
+			var vendor = settings('vendor');
+			return this.all[vendor]; 
 		},
 		add: function( vendor ) {
 			this.all[ vendor.name ] = vendor;
@@ -31,16 +58,8 @@ window.XTranslate =
 };
 
 // add button
-opera.contexts.toolbar.addItem( XTranslate.button );
-
-settings.follow('lang lang.from lang.to', function( value, prop, lang ){
-	XTranslate.updateButton( typeof value == 'object' ? value : lang );
-});
-
-settings('lang', {
-	from: settings('lang.from') || 'en',
-	to: settings('lang.to') || navigator.userLanguage.split('-')[0]
-});
+settings('button.show') && opera.contexts.toolbar.addItem( XTranslate.button );
+XTranslate.updateButton( settings('lang') );
 
 // init
 opera.extension.addEventListener('connect', function(evt)
