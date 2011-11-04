@@ -1,10 +1,15 @@
 // @project XTranslate (background.js)
 // @url https://github.com/extensible/XTranslate 
 
+var settings = observable('settings');
+
 window.XTranslate = 
 {
 	vendors: {
-		get current(){ return this.all[this.active || 'Google'] },
+		get current(){
+			var vendor = settings('vendor') || 'Google';
+			return this.all[vendor] 
+		},
 		add: function( vendor ) {
 			this.all[ vendor.name ] = vendor;
 			vendor.loadData();
@@ -17,9 +22,6 @@ window.XTranslate =
 			href: 'options.html',
 			width: 400,
 			height: 550
-		},
-		onclick: function(){
-			//opera.contexts.toolbar.removeItem(this)
 		}
 	}),
 	updateButton: function( lang ){
@@ -28,12 +30,13 @@ window.XTranslate =
 	}
 };
 
+// add button
+opera.contexts.toolbar.addItem( XTranslate.button );
+
 settings.follow('lang lang.from lang.to', function( value, prop, lang ){
 	XTranslate.updateButton( typeof value == 'object' ? value : lang );
 });
 
-// add button
-opera.contexts.toolbar.addItem( XTranslate.button );
 settings('lang', {
 	from: settings('lang.from') || 'en',
 	to: settings('lang.to') || navigator.userLanguage.split('-')[0]
@@ -42,7 +45,8 @@ settings('lang', {
 // init
 opera.extension.addEventListener('connect', function(evt)
 {
-	evt.source.postMessage({
+	evt.source.postMessage(
+	{
 		action: 'init',
 		css: function()
 		{
@@ -57,9 +61,17 @@ opera.extension.addEventListener('connect', function(evt)
 // messages handling
 opera.extension.addEventListener('message', function(evt)
 {
-	dev('vendors/google.js', function(){
-		XTranslate.vendors.current.handler(evt);
-	});
+	try {
+		var vendor = XTranslate.vendors.current.handler(evt.data);
+		when( vendor ).then(function( data )
+		{
+			data.settings = settings.toJSON();
+			evt.source.postMessage(data);
+		});
+	}
+	catch(e){
+		opera.postError(e)
+	}
 }, false );
 
 // development mode

@@ -16,12 +16,4 @@ window.addEventListener('DOMContentLoaded', function( evt )
 	
 	$('h1').innerHTML = document.title;
 	
-	/*window.onclick = function()
-	{
-		bg.settings('lang.from', 'en');
-		bg.settings('lang.to', 'ru');
-		
-		alert( bg.settings.toJSON() )
-	};*/
-	
 }, false);
