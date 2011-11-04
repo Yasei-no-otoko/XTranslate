@@ -33,8 +33,8 @@ settings(
 				radius: parseInt(css.borderTopLeftRadius)
 			},
 			text: {
-				font: css.fontFamily.replace(/"/g, ''),
-				color: css.fontColor,
+				color: css.color,
+				font: css.fontFamily.split(/\s*,\s*/)[0].replace(/"/g, ''),
 				size: parseInt(css.fontSize)
 			},
 			shadow: {
