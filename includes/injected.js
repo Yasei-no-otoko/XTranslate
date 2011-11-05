@@ -4,7 +4,8 @@
 (function()
 {
 	var 
-		port, widget, 
+		port,
+		widget, settings, 
 		popup, selection;
 	
 	function css( name, value )
@@ -29,16 +30,13 @@
 			inside = selection.getRangeAt(0).comparePoint(popup, 1) > -1;
 		if( text && !inside )
 		{
-			switch(evt.type)
-			{
-				case 'mouseup':
-					port.postMessage( text );
-				break;
+			if( evt.type == settings.trigger.type ){
+				port.postMessage( text );
 			}
 		}
 	}
 	
-	function showPopup( htmlText, userCSS )
+	function showPopup( htmlText )
 	{
 		var
 			first = popup.firstChild,
@@ -47,7 +45,6 @@
 			html = range.createContextualFragment( htmlText );
 		
 		first ? popup.replaceChild(html, first) : popup.appendChild(html);
-		popup.setAttribute('style', userCSS);
 		popup.css({
 			left: pos.left + 'px',
 			top: (pos.bottom + popup.padding) + 'px',
@@ -92,14 +89,27 @@
 			style.textContent = evt.data.css;
 			document.documentElement.appendChild(style);
 		}
-		
-		// show popup
-		if( evt.data.html ){
-			showPopup( evt.data.html, evt.data.css );
-		}
+
+		evt.data.settings && (settings = evt.data.settings);
+		evt.data.userCSS && popup.setAttribute('style', evt.data.userCSS);
+		evt.data.html && showPopup( evt.data.html );
 	};
 	
 	window.addEventListener('mouseup', handleSelection, false);
+	window.addEventListener('keypress', function( evt )
+	{
+		var key = [];
+		
+		evt.ctrlKey && key.push('Ctrl');
+		evt.shiftKey && key.push('Shift');
+		evt.which && key.push(String.fromCharCode(evt.which));
+		
+		if( settings.trigger.hotkey == key.join('+') ){
+			handleSelection(evt);
+			evt.preventDefault();
+		}
+	}, false);
+	
 	window.addEventListener('click', function(){
 		popup.css('display', 'none');
 	}, false);

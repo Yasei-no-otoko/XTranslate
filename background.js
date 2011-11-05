@@ -76,6 +76,8 @@ opera.extension.addEventListener('connect', function(evt)
 				return rule.cssText;
 			}).join('\n');
 		}(),
+		userCSS: userCSS(),
+		settings: settings(),
 		widget: JSON.stringify(widget)
 	});
 }, false );
@@ -85,10 +87,7 @@ opera.extension.addEventListener('message', function(evt)
 {
 	try {
 		var vendor = XTranslate.vendors.current.handler(evt.data);
-		when( vendor ).then(function( data )
-		{
-			data.css = userCSS();
-			data.settings = settings.toJSON();
+		when( vendor ).then(function( data ) {
 			evt.source.postMessage(data);
 		});
 	}

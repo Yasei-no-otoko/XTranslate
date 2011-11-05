@@ -49,15 +49,20 @@ window.addEventListener('DOMContentLoaded', function( evt )
 			: (elem.onchange = save)
 	}	
 	
-	function save()
+	function save( evt, custom_val )
 	{
 		var value = this.type == 'checkbox'
 			? this.checked
 			: this.value;
 		
-		this.title = value;	
-		bg.settings(this.name, value);
+		this.title = custom_val || value;
+		bg.settings(this.name, custom_val || value);
 		preview();
+		
+		bg.opera.extension.broadcastMessage({
+			settings: bg.settings(),
+			userCSS: bg.userCSS()
+		});
 	}
 
 	$('button[type=reset]').onclick = function()
@@ -65,6 +70,30 @@ window.addEventListener('DOMContentLoaded', function( evt )
 		bg.settings('user.css', bg.userCSSDefault());
 		$('*[name^="user.css"]').forEach(updateState);
 		preview();
+	};
+	
+	$('input[name="trigger.hotkey"]').onkeypress = function( evt )
+	{
+		var 
+			key = ['Ctrl'],
+			code = evt.which,
+			tabKey = code == 9;
+		
+		if( !tabKey )
+		{
+			if( evt.ctrlKey ) {
+				evt.shiftKey && key.push('Shift');
+				code && key.push(String.fromCharCode(code));
+			}
+			
+			if( key.length > 1 ){
+				var hotkey = key.join('+');
+				this.value = key.slice(1).join('+');
+				this.onchange(evt, hotkey);
+			}
+			
+			evt.preventDefault();
+		}
 	};
 	
 }, false);
