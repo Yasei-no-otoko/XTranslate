@@ -4,16 +4,16 @@
 */
 
 /* Popup */
-	.XTranslate * { margin:0; padding:0; }
+	.XTranslate * { margin:0; padding:0; line-height:inherit; color:inherit; font:inherit; border:none; outline:none; }
 	.XTranslate {
 		position:fixed;
 		left:0;
 		top:0;
-		padding:.8em;
+		padding:1em;
 		display:none;
 		z-index:1000;
 
-		font:16px "Times New Roman", Times, serif;
+		font:16px/120% "Times New Roman", Times, serif;
 		color:white;
 		
 		background-color:#b05ebd;
@@ -32,6 +32,7 @@
 	
 	.XTranslate_wordtype dt {
 		font-weight:bold;
+		font-style:normal;
 		margin-top:.5em;
 	}
 	.XTranslate_wordtype dd {

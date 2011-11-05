@@ -24,8 +24,10 @@
 	{
 		selection = window.getSelection();
 		
-		var text = selection.toString().trim();
-		if( text )
+		var 
+			text = selection.toString().trim(),
+			inside = selection.getRangeAt(0).comparePoint(popup, 1) > -1;
+		if( text && !inside )
 		{
 			switch(evt.type)
 			{
@@ -36,7 +38,7 @@
 		}
 	}
 	
-	function showPopup( htmlText )
+	function showPopup( htmlText, userCSS )
 	{
 		var
 			first = popup.firstChild,
@@ -45,6 +47,7 @@
 			html = range.createContextualFragment( htmlText );
 		
 		first ? popup.replaceChild(html, first) : popup.appendChild(html);
+		popup.setAttribute('style', userCSS);
 		popup.css({
 			left: pos.left + 'px',
 			top: (pos.bottom + popup.padding) + 'px',
@@ -92,7 +95,7 @@
 		
 		// show popup
 		if( evt.data.html ){
-			showPopup( evt.data.html );
+			showPopup( evt.data.html, evt.data.css );
 		}
 	};
 	

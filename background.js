@@ -1,11 +1,7 @@
 // @project XTranslate (background.js)
 // @url https://github.com/extensible/XTranslate 
 
-var 
-	settings = observable('settings'),
-	css = [].slice.call(document.styleSheets[0].cssRules).filter(function(rule){
-		return rule.selectorText == '.XTranslate';
-	})[0].style;
+var settings = observable('settings');
 
 settings(
 {
@@ -22,27 +18,7 @@ settings(
 		show: true
 	},
 	user: {
-		css: {
-			background: {
-				color: [css.backgroundColor, css.borderColor],
-				linear: true
-			},
-			border: {
-				color: css.borderColor,
-				width: parseInt(css.borderWidth),
-				radius: parseInt(css.borderTopLeftRadius)
-			},
-			text: {
-				color: css.color,
-				font: css.fontFamily.split(/\s*,\s*/)[0].replace(/"/g, ''),
-				size: parseInt(css.fontSize)
-			},
-			shadow: {
-				color: css.backgroundColor,
-				size: parseInt(css.boxShadow.split(' ').pop()),
-				inset: css.boxShadow.indexOf('inset') > -1
-			}
-		}
+		css: userCSSDefault()
 	}
 }, true);
 
@@ -111,6 +87,7 @@ opera.extension.addEventListener('message', function(evt)
 		var vendor = XTranslate.vendors.current.handler(evt.data);
 		when( vendor ).then(function( data )
 		{
+			data.css = userCSS();
 			data.settings = settings.toJSON();
 			evt.source.postMessage(data);
 		});
@@ -119,6 +96,68 @@ opera.extension.addEventListener('message', function(evt)
 		opera.postError(e)
 	}
 }, false );
+
+function userCSSDefault()
+{
+	var	
+		css = [].slice.call(document.styleSheets[0].cssRules).filter(function(rule){
+			return rule.selectorText == '.XTranslate';
+		})[0].style;
+	
+	return {
+		background: {
+			color: [css.backgroundColor, css.borderColor],
+			linear: true
+		},
+		border: {
+			color: css.borderColor,
+			width: parseInt(css.borderWidth),
+			radius: parseInt(css.borderTopLeftRadius)
+		},
+		text: {
+			color: css.color,
+			font: css.fontFamily.split(/\s*,\s*/)[0].replace(/"/g, ''),
+			size: parseInt(css.fontSize)
+		},
+		shadow: {
+			color: css.backgroundColor,
+			size: parseInt(css.boxShadow.split(' ').pop()),
+			inset: css.boxShadow.indexOf('inset') > -1
+		}
+	};
+}
+
+function userCSS()
+{
+	var 
+		css = settings('user.css'),
+		style = [];
+	
+	style.push(
+		'background-color: '+ css.background.color[0],
+		'background-image: '+ ( css.background.linear 
+			? '-o-linear-gradient(top, '+ css.background.color[0] +' 0%, '+ css.background.color[1] +' 70%)' 
+			: 'none'
+		)
+	);
+	
+	style.push(
+		'border: '+ css.border.width + 'px solid '+ css.border.color,
+		'border-radius: '+ css.border.radius + 'px'
+	);
+	
+	style.push(
+		'color: '+ css.text.color,
+		'font-family: '+ css.text.font,
+		'font-size: '+ css.text.size + 'px'
+	);
+	
+	style.push(
+		'box-shadow: 0 0 '+ (css.shadow.inset ? 'inset ' : '') + css.shadow.size + 'px '+ css.shadow.color
+	);
+	
+	return style.join('; ');
+}
 
 // development mode
 function dev( filepath, callback ){
