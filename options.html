@@ -34,32 +34,25 @@
 			<dt>Translation</dt>
 			<dd>
 				<span class="title">Engine:</span>
-				<div class="content">
+				<div class="content" id="vendors">
 					<div>
 						<label>
-							<input type="radio" name="vendor" value="Google"/>
-							<span>Google</span>
+							<input type="radio" name="vendor" value="${vendor}"/>
+							<span>${vendor}</span>
 						</label>
-						(<a href="http://translate.google.com" target="_blank">translate.google.com</a>)
-					</div>
-					<div>
-						<label>
-							<input type="radio" name="vendor" value="Yandex"/>
-							<span>Yandex</span>
-						</label>
-						(<a href="http://translate.yandex.ru" target="_blank">translate.yandex.ru</a>)
+						(<a href="${url}" target="_blank">${text}</a>)
 					</div>
 				</div>
 			</dd>
 			<dd>
 				<span class="title">Direction:</span>
-				<div class="content">
-					<img src="icons/flags/en.png" class="lang-from" alt="en">
+				<div class="content" id="langs">
+					<img src="icons/flags/en.png" name="lang.from" alt="en">
 					<select name="lang.from">
 						<option value="en">English</option>
 					</select>
 					<span class="arrow">&rarr;</span>
-					<img src="icons/flags/ru.png" class="lang-to" alt="ru">
+					<img src="icons/flags/ru.png" name="lang.to" alt="ru">
 					<select name="lang.to">
 						<option value="ru">Russian</option>
 					</select>

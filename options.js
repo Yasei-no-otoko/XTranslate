@@ -1,14 +1,52 @@
 // @project XTranslate (options.js)
 // @url https://github.com/extensible/XTranslate  
 
+function $( selector, ctx ){
+	var nodes = [].slice.call((ctx || document).querySelectorAll(selector));
+	return nodes.length == 1 ? nodes[0] : nodes;
+}
+
+function parse( tmpl, data )
+{
+	return tmpl.replace(/\$\{([\w.]+)\}/g, function(S, prop)
+	{
+		var props = prop.split('.');
+		return function()
+		{
+			var value = data[ props.shift() ];
+			while( prop = props.shift() ){
+				value = value[prop];
+			}
+			return value;
+		}();
+	});
+}
+
 window.addEventListener('DOMContentLoaded', function( evt )
 {
 	var 
 		bg = opera.extension.bgProcess,
-		$ = function( selector, ctx ){
-			var nodes = [].slice.call((ctx || document).querySelectorAll(selector));
-			return nodes.length == 1 ? nodes[0] : nodes;
-		};
+		vendors = bg.XTranslate.vendors;
+
+	+function()
+	{
+		var 
+			elem = $('#vendors'),
+			tmpl = elem.innerHTML,
+			html = '';
+		
+		vendors.forEach(function( vendor )
+		{
+			html += parse(tmpl, 
+			{
+				vendor: vendor.name,
+				url: vendor.url,
+				text: vendor.url.replace(/^http[s]?:\/\/([^\/]*)\/?/gi, '$1')
+			});
+		});
+		
+		elem.innerHTML = html;
+	}();
 
 	var preview = function()
 	{
@@ -19,9 +57,32 @@ window.addEventListener('DOMContentLoaded', function( evt )
 		}();
 	}();
 	
-	$('h1').innerHTML = document.title;
-	$('input, select').forEach(updateState);
-
+	var updateLangs = function __()
+	{
+		var options = '';
+		
+		vendors.current.langs.forEach(function( lang ){
+			options += parse('<option value="${iso}">${name}</option>', lang);
+		});
+		
+		$('select[name^="lang."]').forEach(function( elem )
+		{
+			var value = bg.settings(elem.name);
+			elem.innerHTML = options;
+			elem.value = value;
+			elem.value != value && bg.settings(elem.name, elem.value); // fix, if lang not exists (when we change vendor)
+			updateIcon(elem, elem.value);
+		});
+		
+		return __;
+	}();
+	
+	function updateIcon( elem, value ){
+		var icon = $('img[name="'+ elem.name +'"]');
+		icon.src = 'icons/flags/'+ value +'.png';
+		icon.alt = value;
+	}
+	
 	function updateState( elem )
 	{
 		var 
@@ -63,8 +124,15 @@ window.addEventListener('DOMContentLoaded', function( evt )
 			settings: bg.settings(),
 			userCSS: bg.userCSS()
 		});
+		
+		this.name == 'vendor' && updateLangs();
+		this.name.match(/lang\.(from|to)/) && updateIcon(this, value);
 	}
 
+	$('h1').innerHTML = document.title;
+	
+	$('input, select').forEach(updateState);
+	
 	$('button[type=reset]').onclick = function()
 	{
 		bg.settings('user.css', bg.userCSSDefault());

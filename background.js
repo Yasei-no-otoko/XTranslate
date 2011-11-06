@@ -35,17 +35,25 @@ settings.follow('button.show', function( value )
 
 window.XTranslate = 
 {
-	vendors: {
-		get current(){
+	vendors: function()
+	{
+		var vendors = [];
+		
+		vendors.__defineGetter__('current', function()
+		{
 			var vendor = settings('vendor');
-			return this.all[vendor]; 
-		},
-		add: function( vendor ) {
-			this.all[ vendor.name ] = vendor;
+			return this.filter(function(v){
+				return v.name == vendor;
+			}).shift();
+		});
+		
+		vendors.add = function( vendor ){
+			this.push( vendor );
 			vendor.loadData();
-		},
-		all: []
-	},
+		};
+		
+		return vendors;
+	}(),
 	button: opera.contexts.toolbar.createItem(
 	{
 		popup: {
