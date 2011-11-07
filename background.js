@@ -95,8 +95,8 @@ opera.extension.addEventListener('connect', function(evt)
 opera.extension.addEventListener('message', function(evt)
 {
 	try {
-		var vendor = XTranslate.vendors.current.handler(evt.data);
-		when( vendor ).then(function( data ) {
+		var receivedData = XTranslate.vendors.current.handler(evt.data);
+		when( receivedData ).then(function( data ) {
 			evt.source.postMessage(data);
 		});
 	}
