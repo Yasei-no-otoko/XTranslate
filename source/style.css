@@ -58,5 +58,7 @@
 	.XTranslate_options .content > * { vertical-align:middle; }
 	.XTranslate_options #langs select { width:100px; }
 	.XTranslate_options span.arrow { display:inline-block; line-height:100%; padding:0 2px; cursor:pointer; }
+	.XTranslate_options div.footer a { color:black; text-decoration:none }
+	.XTranslate_options div.footer a:hover { text-decoration:underline; }
 	
 
