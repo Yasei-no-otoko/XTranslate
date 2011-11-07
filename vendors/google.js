@@ -8,14 +8,17 @@ XTranslate.vendors.add(
 	
 	handler: function( text )
 	{
-		var url = this.url;
+		var 
+			url = this.url,
+			lang = settings('lang');
 		return deferred(function(dfr)
 		{
 			ajax({
 				url: url + [
 					'/translate_a/t?client=t',
-					'&sl='+ settings('lang.from'),
-					'&tl='+ settings('lang.to'),
+					'&sl='+ lang.from,
+					'&hl='+ lang.to,
+					'&tl='+ lang.to,
 					'&text='+ encodeURIComponent(text)
 				].join(''),
 				
