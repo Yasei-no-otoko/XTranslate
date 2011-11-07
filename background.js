@@ -110,25 +110,31 @@ function userCSSDefault()
 	var	
 		css = [].slice.call(document.styleSheets[0].cssRules).filter(function(rule){
 			return rule.selectorText == '.XTranslate';
-		})[0].style;
+		})[0].style,
+		
+		colors = {
+			bgc		: rgb2hex( css.backgroundColor ),
+			border	: rgb2hex( css.borderColor ),
+			text	: rgb2hex( css.color )
+		};
 	
 	return {
 		background: {
-			color: [css.backgroundColor, css.borderColor],
+			color: [colors.bgc, colors.border],
 			linear: true
 		},
 		border: {
-			color: css.borderColor,
+			color: colors.border,
 			width: parseInt(css.borderWidth),
 			radius: parseInt(css.borderTopLeftRadius)
 		},
 		text: {
-			color: css.color,
+			color: colors.text,
 			font: css.fontFamily.split(/\s*,\s*/)[0].replace(/"/g, ''),
 			size: parseInt(css.fontSize)
 		},
 		shadow: {
-			color: css.backgroundColor,
+			color: colors.bgc,
 			size: parseInt(css.boxShadow.split(' ').pop()),
 			inset: css.boxShadow.indexOf('inset') > -1
 		}
@@ -165,6 +171,19 @@ function userCSS()
 	);
 	
 	return style.join('; ');
+}
+
+function rgb2hex( color )
+{
+	return (
+		color.indexOf('rgb') == 0
+		
+		? '#'+ color.match(/\d+/g).slice(0,3).map(function( color ){
+			return Number(color).toString(16);
+		}).join('')
+		
+		: color
+	);
 }
 
 // development mode
