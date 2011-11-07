@@ -1,7 +1,8 @@
 // @project XTranslate (injected.js)
 // @url https://github.com/extensible/XTranslate 
 
-if( document.toString() == '[object HTMLDocument]' )
+window.top == window.self &&
+document.toString() == '[object HTMLDocument]' && 
 
 (function()
 {
