@@ -71,13 +71,15 @@ window.addEventListener('DOMContentLoaded', function( evt )
 			elem.innerHTML = options;
 			elem.value = value;
 			elem.value != value && bg.settings(elem.name, elem.value); // fix, if lang not exists (when we change vendor)
-			updateIcon(elem, elem.value);
+			updateIcon(elem);
 		});
 		
 		return __;
 	}();
 	
-	function updateIcon( elem, value ){
+	function updateIcon( elem )
+	{
+		var value = elem.value;
 		var icon = $('img[name="'+ elem.name +'"]');
 		icon.src = 'icons/flags/'+ value +'.png';
 		icon.alt = value;
@@ -126,7 +128,7 @@ window.addEventListener('DOMContentLoaded', function( evt )
 		});
 		
 		this.name == 'vendor' && updateLangs();
-		this.name.match(/lang\.(from|to)/) && updateIcon(this, value);
+		this.name.match(/lang\.(from|to)/) && updateIcon(this);
 	}
 
 	$('h1').innerHTML = document.title;
@@ -162,6 +164,19 @@ window.addEventListener('DOMContentLoaded', function( evt )
 			
 			evt.preventDefault();
 		}
+	};
+	
+	$('span.arrow').onclick = function( evt )
+	{
+		var 
+			lang = bg.settings('lang'),
+			from = $('select[name="lang.from"]'),
+			to = $('select[name="lang.to"]');
+			
+		from.value = lang.to;
+		from.onchange(evt);
+		to.value = lang.from;
+		to.onchange(evt);
 	};
 	
 }, false);

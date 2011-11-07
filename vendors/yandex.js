@@ -5,12 +5,33 @@ XTranslate.vendors.add(
 {
 	name: 'Yandex',
 	url: 'http://translate.yandex.ru',
-	
-	handler: function( text ){
-		/*
-			JSONP: http://translate.yandex.ru/tr.json/translate?callback=json.c(0)&lang=en-ru&text=message
-			XML: http://translate.yandex.ru/tr/translate?lang=en-ru&text=message
-		*/
+
+	handler: function( text )
+	{
+		var url = this.url;
+		return deferred(function(dfr)
+		{
+			ajax({
+				url: url + [
+					'/tr/translate?lang=', settings('lang.from') +'-'+ settings('lang.to'),
+					'&text='+ encodeURIComponent(text)
+				].join(''),
+				
+				complete: function()
+				{
+					var html = [
+						'<div class="XTranslate_result Powered_by_Yandex">',
+							this.responseXML.documentElement.textContent,
+						'</div>'
+					].join('');
+					
+					dfr.resolve({
+						html: html,
+						response: this.responseText
+					});
+				}
+			});
+		});
 	},
 	
 	loadData: function()

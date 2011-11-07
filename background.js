@@ -63,7 +63,8 @@ window.XTranslate =
 		}
 	}),
 	updateButton: function( lang ){
-		this.button.title = 'XTranslate ('+ [lang.from.toUpperCase(), '→', lang.to.toUpperCase()].join(' ') + ')';
+		var arrow = String.fromCharCode(8594);
+		this.button.title = 'XTranslate ('+ [lang.from.toUpperCase(), arrow, lang.to.toUpperCase()].join(' ') + ')';
 		this.button.icon = 'icons/flags/'+ lang.to +'.png';
 	}
 };

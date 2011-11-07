@@ -1,11 +1,12 @@
 // @project XTranslate (injected.js)
 // @url https://github.com/extensible/XTranslate 
 
+if( document.toString() == '[object HTMLDocument]' )
+
 (function()
 {
 	var 
-		port,
-		widget, settings, 
+		port, settings, 
 		popup, selection;
 	
 	function css( name, value )
@@ -27,7 +28,9 @@
 		
 		var 
 			text = selection.toString().trim(),
-			inside = selection.getRangeAt(0).comparePoint(popup, 1) > -1;
+			inside = popup.compareDocumentPosition(selection.anchorNode) === 
+				(document.DOCUMENT_POSITION_FOLLOWING | document.DOCUMENT_POSITION_CONTAINED_BY);
+			
 		if( text && !inside )
 		{
 			if( evt.type == settings.trigger.type ){
@@ -75,7 +78,6 @@
 		if( evt.data.action == 'init' )
 		{
 			port = evt.source;
-			widget = JSON.parse(evt.data.widget);
 			
 			popup = document.createElementNS('http://www.w3.org/1999/xhtml', 'div');
 			popup.css = css;
