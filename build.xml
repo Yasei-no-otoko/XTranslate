@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<project name="XTranslate" default="init" basedir=".">
+
+	<property environment="env"/>
+	<property name="production" value="releases"/>
+	<property name="development" value="source"/>
+	<xmlproperty file="${development}/config.xml" />
+
+	<target name="init" depends="">
+		<zip destfile="${production}/${widget.name}-${widget(version)}.oex"
+			 basedir="${development}"
+			 update="true"
+			 excludes=".temp"
+		/>
+	</target>
+	
+</project>

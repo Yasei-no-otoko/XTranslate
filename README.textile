@@ -1,0 +1,12 @@
+h3. XTranslate
+
+The main goal of this extension - providing easy work with the web sites in different languages.
+All you need, it select text on the page and pressing special hotkey, the translated text immediately showing up beside.
+The extension already supports "Google":http://translate.google.com/ and "Yandex:http://translate.yandex.ru/.
+
+h3. Install
+Download and execute *.oex-file from 
+	"Github":/extensible/XCodeViewer/tree/master/releases or
+	"Opera":https://addons.opera.com/en/addons/extensions/details/xtranslate/
+
+See more about Opera extensions "here":http://www.opera.com/addons/extensions/develop/.
