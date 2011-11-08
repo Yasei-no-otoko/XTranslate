@@ -10,7 +10,7 @@
 		<zip destfile="${production}/${widget.name}-${widget(version)}.oex"
 			 basedir="${development}"
 			 update="true"
-			 excludes=".temp"
+			 excludes=".temp/*"
 		/>
 	</target>
 	
