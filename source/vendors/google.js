@@ -29,7 +29,9 @@ XTranslate.vendors.add(
 					var html = [
 						'<div class="XTranslate_result Powered_by_Google">',
 							'<div class="XTranslate_result_main">',
-								data[0][0][0],
+								data[0].map(function( line ){
+									return line.shift();
+								}).join(''),
 							 '</div>',
 							function()
 							{
