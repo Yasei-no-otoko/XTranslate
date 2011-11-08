@@ -47,7 +47,12 @@ window.addEventListener('DOMContentLoaded', function( evt )
 		
 		elem.innerHTML = html;
 	}();
-
+	
+	// load themes
+	$('select[name="user.theme"]').innerHTML += bg.settings('user.themes').map(function( theme ) {
+		return parse('<option value="${name}">${name}</option>', theme);
+	}).join('');
+			
 	var preview = function()
 	{
 		var popup = $('.XTranslate');
@@ -85,32 +90,39 @@ window.addEventListener('DOMContentLoaded', function( evt )
 		icon.alt = value;
 	}
 	
-	function updateState( elem )
+	var updateState = function __( filter )
 	{
-		var 
-			type = elem.type,
-			value = bg.settings(elem.name);
+		$('input, select')
+			.filter(filter || function(){ return true })
+			.forEach(function( elem )
+			{
+				var 
+					type = elem.type,
+					value = bg.settings(elem.name);
+				
+				elem.title = value;
+				elem.name == 'trigger.hotkey' && (value = value.split('+').slice(1).join('+'));
+				
+				if( type == 'checkbox' ) {
+					value 
+						? elem.setAttribute('checked', true)
+						: elem.removeAttribute('checked');
+				}
+				else if( type == 'radio' ){
+					elem.value == value && (elem.checked = true);
+				}
+				else {
+					elem.value = value;
+				}
+				
+				// bind handler
+				type == 'range'
+					? (elem.onmouseup = elem.onkeyup = save)
+					: (elem.onchange = save)
+			});
 		
-		elem.title = value;
-		elem.name == 'trigger.hotkey' && (value = value.split('+').slice(1).join('+'));
-		
-		if( type == 'checkbox' ) {
-			value 
-				? elem.setAttribute('checked', true)
-				: elem.removeAttribute('checked');
-		}
-		else if( type == 'radio' ){
-			elem.value == value && (elem.checked = true);
-		}
-		else {
-			elem.value = value;
-		}
-		
-		// bind handler
-		type == 'range'
-			? (elem.onmouseup = elem.onkeyup = save)
-			: (elem.onchange = save)
-	}	
+		return __;
+	}();
 	
 	function save( evt, custom_val )
 	{
@@ -132,15 +144,6 @@ window.addEventListener('DOMContentLoaded', function( evt )
 	}
 
 	$('h1').innerHTML = document.title;
-	
-	$('input, select').forEach(updateState);
-	
-	$('button[type=reset]').onclick = function()
-	{
-		bg.settings('user.css', bg.userCSSDefault());
-		$('*[name^="user.css"]').forEach(updateState);
-		preview();
-	};
 	
 	$('input[name="trigger.hotkey"]').onkeypress = function( evt )
 	{
@@ -166,6 +169,13 @@ window.addEventListener('DOMContentLoaded', function( evt )
 		}
 	};
 	
+	/*$('button[type=reset]').onclick = function()
+	{
+		bg.settings('user.css', bg.userCSSDefault());
+		$('*[name^="user.css"]').forEach(updateState);
+		preview();
+	};*/
+	
 	$('span.arrow').onclick = function( evt )
 	{
 		var 
@@ -178,5 +188,19 @@ window.addEventListener('DOMContentLoaded', function( evt )
 		to.value = lang.from;
 		to.onchange(evt);
 	};
+	
+	bg.settings.unfollow('user.theme'); // clear
+	bg.settings.follow('user.theme', function( value, prop, user )
+	{
+		var theme = user.themes.filter(function( theme ){
+			return theme.name == value;
+		}).shift().css;
+		
+		bg.settings('user.css', theme);
+		
+		updateState(function( input ){
+			return input.name.match(/^user\.css/);
+		});
+	});
 	
 }, false);

@@ -105,12 +105,25 @@ function observable( name, defvalue )
 }
 
 observable.prototype = {
-	follow: function( path, callback )
+	follow: function( path, callback, mode )
 	{
+		var 
+			self = this,
+			handler = callback;
+		
+		switch(mode){
+			case 'once':
+				handler = function __(){
+					callback.apply(this, arguments);
+					self.unfollow(path, __);
+				};
+			break;
+		}
+		
 		path.trim().split(/\s+/).forEach(function( path )
 		{
 			!this.subscribes[path] && (this.subscribes[path] = []);
-			this.subscribes[path].push(callback);
+			this.subscribes[path].push(handler);
 		}, this);
 	},
 	

@@ -18,9 +18,26 @@ settings(
 		show: true
 	},
 	user: {
-		css: userCSSDefault()
+		css: userCSSDefault(),
+		theme: "Default"
 	}
 }, true);
+
+ajax
+({
+	url: 'themes.json',
+	complete: function( json )
+	{
+		var themes = eval('('+ json +')');
+		settings('user.themes', function()
+		{
+			return [{
+				name: this.theme,
+				css: this.css
+			}].concat(themes);
+		}, true);
+	}
+});
 
 settings.follow('lang.from lang.to', function( value, prop, lang ){
 	XTranslate.updateButton(lang);
@@ -144,7 +161,11 @@ function userCSSDefault()
 function userCSS()
 {
 	var 
-		css = settings('user.css'),
+		user = settings('user'),
+		theme = user.themes.filter(function( theme ) {
+			return theme.name == user.theme;
+		}).shift(),
+		css = theme ? theme.css : user.css,
 		style = [];
 	
 	style.push(
@@ -184,15 +205,4 @@ function rgb2hex( color )
 		
 		: color
 	);
-}
-
-// development mode
-function dev( filepath, callback ){
-	ajax({
-		url: filepath +'?'+ Date.now(),
-		complete: function( code ){
-			eval(code);
-			callback();
-		}
-	});
 }
