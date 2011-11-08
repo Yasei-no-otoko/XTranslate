@@ -132,7 +132,6 @@ window.addEventListener('DOMContentLoaded', function( evt )
 		
 		this.title = custom_val || value;
 		bg.settings(this.name, custom_val || value);
-		preview();
 		
 		bg.opera.extension.broadcastMessage({
 			settings: bg.settings(),
@@ -141,6 +140,13 @@ window.addEventListener('DOMContentLoaded', function( evt )
 		
 		this.name == 'vendor' && updateLangs();
 		this.name.match(/lang\.(from|to)/) && updateIcon(this);
+		this.name.match(/user\.css/) && function()
+		{
+			bg.settings('user.theme', '');
+			$('select[name="user.theme"]').value = '';
+		}();
+		
+		preview();
 	}
 
 	$('h1').innerHTML = document.title;
@@ -169,13 +175,6 @@ window.addEventListener('DOMContentLoaded', function( evt )
 		}
 	};
 	
-	/*$('button[type=reset]').onclick = function()
-	{
-		bg.settings('user.css', bg.userCSSDefault());
-		$('*[name^="user.css"]').forEach(updateState);
-		preview();
-	};*/
-	
 	$('span.arrow').onclick = function( evt )
 	{
 		var 
@@ -192,15 +191,19 @@ window.addEventListener('DOMContentLoaded', function( evt )
 	bg.settings.unfollow('user.theme'); // clear
 	bg.settings.follow('user.theme', function( value, prop, user )
 	{
-		var theme = user.themes.filter(function( theme ){
-			return theme.name == value;
-		}).shift().css;
-		
-		bg.settings('user.css', theme);
-		
-		updateState(function( input ){
-			return input.name.match(/^user\.css/);
-		});
+		if( value )
+		{
+			var 
+				theme = user.themes.filter(function( theme ){
+					return theme.name == value;
+				}).shift().css;
+			
+			bg.settings('user.css', theme);
+			
+			updateState(function( input ){
+				return input.name.match(/^user\.css/);
+			});
+		}
 	});
 	
 }, false);
