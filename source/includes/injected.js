@@ -26,16 +26,15 @@ window.addEventListener('DOMContentLoaded', function()
 	{
 		selection = window.getSelection();
 		
-		var 
-			text = selection.toString().trim(),
-			inside = popup.compareDocumentPosition(selection.anchorNode) === 
-				(document.DOCUMENT_POSITION_FOLLOWING | document.DOCUMENT_POSITION_CONTAINED_BY);
-			
-		if( text && !inside )
+		var text = selection.toString().trim();
+		if( text )
 		{
-			if( evt.type == settings.trigger.type ){
-				port.postMessage( text );
-			}
+			evt.type == settings.trigger.type && 
+			popup.compareDocumentPosition(selection.anchorNode) !== (
+				document.DOCUMENT_POSITION_FOLLOWING | 
+				document.DOCUMENT_POSITION_CONTAINED_BY
+			) &&
+			port.postMessage( text );
 		}
 	}
 	
