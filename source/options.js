@@ -3,7 +3,7 @@
 
 function $( selector, ctx ){
 	var nodes = [].slice.call((ctx || document).querySelectorAll(selector));
-	return nodes.length == 1 ? nodes[0] : nodes;
+	return nodes.length > 1 ? nodes : nodes.shift();
 }
 
 function parse( tmpl, data )
@@ -76,6 +76,11 @@ window.addEventListener('DOMContentLoaded', function( evt )
 			elem.innerHTML = options;
 			elem.value = value;
 			elem.value != value && bg.settings(elem.name, elem.value); // fix, if lang not exists (when we change vendor)
+			elem.name == 'lang.to' && function()
+			{
+				var auto = $('option[value="auto"]', elem);
+				auto && elem.removeChild(auto);
+			}();
 			updateIcon(elem);
 		});
 		
@@ -181,11 +186,14 @@ window.addEventListener('DOMContentLoaded', function( evt )
 			lang = bg.settings('lang'),
 			from = $('select[name="lang.from"]'),
 			to = $('select[name="lang.to"]');
-			
-		from.value = lang.to;
-		from.onchange(evt);
-		to.value = lang.from;
-		to.onchange(evt);
+		
+		if( lang.from != 'auto' )
+		{
+			from.value = lang.to;
+			from.onchange(evt);
+			to.value = lang.from;
+			to.onchange(evt);
+		}
 	};
 	
 	bg.settings.unfollow('user.theme'); // clear

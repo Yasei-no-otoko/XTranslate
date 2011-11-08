@@ -9,12 +9,12 @@ XTranslate.vendors.add(
 	handler: function( text )
 	{
 		var 
-			url = this.url,
+			vendor = this,
 			lang = settings('lang');
 		return deferred(function(dfr)
 		{
 			ajax({
-				url: url + [
+				url: vendor.url + [
 					'/translate_a/t?client=t',
 					'&sl='+ lang.from,
 					'&hl='+ lang.to,
@@ -24,10 +24,15 @@ XTranslate.vendors.add(
 				
 				complete: function( response )
 				{
-					var data = eval('('+ response +')');
+					var 
+						data = eval('('+ response +')'),
+						detected = data[2].split('-').shift(),
+						lang = vendor.langs.filter(function( lang ){
+							return lang.iso == detected;
+						}).shift() || {};
 					
 					var html = [
-						'<div class="XTranslate_result Powered_by_Google">',
+						'<div class="XTranslate_result Powered_by_Google" title="Translated from '+ lang.name +' ('+ data[2] +')">',
 							'<div class="XTranslate_result_main">',
 								data[0].map(function( line ){
 									return line.shift();

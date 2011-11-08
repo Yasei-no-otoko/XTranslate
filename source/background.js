@@ -11,7 +11,7 @@ settings(
 		hotkey: 'Ctrl+Shift+X'
 	},
 	lang: {
-		from: 'en',
+		from: 'auto',
 		to: navigator.userLanguage.split('-')[0]
 	},
 	button: {
