@@ -4,7 +4,7 @@
 */
 
 /* Popup */
-	.XTranslate * { margin:0; padding:0; line-height:inherit; color:inherit; font:inherit; border:none; outline:none; }
+	.XTranslate * { margin:0; padding:0; line-height:inherit; color:inherit; font:inherit; border:none; outline:none; width:auto; height:auto; }
 	.XTranslate {
 		position:fixed;
 		left:0;
@@ -45,6 +45,7 @@
 	.XTranslate_options { display:inline-block; text-align:left; max-width:350px; }
 	.XTranslate_options h1,
 	.XTranslate_options input,
+	.XTranslate_options button,
 	.XTranslate_options select,
 	.XTranslate_options textarea { font:16px "Times New Roman", Times, serif; }
 	.XTranslate_options h1 { font-weight:bold; min-height:20px; }
