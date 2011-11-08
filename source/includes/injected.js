@@ -3,8 +3,7 @@
 
 window.top == window.self &&
 document.toString() == '[object HTMLDocument]' && 
-
-(function()
+window.addEventListener('DOMContentLoaded', function()
 {
 	var 
 		port, settings, 
@@ -117,5 +116,4 @@ document.toString() == '[object HTMLDocument]' &&
 		popup.css('display', 'none');
 	}, false);
 	
-})();
-
+}, false);
