@@ -34,7 +34,13 @@ window.addEventListener('DOMContentLoaded', function()
 				document.DOCUMENT_POSITION_FOLLOWING | 
 				document.DOCUMENT_POSITION_CONTAINED_BY
 			) &&
-			port.postMessage( text );
+			port.postMessage(
+				text
+					.replace(/(\n\s+){2,}/g, '\n\n')
+					.replace(/^.*$/gm, function( line ){
+						return line.trim()
+					})
+			);
 		}
 	}
 	

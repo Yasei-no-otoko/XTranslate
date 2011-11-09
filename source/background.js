@@ -130,15 +130,16 @@ function userCSSDefault()
 		})[0].style,
 		
 		colors = {
-			bgc		: rgb2hex( css.backgroundColor ),
-			border	: rgb2hex( css.borderColor ),
-			text	: rgb2hex( css.color )
+			bgc		: color( css.backgroundColor ),
+			border	: color( css.borderColor ),
+			text	: color( css.color )
 		};
 	
 	return {
 		background: {
 			color: [colors.bgc, colors.border],
-			linear: true
+			linear: true,
+			opacity: 100
 		},
 		border: {
 			color: colors.border,
@@ -166,12 +167,17 @@ function userCSS()
 			return theme.name == user.theme;
 		}).shift(),
 		css = theme ? theme.css : user.css,
+		opacity = css.background.opacity / 100,
+		background = [
+			color(css.background.color[0], opacity),
+			color(css.background.color[1], opacity)
+		],
 		style = [];
 	
 	style.push(
-		'background-color: '+ css.background.color[0],
+		'background-color: '+ background[0],
 		'background-image: '+ ( css.background.linear 
-			? '-o-linear-gradient(top, '+ css.background.color[0] +' 0%, '+ css.background.color[1] +' 70%)' 
+			? '-o-linear-gradient(top, '+ background[0] +' 0%, '+ background[1] +' 70%)' 
 			: 'none'
 		)
 	);
@@ -194,15 +200,22 @@ function userCSS()
 	return style.join('; ');
 }
 
-function rgb2hex( color )
+function color( color, opacity )
 {
-	return (
-		color.indexOf('rgb') == 0
-		
-		? '#'+ color.match(/\d+/g).slice(0,3).map(function( color ){
-			return Number(color).toString(16);
+	var color = color.indexOf('rgb') == 0
+		? '#'+ color.match(/\d+/g).slice(0,3).map(function( color )
+		{
+			var hex = Number(color).toString(16);
+			return hex.length == 1 ? hex + hex : hex;
 		}).join('')
-		
-		: color
-	);
+		: color;
+	
+	if( opacity != null )
+	{
+		color = 'rgba(' + color.slice(1).replace(/([0-9a-f]{2})/gi, function(S,$1){
+			return parseInt($1, 16) + ', ';
+		}) + opacity + ')';
+	}
+
+	return color;
 }

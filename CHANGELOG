@@ -1,9 +1,13 @@
 XTranslate
 
+1.5.2 (future release)
+* реализована поддержка полупрозрачности фона
+
 1.5.1
-* fixed bug with translating multi lines
-* implemented themes support
-* deleted temporary files from extension's package
-* auto-detection of the source language (google only)
-* fixed issue #r23115 (acid3 test failed)
-* fixed minor errors
+* исправлена ошибка с переводом текст, состоящего из нескольких предложений или строк (для Google)
+* добавлена поддержка тем
+* удален исходник иконки из архива с приложением
+* добавлена опция авто-обнаружения языка (для Google)
+* исправлен баг #r23115 (acid3 test failed)
+* исправлена ошибка, возникающая при клике по документу без выделения текста (selection.anchorNode был недоступен)
+
