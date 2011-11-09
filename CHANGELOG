@@ -1,0 +1,9 @@
+XTranslate
+
+1.5.1
+* fixed bug with translating multi lines
+* implemented themes support
+* deleted temporary files from extension's package
+* auto-detection of the source language (google only)
+* fixed issue #r23115 (acid3 test failed)
+* fixed minor errors
