@@ -155,6 +155,10 @@ function userCSSDefault()
 			color: colors.bgc,
 			size: parseInt(css.boxShadow.split(' ').pop()),
 			inset: css.boxShadow.indexOf('inset') > -1
+		},
+		position: {
+			type: '',
+			offset: 10
 		}
 	};
 }
@@ -172,6 +176,7 @@ function userCSS()
 			color(css.background.color[0], opacity),
 			color(css.background.color[1], opacity)
 		],
+		position = css.position.type.split(' '),
 		style = [];
 	
 	style.push(
@@ -195,6 +200,14 @@ function userCSS()
 	
 	style.push(
 		'box-shadow: 0 0 '+ (css.shadow.inset ? 'inset ' : '') + css.shadow.size + 'px '+ css.shadow.color
+	);
+	
+	position.length > 1 && 
+	style.push(
+		'margin:'+ css.position.offset + 'px',
+		['top', 'right', 'bottom', 'left'].map(function( prop, index ){
+			return prop +': '+ position[ index ];
+		}).join('; ')
 	);
 	
 	return style.join('; ');

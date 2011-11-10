@@ -50,15 +50,17 @@ window.addEventListener('DOMContentLoaded', function()
 			first = popup.firstChild,
 			range = selection.getRangeAt(0),
 			pos = range.getBoundingClientRect(),
-			html = range.createContextualFragment( htmlText );
+			html = range.createContextualFragment( htmlText ),
+			auto_position = settings.user.css.position.type == '';
 		
 		first ? popup.replaceChild(html, first) : popup.appendChild(html);
-		popup.css({
+		
+		auto_position && popup.css({
 			left: pos.left + 'px',
 			top: (pos.bottom + popup.padding) + 'px',
-			margin: 0,
-			display: 'block'
+			margin: 0
 		});
+		popup.css('display', 'block');
 		
 		// fix position
 		var
@@ -118,7 +120,7 @@ window.addEventListener('DOMContentLoaded', function()
 	}, false);
 	
 	window.addEventListener('click', function(){
-		popup.css('display', 'none');
+		!settings.user.css.position.visible && popup.css('display', 'none');
 	}, false);
 	
 }, false);

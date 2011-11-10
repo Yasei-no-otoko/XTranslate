@@ -136,6 +136,25 @@
 							<label><input type="checkbox" name="user.css.shadow.inset"/> inside</label><br/>
 						</span>
 					</div>
+					<div>
+						<span>Popup</span>
+						<span>
+							<label>
+								position:
+								<select name="user.css.position.type">
+									<option value="">Auto</option>
+									<option value="0 auto auto 0">Left Top</option>
+									<option value="0 0 auto auto">Right Top</option>
+									<option value="auto auto 0 0">Left Bottom</option>
+									<option value="auto 0 0 auto">Right Bottom</option>
+								</select>
+							</label><br/>
+							<label>
+								offset: <input type="range" name="user.css.position.offset" min="0" max="100" value="10"/>
+							</label>
+							<label><input type="checkbox" name="user.css.position.visible"/> not hide</label><br/>
+						</span>
+					</div>
 				</div>
 			</dd>
 			

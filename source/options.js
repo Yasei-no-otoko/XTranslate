@@ -244,6 +244,7 @@ window.addEventListener('DOMContentLoaded', function( evt )
 	$('*[name="theme.save"]').onclick = function(evt)
 	{
 		var 
+			save_btn = this,
 			name = $('input[name="theme.name"]', this.parentNode),
 			error = $('div.error', this.parentNode),
 			hint = "Enter theme's name",
@@ -287,12 +288,16 @@ window.addEventListener('DOMContentLoaded', function( evt )
 		
 		name.onfocus = name.onblur = function(evt) {
 			evt.type == 'focus' && this.value == hint && (this.value = '', this.className = '');
-			evt.type == 'blur' && (this.value == hint || !this.value.trim()) && 
+			evt.type.match(/blur|keypress/) && (this.value == hint || !this.value.trim()) && 
 			(
 				this.value = hint, 
 				this.className = 'hint',
 				error.className = 'error hidden'
 			);
+		};
+		
+		name.onkeypress = function(evt){
+			evt.which == 13 && save_btn.onclick();
 		};
 	};
 	
