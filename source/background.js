@@ -82,7 +82,7 @@ window.XTranslate =
 	updateButton: function( lang ){
 		var arrow = String.fromCharCode(8594);
 		this.button.title = 'XTranslate ('+ [lang.from.toUpperCase(), arrow, lang.to.toUpperCase()].join(' ') + ')';
-		this.button.icon = 'icons/flags/'+ lang.to +'.png';
+		this.button.icon = 'icons/flags/'+ lang.to.split('-').shift() +'.png';
 	}
 };
 

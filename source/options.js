@@ -110,7 +110,7 @@ window.addEventListener('DOMContentLoaded', function( evt )
 	{
 		var value = elem.value;
 		var icon = $('img[name="'+ elem.name +'"]');
-		icon.src = 'icons/flags/'+ value +'.png';
+		icon.src = 'icons/flags/'+ value.split('-').shift() +'.png';
 		icon.alt = value;
 	}
 	

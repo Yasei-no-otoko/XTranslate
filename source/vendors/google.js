@@ -72,7 +72,7 @@ XTranslate.vendors.add(
 			complete: function( text )
 			{
 				this.langs = text.trim().split(/\r?\n+/).map(function( line ){
-					var lang = line.split(/\s*-\s*/);
+					var lang = line.split(/\s*=\s*/);
 					return {
 						name: lang[0].trim(),
 						iso: lang[1].trim()
