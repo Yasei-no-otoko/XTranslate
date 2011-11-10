@@ -88,9 +88,8 @@
 					<div>
 						<span>Theme</span>
 						<span>
-							<select name="user.theme">
-								<option value="">Custom</option>
-							</select>
+							<select name="user.theme"></select>
+							<button name="theme.delete" title="Delete theme">Delete</button>
 						</span>
 					</div>
 					<div>
@@ -139,6 +138,12 @@
 					</div>
 				</div>
 			</dd>
+			
+			<div class="theme">
+				<button type="button" name="theme.save" title="Save custom theme">Save</button>
+				<input type="text" name="theme.name" title="Enter your theme's name" class="hidden">
+				<div class="error hidden">Theme with same name already exists!</div>
+			</div>
 		</dl>
 		
 		<hr/>

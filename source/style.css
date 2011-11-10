@@ -41,6 +41,7 @@
 	}
 
 /* Options */
+	.XTranslate_body .hidden { display:none; }
 	.XTranslate_body { text-align:center; }
 	.XTranslate_options { display:inline-block; text-align:left; max-width:350px; }
 	.XTranslate_options h1,
@@ -62,5 +63,7 @@
 	.XTranslate_options span.arrow { display:inline-block; line-height:100%; padding:0 2px; cursor:pointer; }
 	.XTranslate_options div.footer a { color:black; text-decoration:none }
 	.XTranslate_options div.footer a:hover { text-decoration:underline; }
-	
+	.XTranslate_options input.error { outline:2px solid red; }
+	.XTranslate_options input.hint { color:silver; }
+	.XTranslate_options div.error { color:red; text-align:center; }
 

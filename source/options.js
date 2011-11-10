@@ -49,9 +49,28 @@ window.addEventListener('DOMContentLoaded', function( evt )
 	}();
 	
 	// load themes
-	$('select[name="user.theme"]').innerHTML += bg.settings('user.themes').map(function( theme ) {
-		return parse('<option value="${name}">${name}</option>', theme);
-	}).join('');
+	var updateThemes = function __()
+	{
+		var 
+			themes = $('select[name="user.theme"]'),
+			theme = bg.settings('user.theme');
+		
+		themes.innerHTML = '<option value="">Custom</option>'
+			+ 
+			bg.settings('user.themes').map(function( theme )
+			{
+				theme.name = theme.name
+					.replace(/</g, "&lt;")
+					.replace(/>/g, "&gt;")
+					.replace(/"/g, "&quot;");
+				return parse('<option value="${name}">${name}</option>', theme);
+			}).join('');
+		
+		themes.value = theme;
+		theme == '' && ($('button[name="theme.delete"]').disabled = true);
+			
+		return __;
+	}();
 			
 	var preview = function()
 	{
@@ -97,7 +116,7 @@ window.addEventListener('DOMContentLoaded', function( evt )
 	
 	var updateState = function __( filter )
 	{
-		$('input, select')
+		$('dd input, dd select')
 			.filter(filter || function(){ return true })
 			.forEach(function( elem )
 			{
@@ -199,6 +218,8 @@ window.addEventListener('DOMContentLoaded', function( evt )
 	bg.settings.unfollow('user.theme'); // clear
 	bg.settings.follow('user.theme', function( value, prop, user )
 	{
+		var drop_btn = $('button[name="theme.delete"]');
+		
 		if( value )
 		{
 			var 
@@ -211,7 +232,80 @@ window.addEventListener('DOMContentLoaded', function( evt )
 			updateState(function( input ){
 				return input.name.match(/^user\.css/);
 			});
+			
+			drop_btn.removeAttribute('disabled');
+		}
+		else {
+			drop_btn.disabled = true;
 		}
 	});
 	
+	// saving theme
+	$('*[name="theme.save"]').onclick = function(evt)
+	{
+		var 
+			name = $('input[name="theme.name"]', this.parentNode),
+			error = $('div.error', this.parentNode),
+			hint = "Enter theme's name",
+			value = name.value.trim(),
+			restore = function()
+			{
+				name.value = '';
+				name.className = 'hidden';
+				error.className = 'error hidden';
+			};
+		
+		if( !value ){
+			name.value = hint;
+			name.className = 'hint';
+		}
+		else if( value == hint ){
+			restore();
+		}
+		else {
+			var theme_exists = bg.settings('user.themes').some(function( theme ){
+				return theme.name == value;
+			});
+			
+			if( theme_exists  ) {
+				error.className = 'error';
+				name.className = 'error';
+				name.focus();
+			}
+			else {
+				bg.settings('user.themes', function( themes ){
+					return themes.concat({
+						name: value,
+						css: bg.settings('user.css')
+					});
+				});
+				bg.settings('user.theme', value);
+				updateThemes();
+				restore();
+			}
+		}
+		
+		name.onfocus = name.onblur = function(evt) {
+			evt.type == 'focus' && this.value == hint && (this.value = '', this.className = '');
+			evt.type == 'blur' && (this.value == hint || !this.value.trim()) && 
+			(
+				this.value = hint, 
+				this.className = 'hint',
+				error.className = 'error hidden'
+			);
+		};
+	};
+	
+	$('button[name="theme.delete"]').onclick = function(evt)
+	{
+		bg.settings('user.themes', function( themes ){
+			return themes.filter(function( theme ){
+				return theme.name != this.theme;
+			}, this);
+		});
+		bg.settings('user.theme', "");
+		updateThemes();
+	};
+	
 }, false);
+
