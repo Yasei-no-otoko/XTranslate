@@ -75,7 +75,7 @@ window.XTranslate =
 	{
 		popup: {
 			href: 'options.html',
-			width: 400,
+			width: 420,
 			height: 550
 		}
 	}),
@@ -149,7 +149,12 @@ function userCSSDefault()
 		text: {
 			color: colors.text,
 			font: css.fontFamily.split(/\s*,\s*/)[0].replace(/"/g, ''),
-			size: parseInt(css.fontSize)
+			size: parseInt(css.fontSize),
+			shadow: {
+				offset: [1,1],
+				radius: 0,
+				color: colors.border
+			}
 		},
 		shadow: {
 			color: colors.bgc,
@@ -157,7 +162,7 @@ function userCSSDefault()
 			inset: css.boxShadow.indexOf('inset') > -1
 		},
 		position: {
-			type: '',
+			type: 'auto',
 			offset: 10
 		}
 	};
@@ -199,7 +204,12 @@ function userCSS()
 	);
 	
 	style.push(
-		'box-shadow: 0 0 '+ (css.shadow.inset ? 'inset ' : '') + css.shadow.size + 'px '+ css.shadow.color
+		'box-shadow: 0 0 '+ (css.shadow.inset ? 'inset ' : '') + css.shadow.size + 'px '+ css.shadow.color,
+		'text-shadow: '
+			+ css.text.shadow.offset[0] + 'px '
+			+ css.text.shadow.offset[1] + 'px '
+			+ css.text.shadow.radius + 'px '
+			+ css.text.shadow.color
 	);
 	
 	position.length > 1 && 

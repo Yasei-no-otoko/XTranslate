@@ -106,8 +106,8 @@
 					<div>
 						<span>Border</span>
 						<span>
+							<label>width: <input type="number" name="user.css.border.width" min="0" max="10" size="3"/></label>
 							<label>color: <input type="color" name="user.css.border.color"/></label><br/>
-							<label>width: <input type="number" name="user.css.border.width" min="0" max="10" size="3"/></label><br/>
 							<label>radius: <input type="number" name="user.css.border.radius" min="0" max="50" size="3"/></label>
 						</span>
 					</div>
@@ -125,24 +125,23 @@
 									<option value="Trebuchet MS">Trebuchet MS</option>
 									<option value="Verdana">Verdana</option>
 								</select>
+							</label><br>
+							<label>
+								shadow:
+								<input type="number" name="user.css.text.shadow.offset.0" min="-10" max="10" size="3"/>
+								<input type="number" name="user.css.text.shadow.offset.1" min="-10" max="10" size="3"/>
+								<input type="number" name="user.css.text.shadow.radius" min="-10" max="10" size="3"/>
+								<input type="color" name="user.css.text.shadow.color"/>
 							</label>
 						</span>
 					</div>
 					<div>
-						<span>Shadow</span>
-						<span>
-							<label>color: <input type="color" name="user.css.shadow.color"/></label><br/>
-							<label>size: <input type="range" name="user.css.shadow.size" min="0" max="50" size="3"/></label><br/>
-							<label><input type="checkbox" name="user.css.shadow.inset"/> inside</label><br/>
-						</span>
-					</div>
-					<div>
-						<span>Popup</span>
+						<span>Box</span>
 						<span>
 							<label>
 								position:
 								<select name="user.css.position.type">
-									<option value="">Auto</option>
+									<option value="auto">Auto</option>
 									<option value="0 auto auto 0">Left Top</option>
 									<option value="0 0 auto auto">Right Top</option>
 									<option value="auto auto 0 0">Left Bottom</option>
@@ -151,8 +150,16 @@
 							</label><br/>
 							<label>
 								offset: <input type="range" name="user.css.position.offset" min="0" max="100" value="10"/>
-							</label>
+							</label><br/>
 							<label><input type="checkbox" name="user.css.position.visible"/> not hide</label><br/>
+						</span>
+					</div>
+					<div>
+						<span>Shadow</span>
+						<span>
+							<label>color: <input type="color" name="user.css.shadow.color"/></label><br/>
+							<label>size: <input type="range" name="user.css.shadow.size" min="0" max="50" size="3"/></label><br/>
+							<label><input type="checkbox" name="user.css.shadow.inset"/> inside</label><br/>
 						</span>
 					</div>
 				</div>

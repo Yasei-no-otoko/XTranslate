@@ -50,12 +50,11 @@ window.addEventListener('DOMContentLoaded', function()
 			first = popup.firstChild,
 			range = selection.getRangeAt(0),
 			pos = range.getBoundingClientRect(),
-			html = range.createContextualFragment( htmlText ),
-			auto_position = settings.user.css.position.type == '';
+			html = range.createContextualFragment( htmlText );
 		
 		first ? popup.replaceChild(html, first) : popup.appendChild(html);
 		
-		auto_position && popup.css({
+		settings.user.css.position.type == 'auto' && popup.css({
 			left: pos.left + 'px',
 			top: (pos.bottom + popup.padding) + 'px',
 			margin: 0

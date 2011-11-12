@@ -16,6 +16,7 @@
 
 		font:13px/120% Verdana, Geneva, sans-serif;
 		color:#fff;
+		text-shadow:1px 1px 0 #8B11FF;
 		
 		background-color:#b05ebd;
 		background-image: -o-linear-gradient(top, #b05ebd 0%, #8B11FF 70%);
@@ -43,7 +44,7 @@
 /* Options */
 	.XTranslate_body .hidden { display:none; }
 	.XTranslate_body { text-align:center; }
-	.XTranslate_options { display:inline-block; text-align:left; max-width:350px; }
+	.XTranslate_options { display:inline-block; text-align:left; max-width:370px; }
 	.XTranslate_options h1,
 	.XTranslate_options input,
 	.XTranslate_options button,
