@@ -1,24 +1,28 @@
 // @project XTranslate (injected.js)
 // @url https://github.com/extensible/XTranslate 
 
-window.top == window.self &&
 document.toString() == '[object HTMLDocument]' && 
 window.addEventListener('DOMContentLoaded', function()
 {
 	var 
+		top_level = window.top == window.self,
 		port, settings, 
 		popup, selection;
+		
+	function extend( source )
+	{
+		[].slice.call(arguments,1).forEach(function( obj ){
+			for(var i in obj){
+				obj.hasOwnProperty(i) && (source[i] = obj[i]);
+			}
+		});
+		return source;
+	}
 	
 	function css( name, value )
 	{
-		if( name && value ){
-			this.style[name] = value;
-		}
-		else {
-			for(var i in name){
-				this.style[i] = name[i];
-			}
-		}
+		if( name && value ) this.style[name] = value;
+		else extend(this.style, name);
 		return this;
 	}
 	
@@ -44,13 +48,17 @@ window.addEventListener('DOMContentLoaded', function()
 		}
 	}
 	
-	function showPopup( htmlText )
+	function showPopup( html, position )
 	{
-		var
+		var 
 			first = popup.firstChild,
-			range = selection.getRangeAt(0),
-			pos = range.getBoundingClientRect(),
-			html = range.createContextualFragment( htmlText );
+			pos = position || selection.getRangeAt(0).getBoundingClientRect(),
+			html = function()
+			{
+				var node = document.createElement('div');
+				node.innerHTML = html;
+				return node;
+			}();
 		
 		first ? popup.replaceChild(html, first) : popup.appendChild(html);
 		
@@ -100,8 +108,53 @@ window.addEventListener('DOMContentLoaded', function()
 
 		evt.data.settings && (settings = evt.data.settings);
 		evt.data.userCSS && popup.setAttribute('style', evt.data.userCSS);
-		evt.data.html && showPopup( evt.data.html );
+		
+		evt.data.html && (
+			top_level 
+				? showPopup( evt.data.html ) 
+				: window.top.postMessage(
+				{
+					name : window.name,
+					pos  : extend({}, selection.getRangeAt(0).getBoundingClientRect()),
+					html : evt.data.html
+				}, '*')
+		);
 	};
+	
+	// add handling for iframes
+	if( top_level )
+	{
+		var frames = [].slice.call(document.querySelectorAll('iframe'));
+		frames.forEach(function( frame ) {
+			if( !frame.getAttribute('name') ){
+				var uniq_id = 'iframe-'+ String(Math.random()).replace('.', '');
+				frame.name = uniq_id;
+			}
+		});
+		
+		window.addEventListener('message', function( evt )
+		{
+			if( evt.data.html && evt.data.pos && evt.data.name )
+			{
+				var 
+					frame = document.querySelector('iframe[name="'+ evt.data.name +'"]'),
+					pos = {
+						left: frame.offsetLeft - window.scrollX,
+						top: frame.offsetTop - window.scrollY
+					},
+					position = extend({}, evt.data.pos, {
+						left	: evt.data.pos.left + pos.left,
+						top		: evt.data.pos.left + pos.top,
+						bottom	: evt.data.pos.bottom + pos.top,
+						right	: evt.data.pos.right + pos.left
+					});
+				
+				showPopup(evt.data.html, position);
+			}
+			
+			evt.data == 'hide' && popup.css('display', 'none');
+		}, false)
+	}
 	
 	window.addEventListener('mouseup', handleSelection, false);
 	window.addEventListener('keypress', function( evt )
@@ -119,6 +172,7 @@ window.addEventListener('DOMContentLoaded', function()
 	}, false);
 	
 	window.addEventListener('click', function(){
+		!top_level && window.top.postMessage('hide', '*');
 		!settings.user.css.position.visible && popup.css('display', 'none');
 	}, false);
 	
