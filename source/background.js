@@ -23,8 +23,7 @@ settings(
 	}
 }, true);
 
-ajax
-({
+ajax({
 	url: 'themes.json',
 	complete: function( json )
 	{
@@ -36,6 +35,14 @@ ajax
 				css: this.css
 			}].concat(themes);
 		}, true);
+	}
+});
+
+ajax({
+	url: 'langs.json',
+	complete: function( langs ) {
+		var langs = langs.replace(/\/\*[\s\S]+?\*\//g, ''); // remove multiline comments
+		settings('lang.ui', JSON.parse(langs), true);
 	}
 });
 

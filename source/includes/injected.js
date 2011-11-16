@@ -87,6 +87,11 @@ window.addEventListener('DOMContentLoaded', function()
 		}
 	}
 	
+	function hidePopup() {
+		!top_level && window.top.postMessage('hide', '*');
+		!settings.user.css.position.visible && popup.css('display', 'none');
+	}
+	
 	opera.extension.onmessage = function( evt )
 	{
 		if( evt.data.action == 'init' )
@@ -94,10 +99,14 @@ window.addEventListener('DOMContentLoaded', function()
 			port = evt.source;
 			
 			popup = document.createElementNS('http://www.w3.org/1999/xhtml', 'div');
-			popup.css = css;
-			popup.padding = 5;
 			popup.className = 'XTranslate';
+			popup.padding = 5;
 			popup.onclick = function( evt ){ evt.stopPropagation() }
+
+			popup.css = css;
+			popup.show = showPopup;
+			popup.hide = hidePopup;
+			
 			document.documentElement.appendChild(popup);
 			
 			var style = document.createElementNS('http://www.w3.org/1999/xhtml', 'style');
@@ -111,7 +120,7 @@ window.addEventListener('DOMContentLoaded', function()
 		
 		evt.data.html && (
 			top_level 
-				? showPopup( evt.data.html ) 
+				? popup.show( evt.data.html ) 
 				: window.top.postMessage(
 				{
 					name : window.name,
@@ -149,10 +158,10 @@ window.addEventListener('DOMContentLoaded', function()
 						right	: evt.data.pos.right + pos.left
 					});
 				
-				showPopup(evt.data.html, position);
+				popup.show(evt.data.html, position);
 			}
 			
-			evt.data == 'hide' && popup.css('display', 'none');
+			evt.data == 'hide' && popup.hide();
 		}, false)
 	}
 	
@@ -171,9 +180,10 @@ window.addEventListener('DOMContentLoaded', function()
 		}
 	}, false);
 	
-	window.addEventListener('click', function(){
-		!top_level && window.top.postMessage('hide', '*');
-		!settings.user.css.position.visible && popup.css('display', 'none');
+	window.addEventListener('click', hidePopup, false);
+	window.addEventListener('keyup', function( evt ){
+		evt.which == 27 && hidePopup(evt); // <ESCAPE>-key
 	}, false);
+	
 	
 }, false);

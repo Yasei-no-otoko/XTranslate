@@ -48,6 +48,32 @@ window.addEventListener('DOMContentLoaded', function( evt )
 		elem.innerHTML = html;
 	}();
 	
+	// ui languages support
+	var langs = function()
+	{
+		var 
+			ui = bg.settings('lang.ui'),
+			langs = $('#lang'),
+			current = ui.current;
+		
+		ui.langs.forEach(function( lang )
+		{
+			langs.innerHTML += parse('<span title="${title}" class="${css}">${name}</span>', 
+			{
+				name	: lang.code[0].toUpperCase() + lang.code.substr(1),
+				css		: lang.code == current ? 'current' : '',
+				title	: lang.title
+			});
+		});
+		
+		ui['default'] != current && updateUITexts({
+			from: ui['default'],
+			to: current
+		});
+		
+		return langs;
+	}();
+	
 	// load themes
 	var updateThemes = function __()
 	{
@@ -311,6 +337,59 @@ window.addEventListener('DOMContentLoaded', function( evt )
 		bg.settings('user.theme', "");
 		updateThemes();
 	};
+		
+	function updateUITexts( lang )
+	{
+		var 
+			texts = bg.settings('lang.ui.texts'),
+			textNodes = [].slice.call(document.selectNodes('//text()')).filter(function( node ){
+				return node.textContent.trim();
+			}),
+			valid = function( node ){
+				var status = true;
+				node.parentNode.nodeName.toLowerCase() == 'option' && (status = false);
+				return status;
+			};
+		
+		texts.forEach(function( text, index )
+		{
+			textNodes.forEach(function( node )
+			{
+				var 
+					content = node.textContent,
+					data = text[lang.from];
+				
+				content.indexOf(data) > -1 && valid(node) && (
+					node.textContent = content.replace(function()
+					{
+						var expr = data.replace(/[\[\]\(\)\.\*\+\\\{\}\^\$]/g, '\\$&');
+						return new RegExp(expr, 'g');
+					}(), text[lang.to])
+				);
+			});
+		});
+	}
+
+	langs.onclick = function( evt )
+	{
+		var 
+			current = evt.target,
+			lang = current.innerText.toLowerCase();
+			
+		$('*', this).forEach(function( lang ){
+			lang.className = '';
+		});
+		
+		current.className = 'current';
+		bg.settings('lang.ui.current', function( current )
+		{
+			updateUITexts({
+				from: current,
+				to: lang
+			});
+			return lang;
+		});
+	}
 	
 }, false);
 

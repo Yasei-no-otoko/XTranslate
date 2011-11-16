@@ -10,6 +10,7 @@
 	
 	<div class="XTranslate_options">
 		<h1 class="header"></h1>
+		<div id="lang"></div>
 		
 		<dl class="option">
 			<dt>Show translation results</dt>
@@ -33,7 +34,7 @@
 		<dl class="option">
 			<dt>Translation</dt>
 			<dd>
-				<span class="title">Engine:</span>
+				<span class="title">Service:</span>
 				<div class="content" id="vendors">
 					<div>
 						<label>
@@ -96,9 +97,9 @@
 						<span>Background</span>
 						<span>
 							color:
-							<input type="color" name="user.css.background.color.0"/> to 
+							<input type="color" name="user.css.background.color.0"/> &rarr; 
 							<input type="color" name="user.css.background.color.1"/>
-							<label title="Opera 11.1+"><input type="checkbox" name="user.css.background.linear"> linear</label>
+							<label title="Opera 11.1+" class="nobr"><input type="checkbox" name="user.css.background.linear"> linear</label>
 							<br/>
 							<label>opacity: <input type="range" name="user.css.background.opacity" min="0" max="100"/></label><br/>
 						</span>
@@ -126,7 +127,7 @@
 									<option value="Verdana">Verdana</option>
 								</select>
 							</label><br>
-							<label>
+							<label class="nobr">
 								shadow:
 								<input type="number" name="user.css.text.shadow.offset.0" min="-10" max="10" size="3"/>
 								<input type="number" name="user.css.text.shadow.offset.1" min="-10" max="10" size="3"/>
@@ -136,7 +137,7 @@
 						</span>
 					</div>
 					<div>
-						<span>Box</span>
+						<span>Popup</span>
 						<span>
 							<label>
 								position:
@@ -167,7 +168,7 @@
 			
 			<div class="theme">
 				<button type="button" name="theme.save" title="Save custom theme">Save</button>
-				<input type="text" name="theme.name" title="Enter your theme's name" class="hidden">
+				<input type="text" name="theme.name" class="hidden">
 				<div class="error hidden">Theme with same name already exists!</div>
 			</div>
 		</dl>

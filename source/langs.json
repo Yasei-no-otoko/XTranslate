@@ -1,0 +1,160 @@
+/*
+	@project XTranslate (langs.json)
+	@url https://github.com/extensible/XTranslate
+*/
+{
+	"default": "en",
+	"current": "en",
+	"langs": [
+		{
+			"title": "English",
+			"code": "en"
+		},
+		{
+			"title": "Русский",
+			"code": "ru"
+		}
+	],
+	"texts": [
+		{
+			"en": "options",
+			"ru": "настройки"
+		},
+		{
+			"en": "Show translation results",
+			"ru": "Показывать результаты перевода"
+		},
+		{
+			"en": "Straight after selecting a text (onmouseup)",
+			"ru": "Сразу после выделения текста"
+		},
+		{
+			"en": "After pressing hotkey",
+			"ru": "После нажатия сочетания горячих клавиш"
+		},
+		{
+			"en": "Translation",
+			"ru": "Перевод"
+		},
+		{
+			"en": "Service",
+			"ru": "Сервис"
+		},
+		{
+			"en": "Direction",
+			"ru": "Направление"
+		},
+		{
+			"en": "Other",
+			"ru": "Другое"
+		},
+		{
+			"en": "Show a button on the toolbar",
+			"ru": "Отображать кнопку на панели инструментов"
+		},
+		{
+			"en": "User styles (live preview)",
+			"ru": "Пользовательские стили (предпросмотр)"
+		},
+		{
+			"en": "Translated text",
+			"ru": "Переведенный текст"
+		},
+		{
+			"en": "noun",
+			"ru": "существительное"
+		},
+		{
+			"en": "Word",
+			"ru": "Слово"
+		},
+		{
+			"en": "Theme",
+			"ru": "Тема"
+		},
+		{
+			"en": "Delete",
+			"ru": "Удалить"
+		},
+		{
+			"en": "Background",
+			"ru": "Фон"
+		},
+		{
+			"en": "Border",
+			"ru": "Рамка"
+		},
+		{
+			"en": "Text",
+			"ru": "Текст"
+		},
+		{
+			"en": "Popup",
+			"ru": "Всплывающий блок"
+		},
+		{
+			"en": "Shadow",
+			"ru": "Тень"
+		},
+		{
+			"en": "Save",
+			"ru": "Сохранить"
+		},
+		{
+			"en": "color",
+			"ru": "цвет"
+		},
+		{
+			"en": "linear",
+			"ru": "линейный градиент"
+		},
+		{
+			"en": "opacity",
+			"ru": "прозрачность"
+		},
+		{
+			"en": "width",
+			"ru": "ширина"
+		},
+		{
+			"en": "radius",
+			"ru": "скругление углов"
+		},
+		{
+			"en": "size",
+			"ru": "размер"
+		},
+		{
+			"en": "font",
+			"ru": "шрифт"
+		},
+		{
+			"en": "shadow",
+			"ru": "тень"
+		},
+		{
+			"en": "position",
+			"ru": "позиция"
+		},
+		{
+			"en": "offset",
+			"ru": "смещение"
+		},
+		{
+			"en": "not hide",
+			"ru": "не скрывать"
+		},
+		{
+			"en": "inside",
+			"ru": "внутренняя"
+		},
+		{
+			"en": "Special thanks to Google and Opera software",
+			"ru": "Отдельное спасибо команде Google и Opera software"
+		},
+		{
+			"en": "Also you can visit my site",
+			"ru": "Также вы можете посетить мой сайт"
+		}
+	]
+}
