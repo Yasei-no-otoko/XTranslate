@@ -68,9 +68,6 @@
 	.XTranslate_options input.error { outline:2px solid red; }
 	.XTranslate_options input.hint { color:silver; }
 	.XTranslate_options div.error { color:red; text-align:center; }
-	.XTranslate_options #lang { position:absolute; right:0; top:0; line-height:250%; }
-	.XTranslate_options #lang * { display:inline-block; width:20px; height:20px; line-height:20px; text-align:center; padding:5px; cursor:pointer; }
-	.XTranslate_options #lang .current { color:white; cursor:default; background:silver; border-radius:20px; }
 	.XTranslate_options .nobr { white-space:nowrap; }
 	
 

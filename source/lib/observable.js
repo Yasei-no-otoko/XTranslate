@@ -55,7 +55,7 @@ function observable( name, defvalue )
 						
 						if( __.subscribes[chain] ){
 							__.subscribes[chain].forEach(function( callback ){
-								callback(new_value, prop, parent, obj);
+								callback(new_value, prop, parent, obj, current);
 							});
 						}
 					}

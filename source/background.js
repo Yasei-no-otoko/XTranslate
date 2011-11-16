@@ -24,7 +24,7 @@ settings(
 }, true);
 
 ajax({
-	url: 'themes.json',
+	url: 'json/themes',
 	complete: function( json )
 	{
 		var themes = eval('('+ json +')');
@@ -39,7 +39,7 @@ ajax({
 });
 
 ajax({
-	url: 'langs.json',
+	url: 'json/langs',
 	complete: function( langs ) {
 		var langs = langs.replace(/\/\*[\s\S]+?\*\//g, ''); // remove multiline comments
 		settings('lang.ui', JSON.parse(langs), true);

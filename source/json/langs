@@ -1,5 +1,5 @@
 /*
-	@project XTranslate (langs.json)
+	@project XTranslate (json/langs)
 	@url https://github.com/extensible/XTranslate
 */
 {
@@ -47,6 +47,10 @@
 		{
 			"en": "Other",
 			"ru": "Другое"
+		},
+		{
+			"en": "UI language",
+			"ru": "Язык интерфейса"
 		},
 		{
 			"en": "Show a button on the toolbar",

@@ -27,7 +27,8 @@ window.addEventListener('DOMContentLoaded', function( evt )
 	var 
 		bg = opera.extension.bgProcess,
 		vendors = bg.XTranslate.vendors;
-
+	
+	// vendors list
 	+function()
 	{
 		var 
@@ -48,25 +49,19 @@ window.addEventListener('DOMContentLoaded', function( evt )
 		elem.innerHTML = html;
 	}();
 	
-	// ui languages support
+	// ui language
 	var langs = function()
 	{
 		var 
+			langs = $('select[name="lang.ui.current"]'),
 			ui = bg.settings('lang.ui'),
-			langs = $('#lang'),
 			current = ui.current;
 		
-		ui.langs.forEach(function( lang )
-		{
-			langs.innerHTML += parse('<span title="${title}" class="${css}">${name}</span>', 
-			{
-				name	: lang.code[0].toUpperCase() + lang.code.substr(1),
-				css		: lang.code == current ? 'current' : '',
-				title	: lang.title
-			});
+		ui.langs.forEach(function( lang ) {
+			langs.innerHTML += parse('<option value="${code}">${title}</option>', lang);
 		});
 		
-		ui['default'] != current && updateUITexts({
+		ui['default'] != current && changeUILanguage({
 			from: ui['default'],
 			to: current
 		});
@@ -115,7 +110,7 @@ window.addEventListener('DOMContentLoaded', function( evt )
 			options += parse('<option value="${iso}">${name}</option>', lang);
 		});
 		
-		$('select[name^="lang."]').forEach(function( elem )
+		$('select[name="lang.from"], select[name="lang.to"]').forEach(function( elem )
 		{
 			var value = bg.settings(elem.name);
 			elem.innerHTML = options;
@@ -338,7 +333,7 @@ window.addEventListener('DOMContentLoaded', function( evt )
 		updateThemes();
 	};
 		
-	function updateUITexts( lang )
+	function changeUILanguage( lang )
 	{
 		var 
 			texts = bg.settings('lang.ui.texts'),
@@ -369,27 +364,14 @@ window.addEventListener('DOMContentLoaded', function( evt )
 			});
 		});
 	}
-
-	langs.onclick = function( evt )
-	{
-		var 
-			current = evt.target,
-			lang = current.innerText.toLowerCase();
-			
-		$('*', this).forEach(function( lang ){
-			lang.className = '';
+	
+	bg.settings.unfollow('lang.ui.current'); // clear for options page only
+	bg.settings.follow('lang.ui.current', function( value, prop, ui, settings, old ){
+		changeUILanguage({
+			from: old,
+			to: value
 		});
-		
-		current.className = 'current';
-		bg.settings('lang.ui.current', function( current )
-		{
-			updateUITexts({
-				from: current,
-				to: lang
-			});
-			return lang;
-		});
-	}
+	});
 	
 }, false);
 
