@@ -25,12 +25,16 @@
 			"ru": "Показывать результаты перевода"
 		},
 		{
-			"en": "Straight after selecting a text (onmouseup)",
+			"en": "Straight after selecting a text",
 			"ru": "Сразу после выделения текста"
 		},
 		{
 			"en": "After pressing hotkey",
 			"ru": "После нажатия сочетания горячих клавиш"
+		},
+		{
+			"en": "Use button on the toolbar for translation",
+			"ru": "Использовать кнопку на панели инструментов для перевода"
 		},
 		{
 			"en": "Translation",

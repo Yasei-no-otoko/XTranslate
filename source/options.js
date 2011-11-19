@@ -26,28 +26,27 @@ window.addEventListener('DOMContentLoaded', function( evt )
 {
 	var 
 		bg = opera.extension.bgProcess,
-		vendors = bg.XTranslate.vendors;
-	
-	// vendors list
-	+function()
-	{
-		var 
-			elem = $('#vendors'),
-			tmpl = elem.innerHTML,
-			html = '';
-		
-		vendors.forEach(function( vendor )
+		vendors = function()
 		{
-			html += parse(tmpl, 
+			var 
+				vendors = bg.XTranslate.vendors,
+				elem = $('#vendors'),
+				tmpl = elem.innerHTML,
+				html = '';
+			
+			vendors.forEach(function( vendor )
 			{
-				vendor: vendor.name,
-				url: vendor.url,
-				text: vendor.url.replace(/^http[s]?:\/\/([^\/]*)\/?/gi, '$1')
+				html += parse(tmpl, 
+				{
+					vendor: vendor.name,
+					url: vendor.url,
+					text: vendor.url.replace(/^http[s]?:\/\/([^\/]*)\/?/gi, '$1')
+				});
 			});
-		});
-		
-		elem.innerHTML = html;
-	}();
+			
+			elem.innerHTML = html;
+			return vendors;
+		}();
 	
 	// ui language
 	var langs = function()

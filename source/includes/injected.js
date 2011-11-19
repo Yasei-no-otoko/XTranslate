@@ -33,7 +33,10 @@ window.addEventListener('DOMContentLoaded', function()
 		var text = selection.toString().trim();
 		if( text )
 		{
-			evt.type == settings.trigger.type && 
+			(
+				evt.type == settings.trigger.type || 
+				(evt.type == 'message' && settings.button.trigger)
+			) && 
 			popup.compareDocumentPosition(selection.anchorNode) !== (
 				document.DOCUMENT_POSITION_FOLLOWING | 
 				document.DOCUMENT_POSITION_CONTAINED_BY
@@ -94,25 +97,31 @@ window.addEventListener('DOMContentLoaded', function()
 	
 	opera.extension.onmessage = function( evt )
 	{
-		if( evt.data.action == 'init' )
+		switch(evt.data.action)
 		{
-			port = evt.source;
+			case 'init':
+				port = evt.source;
+				
+				popup = document.createElementNS('http://www.w3.org/1999/xhtml', 'div');
+				popup.className = 'XTranslate';
+				popup.padding = 5;
+				popup.onclick = function( evt ){ evt.stopPropagation() }
+	
+				popup.css = css;
+				popup.show = showPopup;
+				popup.hide = hidePopup;
+				
+				document.documentElement.appendChild(popup);
+				
+				var style = document.createElementNS('http://www.w3.org/1999/xhtml', 'style');
+				style.type = 'text/css';
+				style.textContent = evt.data.css;
+				document.documentElement.appendChild(style);
+			break;
 			
-			popup = document.createElementNS('http://www.w3.org/1999/xhtml', 'div');
-			popup.className = 'XTranslate';
-			popup.padding = 5;
-			popup.onclick = function( evt ){ evt.stopPropagation() }
-
-			popup.css = css;
-			popup.show = showPopup;
-			popup.hide = hidePopup;
-			
-			document.documentElement.appendChild(popup);
-			
-			var style = document.createElementNS('http://www.w3.org/1999/xhtml', 'style');
-			style.type = 'text/css';
-			style.textContent = evt.data.css;
-			document.documentElement.appendChild(style);
+			case 'translate':
+				handleSelection(evt);
+			break;
 		}
 
 		evt.data.settings && (settings = evt.data.settings);
@@ -174,10 +183,11 @@ window.addEventListener('DOMContentLoaded', function()
 		evt.shiftKey && key.push('Shift');
 		evt.which && key.push(String.fromCharCode(evt.which));
 		
-		if( settings.trigger.hotkey == key.join('+') ){
-			handleSelection(evt);
-			evt.preventDefault();
-		}
+		settings.trigger.hotkey == key.join('+') &&
+		settings.trigger.type == evt.type && (
+			handleSelection(evt),
+			evt.preventDefault()
+		);
 	}, false);
 	
 	window.addEventListener('click', hidePopup, false);

@@ -15,7 +15,13 @@ settings(
 		to: navigator.userLanguage.split('-')[0]
 	},
 	button: {
-		show: true
+		show: true,
+		trigger: false,
+		popup: {
+			href: 'options.html',
+			width: 420,
+			height: 550
+		}
 	},
 	user: {
 		css: userCSSDefault(),
@@ -57,6 +63,20 @@ settings.follow('button.show', function( value )
 	: opera.contexts.toolbar.removeItem(XTranslate.button);
 });
 
+settings.follow('button.trigger', function()
+{
+	settings('button.show', function()
+	{
+		setTimeout(function()
+		{
+			XTranslate.button = button();
+			XTranslate.updateButton();
+			settings('button.show', true);
+		}, 10);
+		return false;
+	});
+});
+
 window.XTranslate = 
 {
 	vendors: function()
@@ -78,24 +98,35 @@ window.XTranslate =
 		
 		return vendors;
 	}(),
-	button: opera.contexts.toolbar.createItem(
-	{
-		popup: {
-			href: 'options.html',
-			width: 420,
-			height: 550
-		}
-	}),
+	button: button(),
 	updateButton: function( lang ){
-		var arrow = String.fromCharCode(8594);
+		var 
+			lang = lang || settings('lang'),
+			arrow = String.fromCharCode(8594);
 		this.button.title = 'XTranslate ('+ [lang.from.toUpperCase(), arrow, lang.to.toUpperCase()].join(' ') + ')';
 		this.button.icon = 'icons/flags/'+ lang.to.split('-').shift() +'.png';
 	}
 };
 
+function button()
+{
+	var config = {
+		popup: settings('button.popup'),
+		onclick: function( evt ){
+			opera.extension.broadcastMessage({
+				action: 'translate'
+			});
+		}
+	};
+	delete config[
+		settings('button.trigger') ? 'popup' : 'onclick'
+	];
+	return opera.contexts.toolbar.createItem(config);
+}
+
 // add button
 settings('button.show') && opera.contexts.toolbar.addItem( XTranslate.button );
-XTranslate.updateButton( settings('lang') );
+XTranslate.updateButton();
 
 // init
 opera.extension.addEventListener('connect', function(evt)
