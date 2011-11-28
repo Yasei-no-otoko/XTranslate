@@ -21,9 +21,9 @@
 	],
 	"texts": [
 		{
-			"en": "Options",
-			"ru": "Настройки",
-			"de": "Optionen"
+			"en": "options",
+			"ru": "настройки",
+			"de": "optionen"
 		},
 		{
 			"en": "Show translation results",
