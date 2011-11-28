@@ -48,7 +48,7 @@ ajax({
 	url: 'json/langs',
 	complete: function( langs ) {
 		var langs = langs.replace(/\/\*[\s\S]+?\*\//g, ''); // remove multiline comments
-		settings('lang.ui', JSON.parse(langs), true);
+		settings('lang.ui', JSON.parse(langs));
 	}
 });
 

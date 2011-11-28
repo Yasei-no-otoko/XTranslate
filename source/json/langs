@@ -13,156 +13,198 @@
 		{
 			"title": "Русский",
 			"code": "ru"
+		},
+		{
+			"title": "German",
+			"code": "de"
 		}
 	],
 	"texts": [
 		{
-			"en": "options",
-			"ru": "настройки"
+			"en": "Options",
+			"ru": "Настройки",
+			"de": "Optionen"
 		},
 		{
 			"en": "Show translation results",
-			"ru": "Показывать результаты перевода"
+			"ru": "Показывать результаты перевода",
+			"de": "Zeige Übersetzungsergebnisse"
 		},
 		{
 			"en": "Straight after selecting a text",
-			"ru": "Сразу после выделения текста"
+			"ru": "Сразу после выделения текста",
+			"de": "Direkt nach dem Auswählen des Textes"
 		},
 		{
 			"en": "After pressing hotkey",
-			"ru": "После нажатия сочетания горячих клавиш"
+			"ru": "После нажатия сочетания горячих клавиш",
+			"de": "Nach Drücken von Tastenkombination"
 		},
 		{
 			"en": "Use button on the toolbar for translation",
-			"ru": "Использовать кнопку на панели инструментов для перевода"
+			"ru": "Использовать кнопку на панели инструментов для перевода",
+			"de": "Benutze Toolbar-Button zum Übersetzen"
 		},
 		{
 			"en": "Translation",
-			"ru": "Перевод"
+			"ru": "Перевод",
+			"de": "Übersetzung"
 		},
 		{
 			"en": "Service",
-			"ru": "Сервис"
+			"ru": "Сервис",
+			"de": "Service"
 		},
 		{
 			"en": "Direction",
-			"ru": "Направление"
+			"ru": "Направление",
+			"de": "Richtung"
 		},
 		{
 			"en": "Other",
-			"ru": "Другое"
+			"ru": "Другое",
+			"de": "Weiteres"
 		},
 		{
 			"en": "UI language",
-			"ru": "Язык интерфейса"
+			"ru": "Язык интерфейса",
+			"de": "Sprache Benutzeroberfläche"
+	
 		},
 		{
 			"en": "Show a button on the toolbar",
-			"ru": "Отображать кнопку на панели инструментов"
+			"ru": "Отображать кнопку на панели инструментов",
+			"de": "Zeige Button auf der Symbolleiste"
 		},
 		{
 			"en": "User styles (live preview)",
-			"ru": "Пользовательские стили (предпросмотр)"
+			"ru": "Пользовательские стили (предпросмотр)",
+			"de": "Benutzerfarben (Live-Vorschau)"
 		},
 		{
 			"en": "Translated text",
-			"ru": "Переведенный текст"
+			"ru": "Переведенный текст",
+			"de": "Übersetzter Text"
 		},
 		{
 			"en": "noun",
-			"ru": "существительное"
+			"ru": "существительное",
+			"de": "hauptwort"
 		},
 		{
 			"en": "Word",
-			"ru": "Слово"
+			"ru": "Слово",
+			"de": "Wort"
 		},
 		{
 			"en": "Theme",
-			"ru": "Тема"
+			"ru": "Тема",
+			"de": "Farbthema"
 		},
 		{
 			"en": "Delete",
-			"ru": "Удалить"
+			"ru": "Удалить",
+			"de": "Löschen"
 		},
 		{
 			"en": "Background",
-			"ru": "Фон"
+			"ru": "Фон",
+			"de": "Hintergrund"
 		},
 		{
 			"en": "Border",
-			"ru": "Рамка"
+			"ru": "Рамка",
+			"de": "Umrandung"
 		},
 		{
 			"en": "Text",
-			"ru": "Текст"
+			"ru": "Текст",
+			"de": "Text"
 		},
 		{
 			"en": "Popup",
-			"ru": "Всплывающий блок"
+			"ru": "Всплывающий блок",
+			"de": "Popup"
 		},
 		{
 			"en": "Shadow",
-			"ru": "Тень"
+			"ru": "Тень",
+			"de": "Schatten"
 		},
 		{
 			"en": "Save",
-			"ru": "Сохранить"
+			"ru": "Сохранить",
+			"de": "Speichern"
 		},
 		{
 			"en": "color",
-			"ru": "цвет"
+			"ru": "цвет",
+			"de": "farbe"
 		},
 		{
 			"en": "linear",
-			"ru": "линейный градиент"
+			"ru": "линейный градиент",
+			"de": "verlaufend"
 		},
 		{
 			"en": "opacity",
-			"ru": "прозрачность"
+			"ru": "прозрачность",
+			"de": "deckkraft"
 		},
 		{
 			"en": "width",
-			"ru": "ширина"
+			"ru": "ширина",
+			"de": "breite"
 		},
 		{
 			"en": "radius",
-			"ru": "скругление углов"
+			"ru": "скругление углов",
+			"de": "radius"
 		},
 		{
 			"en": "size",
-			"ru": "размер"
+			"ru": "размер",
+			"de": "größe"
 		},
 		{
 			"en": "font",
-			"ru": "шрифт"
+			"ru": "шрифт",
+			"de": "schrift"
 		},
 		{
 			"en": "shadow",
-			"ru": "тень"
+			"ru": "тень",
+			"de": "schatten"
 		},
 		{
 			"en": "position",
-			"ru": "позиция"
+			"ru": "позиция",
+			"de": "position"
 		},
 		{
 			"en": "offset",
-			"ru": "смещение"
+			"ru": "смещение",
+			"de": "vorlauf"
 		},
 		{
 			"en": "not hide",
-			"ru": "не скрывать"
+			"ru": "не скрывать",
+			"de": "nicht verdecken"
 		},
 		{
 			"en": "inside",
-			"ru": "внутренняя"
+			"ru": "внутренняя",
+			"de": "innen"
 		},
 		{
 			"en": "Special thanks to Google and Opera software",
-			"ru": "Отдельное спасибо команде Google и Opera software"
+			"ru": "Отдельное спасибо команде Google и Opera software",
+			"de": "Besonderen dank an Google und Opera Software"
 		},
 		{
 			"en": "Also you can visit my site",
-			"ru": "Также вы можете посетить мой сайт"
+			"ru": "Также вы можете посетить мой сайт",
+			"de": "Besuche auch meine seite"
 		}
 	]
 }

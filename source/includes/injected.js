@@ -2,7 +2,7 @@
 // @url https://github.com/extensible/XTranslate 
 
 document.toString() == '[object HTMLDocument]' && 
-window.addEventListener('DOMContentLoaded', function()
+window.addEventListener('load', function()
 {
 	var 
 		top_level = window.top == window.self,
