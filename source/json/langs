@@ -4,7 +4,6 @@
 */
 {
 	"default": "en",
-	"current": "en",
 	"langs": [
 		{
 			"title": "English",

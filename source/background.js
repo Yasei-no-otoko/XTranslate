@@ -12,7 +12,10 @@ settings(
 	},
 	lang: {
 		from: 'auto',
-		to: navigator.userLanguage.split('-')[0]
+		to: navigator.userLanguage.split('-')[0],
+		ui: {
+			current: 'en'
+		}
 	},
 	button: {
 		show: true,
@@ -46,9 +49,13 @@ ajax({
 
 ajax({
 	url: 'json/langs',
-	complete: function( langs ) {
-		var langs = langs.replace(/\/\*[\s\S]+?\*\//g, ''); // remove multiline comments
-		settings('lang.ui', JSON.parse(langs));
+	complete: function( langs )
+	{
+		var ui = JSON.parse(langs.replace(/\/\*[\s\S]+?\*\//g, ''));
+		settings('lang.ui', function(v){
+			ui.current = v.current;
+			return ui;
+		});
 	}
 });
 
