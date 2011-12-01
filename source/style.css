@@ -52,6 +52,7 @@
 	.XTranslate_options select,
 	.XTranslate_options textarea { font:16px "Times New Roman", Times, serif; }
 	.XTranslate_options h1 { font-weight:bold; min-height:20px; }
+	.XTranslate_options h1 span { font-weight:normal; font:10px Arial, Helvetica, sans-serif; }
 	.XTranslate_options .popup_demo { position:static; display:inline-block; margin:1em 0 !important; }
 	.XTranslate_options .user-css { display:table; }
 	.XTranslate_options .user-css > * { display:table-row; }

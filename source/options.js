@@ -26,27 +26,47 @@ window.addEventListener('DOMContentLoaded', function( evt )
 {
 	var 
 		bg = opera.extension.bgProcess,
-		vendors = function()
+		header = [
+			document.title,
+			'<span class="version"> v.',
+				widget.version,
+			'</span>'
+		].join('');
+	
+	$('h1').innerHTML = header;
+	$('button[name="reset-globals"]').onclick = function(evt)
+	{
+		delete widget.preferences.settings;
+		bg.configure(function()
 		{
-			var 
-				vendors = bg.XTranslate.vendors,
-				elem = $('#vendors'),
-				tmpl = elem.innerHTML,
-				html = '';
-			
-			vendors.forEach(function( vendor )
+			bg.settings('button.trigger', true);
+			bg.settings('button.trigger', false);
+			location.reload();
+		});
+	};
+	
+	// vendors-list
+	var vendors = function()
+	{
+		var 
+			vendors = bg.XTranslate.vendors,
+			elem = $('#vendors'),
+			tmpl = elem.innerHTML,
+			html = '';
+		
+		vendors.forEach(function( vendor )
+		{
+			html += parse(tmpl, 
 			{
-				html += parse(tmpl, 
-				{
-					vendor: vendor.name,
-					url: vendor.url,
-					text: vendor.url.replace(/^http[s]?:\/\/([^\/]*)\/?/gi, '$1')
-				});
+				vendor: vendor.name,
+				url: vendor.url,
+				text: vendor.url.replace(/^http[s]?:\/\/([^\/]*)\/?/gi, '$1')
 			});
-			
-			elem.innerHTML = html;
-			return vendors;
-		}();
+		});
+		
+		elem.innerHTML = html;
+		return vendors;
+	}();
 	
 	// ui language
 	var langs = function()
@@ -192,8 +212,6 @@ window.addEventListener('DOMContentLoaded', function( evt )
 		
 		preview();
 	}
-
-	$('h1').innerHTML = document.title;
 	
 	$('input[name="trigger.hotkey"]').onkeypress = function( evt )
 	{
@@ -353,7 +371,7 @@ window.addEventListener('DOMContentLoaded', function( evt )
 					content = node.textContent,
 					data = text[lang.from];
 				
-				content.indexOf(data) > -1 && valid(node) && (
+				content.indexOf(data) > -1 && valid(node) && text[lang.to] && (
 					node.textContent = content.replace(function()
 					{
 						var expr = data.replace(/[\[\]\(\)\.\*\+\\\{\}\^\$]/g, '\\$&');

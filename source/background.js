@@ -2,62 +2,75 @@
 // @url https://github.com/extensible/XTranslate 
 
 var settings = observable('settings');
-
-settings(
+var configure = function __( callback )
 {
-	vendor: 'Google',
-	trigger: {
-		type: 'keypress',
-		hotkey: 'Ctrl+Shift+X'
-	},
-	lang: {
-		from: 'auto',
-		to: navigator.userLanguage.split('-')[0],
-		ui: {
-			current: 'en'
-		}
-	},
-	button: {
-		show: true,
-		trigger: false,
-		popup: {
-			href: 'options.html',
-			width: 420,
-			height: 550
-		}
-	},
-	user: {
-		css: userCSSDefault(),
-		theme: "Default"
-	}
-}, true);
-
-ajax({
-	url: 'json/themes',
-	complete: function( json )
+	settings(
 	{
-		var themes = eval('('+ json +')');
-		settings('user.themes', function()
+		vendor: 'Google',
+		trigger: {
+			type: 'keypress',
+			hotkey: 'Ctrl+Shift+X'
+		},
+		lang: {
+			from: 'auto',
+			to: navigator.userLanguage.split('-')[0],
+			ui: {
+				current: 'en'
+			}
+		},
+		button: {
+			show: true,
+			trigger: false,
+			popup: {
+				href: 'options.html',
+				width: 420,
+				height: 550
+			}
+		},
+		user: {
+			css: userCSSDefault(),
+			theme: "Default"
+		}
+	}, true);
+	
+	when(
+		deferred(function( dfr )
 		{
-			return [{
-				name: this.theme,
-				css: this.css
-			}].concat(themes);
-		}, true);
-	}
-});
-
-ajax({
-	url: 'json/langs',
-	complete: function( langs )
-	{
-		var ui = JSON.parse(langs.replace(/\/\*[\s\S]+?\*\//g, ''));
-		settings('lang.ui', function(v){
-			ui.current = v.current;
-			return ui;
-		});
-	}
-});
+			ajax({
+				url: 'json/themes',
+				complete: function( json )
+				{
+					var themes = eval('('+ json +')');
+					settings('user.themes', function()
+					{
+						return [{
+							name: this.theme,
+							css: this.css
+						}].concat(themes);
+					}, true);
+					dfr.resolve();
+				}
+			});
+		}),
+		deferred(function( dfr )
+		{
+			ajax({
+				url: 'json/langs',
+				complete: function( langs )
+				{
+					var ui = JSON.parse(langs.replace(/\/\*[\s\S]+?\*\//g, ''));
+					settings('lang.ui', function(v){
+						ui.current = v.current;
+						return ui;
+					});
+					dfr.resolve();
+				}
+			});
+		})
+	).then(callback || function(){});
+	
+	return __;
+}();
 
 settings.follow('lang.from lang.to', function( value, prop, lang ){
 	XTranslate.updateButton(lang);
