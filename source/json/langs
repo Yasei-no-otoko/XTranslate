@@ -214,6 +214,18 @@
 			"en": "Reset global settings",
 			"ru": "Сбросить глобальные настройки",
 			"de": "Zurücksetzen der globalen Einstellungen"
+		},
+		{
+			"en": "Check for updates",
+			"ru": "Проверить наличие обновлений"
+		},
+		{
+			"en": "Check!",
+			"ru": "Проверить!"
+		},
+		{
+			"en": "You are using the latest version",
+			"ru": "Вы используете самую последнюю версию"
 		}
 	]
 }

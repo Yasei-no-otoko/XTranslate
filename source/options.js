@@ -1,27 +1,6 @@
 // @project XTranslate (options.js)
 // @url https://github.com/extensible/XTranslate  
 
-function $( selector, ctx ){
-	var nodes = [].slice.call((ctx || document).querySelectorAll(selector));
-	return nodes.length > 1 ? nodes : nodes.shift();
-}
-
-function parse( tmpl, data )
-{
-	return tmpl.replace(/\$\{([\w.]+)\}/g, function(S, prop)
-	{
-		var props = prop.split('.');
-		return function()
-		{
-			var value = data[ props.shift() ];
-			while( prop = props.shift() ){
-				value = value[prop];
-			}
-			return value;
-		}();
-	});
-}
-
 window.addEventListener('DOMContentLoaded', function( evt )
 {
 	var 
@@ -390,5 +369,77 @@ window.addEventListener('DOMContentLoaded', function( evt )
 		});
 	});
 	
+	$('button[name="check-updates"]').onclick = function()
+	{
+		var 
+			button = this,
+			block = button.parentNode,
+			loader = block.querySelector('img'),
+			latest = block.querySelector('.latest');
+			
+		button.disabled = true;
+		loader.style.display = '';
+		
+		checkUpdates(function( version, node )
+		{
+			loader.style.display = 'none';
+			button.removeAttribute('disabled');
+			node && (node.style.display = 'block');
+			version
+				? block.appendChild(node)
+				: (latest.style.display = 'block');
+		});
+	};
+	
 }, false);
 
+function checkUpdates( callback )
+{
+	var addons_url = 'https://addons.opera.com';
+	opera.extension.bgProcess.ajax(
+	{
+		url: addons_url + '/en/addons/extensions/details/xtranslate/'+ widget.version,
+		complete: function( response )
+		{
+			var 
+				data = [],
+				node = document.createElementNS('http://www.w3.org/1999/xhtml', 'div'),
+				content = response.match(/<body\s?.*?>([\s\S]+)<\/body>/i),
+				latest = 
+					content && 
+					(node.innerHTML = content[1]) && 
+					node.querySelector('.latest');
+			if( latest )
+			{
+				var 
+					a = latest.querySelector('a'),
+					url = addons_url + a.getAttribute('href'),
+					version = url.match(/\d(\.\d)+/).shift();
+				a.setAttribute('href', url);
+				data.push(version, latest);
+			}
+			callback.apply(this, data);
+		}
+	});
+}
+
+function $( selector, ctx ){
+	var nodes = [].slice.call((ctx || document).querySelectorAll(selector));
+	return nodes.length > 1 ? nodes : nodes.shift();
+}
+
+function parse( tmpl, data )
+{
+	return tmpl.replace(/\$\{([\w.]+)\}/g, function(S, prop)
+	{
+		var props = prop.split('.');
+		return function()
+		{
+			var value = data[ props.shift() ];
+			while( prop = props.shift() ){
+				value = value[prop];
+			}
+			return value;
+		}();
+	});
+}
