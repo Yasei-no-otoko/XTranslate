@@ -27,12 +27,12 @@
 		{
 			"en": "Straight after selecting a text",
 			"ru": "Сразу после выделения текста",
-			"de": "Direkt nach dem Auswählen des Textes"
+			"de": "direkt nach dem Auswählen des Textes"
 		},
 		{
 			"en": "After pressing hotkey",
 			"ru": "После нажатия сочетания горячих клавиш",
-			"de": "Nach Drücken von Tastenkombination"
+			"de": "nach Drücken von Tastenkombination"
 		},
 		{
 			"en": "Use button on the toolbar for translation",
@@ -83,7 +83,7 @@
 		{
 			"en": "noun",
 			"ru": "существительное",
-			"de": "hauptwort"
+			"de": "Hauptwort"
 		},
 		{
 			"en": "Word",
@@ -93,7 +93,7 @@
 		{
 			"en": "Theme",
 			"ru": "Тема",
-			"de": "Farbthema"
+			"de": "Farbschema"
 		},
 		{
 			"en": "Delete",
@@ -133,7 +133,7 @@
 		{
 			"en": "color",
 			"ru": "цвет",
-			"de": "farbe"
+			"de": "Farbe"
 		},
 		{
 			"en": "linear",
@@ -143,42 +143,42 @@
 		{
 			"en": "opacity",
 			"ru": "прозрачность",
-			"de": "deckkraft"
+			"de": "Deckkraft"
 		},
 		{
 			"en": "width",
 			"ru": "ширина",
-			"de": "breite"
+			"de": "Breite"
 		},
 		{
 			"en": "radius",
 			"ru": "скругление углов",
-			"de": "radius"
+			"de": "Radius"
 		},
 		{
 			"en": "size",
 			"ru": "размер",
-			"de": "größe"
+			"de": "Größe"
 		},
 		{
 			"en": "font",
 			"ru": "шрифт",
-			"de": "schrift"
+			"de": "Schrift"
 		},
 		{
 			"en": "shadow",
 			"ru": "тень",
-			"de": "schatten"
+			"de": "Schatten"
 		},
 		{
 			"en": "position",
 			"ru": "позиция",
-			"de": "position"
+			"de": "Position"
 		},
 		{
 			"en": "offset",
 			"ru": "смещение",
-			"de": "vorlauf"
+			"de": "Vorlauf"
 		},
 		{
 			"en": "not hide",
@@ -193,12 +193,12 @@
 		{
 			"en": "Special thanks to Google and Opera software",
 			"ru": "Отдельное спасибо команде Google и Opera software",
-			"de": "Besonderen dank an Google und Opera Software"
+			"de": "Besonderen Dank an Google und Opera Software"
 		},
 		{
 			"en": "Also you can visit my site",
 			"ru": "Также вы можете посетить мой сайт",
-			"de": "Besuche auch meine seite"
+			"de": "Besuchen Sie auch meine seite"
 		},
 		{
 			"en": "Caution",
@@ -208,12 +208,12 @@
 		{
 			"en": "Use the button below, if the extension doesn't work anymore after upgrading to new version",
 			"ru": "Используйте кнопку ниже, если расширение перестало работать после обновления на новую версию",
-			"de": "Verwenden sie die Schaltfläche unten, wenn die erweiterung nicht mehr funktioniert nach dem upgrade auf neue version"
+			"de": "Verwenden Sie folgende Schaltfläche, wenn die Erweiterung nach dem Upgrade auf die neuere Version nicht mehr funktioniert"
 		},
 		{
 			"en": "Reset global settings",
 			"ru": "Сбросить глобальные настройки",
-			"de": "Klare globalen Einstellungen"
+			"de": "Zurücksetzen der globalen Einstellungen"
 		}
 	]
 }
