@@ -14,7 +14,7 @@
 			"code": "ru"
 		},
 		{
-			"title": "German",
+			"title": "Deutsch",
 			"code": "de"
 		}
 	],
@@ -217,15 +217,18 @@
 		},
 		{
 			"en": "Check for updates",
-			"ru": "Проверить наличие обновлений"
+			"ru": "Проверить наличие обновлений",
+			"de": "Suche nach Updates"
 		},
 		{
 			"en": "Check!",
-			"ru": "Проверить!"
+			"ru": "Проверить!",
+			"de": "Suche!"
 		},
 		{
 			"en": "You are using the latest version",
-			"ru": "Вы используете самую последнюю версию"
+			"ru": "Вы используете самую последнюю версию",
+			"de": "Sie benutzen die neueste Version"
 		}
 	]
 }
