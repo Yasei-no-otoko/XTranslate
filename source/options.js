@@ -383,11 +383,9 @@ window.addEventListener('DOMContentLoaded', function( evt )
 		checkUpdates(function( version, node )
 		{
 			loader.style.display = 'none';
-			button.removeAttribute('disabled');
-			node && (node.style.display = 'block');
 			version
 				? block.appendChild(node)
-				: (latest.style.display = 'block');
+				: (latest.style.display = 'inline');
 		});
 	};
 	
