@@ -16,265 +16,219 @@
 		{
 			"title": "Deutsch",
 			"code": "de"
-		},
-		{
-			"title": "Türkçe",
-			"code": "tr"
 		}
 	],
 	"texts": [
 		{
 			"en": "Show translation results",
 			"ru": "Показывать результаты перевода",
-			"de": "Zeige Übersetzungsergebnisse",
-			"tr": "Çeviri sonuçlarını göster"
+			"de": "Zeige Übersetzungsergebnisse"
 		},
 		{
 			"en": "Straight after selecting a text",
 			"ru": "Сразу после выделения текста",
-			"de": "direkt nach dem Auswählen des Textes",
-			"tr": "Yazı seçildikten hemen sonra"
+			"de": "direkt nach dem Auswählen des Textes"
 		},
 		{
 			"en": "After pressing hotkey",
 			"ru": "После нажатия сочетания горячих клавиш",
-			"de": "nach Drücken von Tastenkombination",
-			"tr": "Kısayola bastıktan sonra"
+			"de": "nach Drücken von Tastenkombination"
 		},
 		{
 			"en": "Use button on the toolbar for translation",
 			"ru": "Использовать кнопку на панели инструментов для перевода",
-			"de": "Benutze Toolbar-Button zum Übersetzen",
-			"tr": "Çeviri için araç çubuğunda bir düğme göster"
+			"de": "Benutze Toolbar-Button zum Übersetzen"
 		},
 		{
 			"en": "Translation",
 			"ru": "Перевод",
-			"de": "Übersetzung",
-			"tr": "Çeviri"
+			"de": "Übersetzung"
 		},
 		{
 			"en": "Service",
 			"ru": "Сервис",
-			"de": "Service",
-			"tr": "Hizmet"
+			"de": "Service"
 		},
 		{
 			"en": "Direction",
 			"ru": "Направление",
-			"de": "Richtung",
-			"tr": "Yön"
+			"de": "Richtung"
 		},
 		{
 			"en": "Other",
 			"ru": "Другое",
-			"de": "Weiteres",
-			"tr": "Diğer"
+			"de": "Weiteres"
 		},
 		{
 			"en": "UI language",
 			"ru": "Язык интерфейса",
-			"de": "Sprache Benutzeroberfläche",
-			"tr": "Arabirim dili"
+			"de": "Sprache Benutzeroberfläche"
 	
 		},
 		{
 			"en": "Show a button on the toolbar",
 			"ru": "Отображать кнопку на панели инструментов",
-			"de": "Zeige Button auf der Symbolleiste",
-			"tr": "Araç çubuğunda bir düğme göster"
+			"de": "Zeige Button auf der Symbolleiste"
 		},
 		{
 			"en": "User styles (live preview)",
 			"ru": "Пользовательские стили (предпросмотр)",
-			"de": "Benutzerfarben (Live-Vorschau)",
-			"tr": "Kullanıcı stilleri (canlı önizleme)"
+			"de": "Benutzerfarben (Live-Vorschau)"
 		},
 		{
 			"en": "Translated text",
 			"ru": "Переведенный текст",
-			"de": "Übersetzter Text",
-			"tr": "Çevirilen yazı"
+			"de": "Übersetzter Text"
 		},
 		{
 			"en": "noun",
 			"ru": "существительное",
-			"de": "Hauptwort",
-			"tr": "ad"
+			"de": "Hauptwort"
 		},
 		{
 			"en": "Word",
 			"ru": "Слово",
-			"de": "Wort",
-			"tr": "Kelime"
+			"de": "Wort"
 		},
 		{
 			"en": "Theme",
 			"ru": "Тема",
-			"de": "Farbschema",
-			"tr": "Tema"
+			"de": "Farbschema"
 		},
 		{
 			"en": "Delete",
 			"ru": "Удалить",
-			"de": "Löschen",
-			"tr": "Sil"
+			"de": "Löschen"
 		},
 		{
 			"en": "Background",
 			"ru": "Фон",
-			"de": "Hintergrund",
-			"tr": "Arkaplan"
+			"de": "Hintergrund"
 		},
 		{
 			"en": "Border",
 			"ru": "Рамка",
-			"de": "Umrandung",
-			"tr": "Kenar"
+			"de": "Umrandung"
 		},
 		{
 			"en": "Text",
 			"ru": "Текст",
-			"de": "Text",
-			"tr": "Yazı"
+			"de": "Text"
 		},
 		{
 			"en": "Popup",
 			"ru": "Всплывающий блок",
-			"de": "Popup",
-			"tr": "Açılır pencere"
+			"de": "Popup"
 		},
 		{
 			"en": "Shadow",
 			"ru": "Тень",
-			"de": "Schatten",
-			"tr": "Gölge"
+			"de": "Schatten"
 		},
 		{
 			"en": "Save",
 			"ru": "Сохранить",
-			"de": "Speichern",
-			"tr": "Kaydet"
+			"de": "Speichern"
 		},
 		{
 			"en": "color",
 			"ru": "цвет",
-			"de": "Farbe",
-			"tr": "renk"
+			"de": "Farbe"
 		},
 		{
 			"en": "linear",
 			"ru": "линейный градиент",
-			"de": "verlaufend",
-			"tr": "doğrusal"
+			"de": "verlaufend"
 		},
 		{
 			"en": "opacity",
 			"ru": "прозрачность",
-			"de": "Deckkraft",
-			"tr": "doygunluk"
+			"de": "Deckkraft"
 		},
 		{
 			"en": "width",
 			"ru": "ширина",
-			"de": "Breite",
-			"tr": "genişlik"
+			"de": "Breite"
 		},
 		{
 			"en": "radius",
 			"ru": "скругление углов",
-			"de": "Radius",
-			"tr": "yarıçap"
+			"de": "Radius"
 		},
 		{
 			"en": "size",
 			"ru": "размер",
-			"de": "Größe",
-			"tr": "boyut"
+			"de": "Größe"
 		},
 		{
 			"en": "font",
 			"ru": "шрифт",
-			"de": "Schrift",
-			"tr": "yazıtipi"
+			"de": "Schrift"
 		},
 		{
 			"en": "shadow",
 			"ru": "тень",
-			"de": "Schatten",
-			"tr": "gölge"
+			"de": "Schatten"
 		},
 		{
 			"en": "position",
 			"ru": "позиция",
-			"de": "Position",
-			"tr": "konum"
+			"de": "Position"
 		},
 		{
 			"en": "offset",
 			"ru": "смещение",
-			"de": "Vorlauf",
-			"tr": "kayma"
+			"de": "Vorlauf"
 		},
 		{
 			"en": "not hide",
 			"ru": "не скрывать",
-			"de": "nicht verdecken",
-			"tr": "gizleme"
+			"de": "nicht verdecken"
 		},
 		{
 			"en": "inside",
 			"ru": "внутренняя",
-			"de": "innen",
-			"tr": "içinde"
+			"de": "innen"
 		},
 		{
 			"en": "Special thanks to Google and Opera software",
 			"ru": "Отдельное спасибо команде Google и Opera software",
-			"de": "Besonderen Dank an Google und Opera Software",
-			"tr": "Google ve Opera Software'e özel teşekkürler"
+			"de": "Besonderen Dank an Google und Opera Software"
 		},
 		{
 			"en": "Also you can visit my site",
 			"ru": "Также вы можете посетить мой сайт",
-			"de": "Besuchen Sie auch meine seite",
-			"tr": "Web sitemi ziyaret edebilirsin"
+			"de": "Besuchen Sie auch meine seite"
 		},
 		{
 			"en": "Caution",
 			"ru": "Внимание",
-			"de": "Achtung",
-			"tr": "Uyarı"
+			"de": "Achtung"
 		},
 		{
 			"en": "Use the button below, if the extension doesn't work anymore after upgrading to new version",
 			"ru": "Используйте кнопку ниже, если расширение перестало работать после обновления на новую версию",
-			"de": "Verwenden Sie folgende Schaltfläche, wenn die Erweiterung nach dem Upgrade auf die neuere Version nicht mehr funktioniert",
-			"tr": "Eğer eklenti güncelleme sonrası artık çalışmıyorsa aşağıdaki düğmeyi kullanın.
+			"de": "Verwenden Sie folgende Schaltfläche, wenn die Erweiterung nach dem Upgrade auf die neuere Version nicht mehr funktioniert"
 		},
 		{
 			"en": "Reset global settings",
 			"ru": "Сбросить глобальные настройки",
-			"de": "Zurücksetzen der globalen Einstellungen",
-			"tr": "Genel ayarları sıfırla"
+			"de": "Zurücksetzen der globalen Einstellungen"
 		},
 		{
 			"en": "Check for updates",
 			"ru": "Проверить наличие обновлений",
-			"de": "Suche nach Updates",
-			"tr": "Güncellemeler için denetle"
+			"de": "Suche nach Updates"
 		},
 		{
 			"en": "Check!",
 			"ru": "Проверить!",
-			"de": "Suche!",
-			"tr": "Denetle!"
+			"de": "Suche!"
 		},
 		{
 			"en": "You are using the latest version",
 			"ru": "Вы используете самую последнюю версию",
-			"de": "Sie benutzen die neueste Version",
-			"tr": "En son sürümü kullanıyorsunuz"
+			"de": "Sie benutzen die neueste Version"
 		}
 	]
 }
