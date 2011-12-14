@@ -1,13 +1,18 @@
 h3. XTranslate
 
+h3. Description
+
+*English*:
 The main goal of this extension is providing easy work in the web in different languages.
 All that you needed is get a text selection on the page and to press hotkey (Ctrl+Shift+X by default). After that, translated text immediately showing up beside.
 The extension already supporting "Google":http://translate.google.com/ and "Yandex":http://translate.yandex.ru/.
 
+*Русский*:
 Главная цель расширения - предоставление легкой работы с веб-страницами на разных языках.
 Всё что вам нужно это выделить текст на странице и нажать сочетание клавиш (Ctrl+Shift+X по-умолчанию). После этого, переведенный текст сразу появляется рядом.
 Расширение уже поддерживает Google и Yandex.
 
+*Türkçe*:
 Bu eklentinin temel amacı farklı dillerdeki web sayfalarında kolaylıkla çalışmayı sağlamaktır.
 Yapmanız gereken tüm şey web sayfasında biraz yazı seçmeniz ve kısayola basmanızdır (varsayılan olarak bu kısayol Ctrl+Shift+X). Sonrasında çevirilmiş yazı alt tarafta belirecektir.
 Eklenti Google ve Yandex destekli olarak gelmektedir.
