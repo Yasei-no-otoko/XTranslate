@@ -12,6 +12,11 @@ The extension already supporting "Google":http://translate.google.com/ and "Yand
 Всё что вам нужно это выделить текст на странице и нажать сочетание клавиш (Ctrl+Shift+X по-умолчанию). После этого, переведенный текст сразу появляется рядом.
 Расширение уже поддерживает Google и Yandex.
 
+*Deutsch*:
+Das Hauptziel dieser Erweiterung ist es, Webseiten in verschiedenen Sprachen betrachten zu können.
+Sie brauchen dazu nur einen Text auf einer Webseite zu markieren und dann eine Tastenkombination zu drücken (standardmäßig STRG+SHIFT+X). Sofort erscheint daneben der übersetzte Text.
+Diese Erweiterung unterstützt bereits Google und Yandex. 
+
 *Türkçe*:
 Bu eklentinin temel amacı farklı dillerdeki web sayfalarında kolaylıkla çalışmayı sağlamaktır.
 Yapmanız gereken tüm şey web sayfasında biraz yazı seçmeniz ve kısayola basmanızdır (varsayılan olarak bu kısayol Ctrl+Shift+X). Sonrasında çevirilmiş yazı alt tarafta belirecektir.
