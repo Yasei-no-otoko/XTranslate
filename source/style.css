@@ -70,6 +70,7 @@
 	.XTranslate_options input.hint { color:silver; }
 	.XTranslate_options div.error { color:red; text-align:center; }
 	.XTranslate_options .nobr { white-space:nowrap; }
+	.XTranslate_options label { cursor:pointer; }
 	
 
 
