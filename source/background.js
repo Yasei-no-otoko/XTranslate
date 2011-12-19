@@ -215,8 +215,8 @@ function userCSSDefault()
 			}
 		},
 		shadow: {
+			size: 10,
 			color: colors.bgc,
-			size: parseInt(css.boxShadow.split(' ').pop()),
 			inset: css.boxShadow.indexOf('inset') > -1
 		},
 		position: {
