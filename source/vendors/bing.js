@@ -9,10 +9,10 @@ XTranslate.vendors.add(
 	handler: function( text )
 	{
 		var 
-			api_url = 'http://api.microsofttranslator.com/V2/Ajax.svc/Translate',
-			app_id  = 'TgcvviSQpCimHXnDOpbbKHqNCdH0zAwItzpoEHnMh3h0*',
-			lang    = settings('lang'),
-			text    = encodeURIComponent(text);
+			id = 'C99C654F52B9010F7B789D98343831212B58CB34',
+			url = 'http://api.microsofttranslator.com/v2/ajax.svc/Translate',
+			lang = settings('lang'),
+			text = encodeURIComponent(text);
 		
 		// for bing's auto-detecting language we have to send empty string
 		lang.from == 'auto' && (lang.from = '');
@@ -20,12 +20,12 @@ XTranslate.vendors.add(
 		return deferred(function(dfr)
 		{
 			ajax({
-				url: api_url +'?'+ 
+				url: url +'?'+ 
 				[
-					'appId=' + app_id,
-					'text=' + text,
-					'from=' + lang.from,
-					'to=' + lang.to
+					'appId='+ id,
+					'text='+ text,
+					'from='+ lang.from,
+					'to='+ lang.to
 				].join('&'),
 				
 				complete: function( response )
