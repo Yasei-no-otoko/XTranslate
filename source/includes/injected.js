@@ -6,6 +6,7 @@ window.addEventListener('load', function()
 {
 	var 
 		top_level = window.top == window.self,
+		show_in_frame = window.innerWidth >= 200 && window.innerHeight >= 200,
 		port, settings, 
 		popup, selection;
 		
@@ -128,7 +129,7 @@ window.addEventListener('load', function()
 		evt.data.userCSS && popup.setAttribute('style', evt.data.userCSS);
 		
 		evt.data.html && (
-			top_level 
+			top_level || show_in_frame
 				? popup.show( evt.data.html ) 
 				: window.top.postMessage(
 				{
