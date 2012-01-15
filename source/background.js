@@ -72,6 +72,15 @@ var configure = function __( callback )
 	return __;
 }();
 
+var images = {};
+ajax({
+	binary: true,
+	url: 'icons/volume.png',
+	complete: function(){
+		images.volume = this.dataURL; // base64
+	}
+});
+
 settings.follow('lang.from lang.to', function( value, prop, lang ){
 	XTranslate.updateButton(lang);
 });
@@ -170,8 +179,10 @@ opera.extension.addEventListener('connect', function(evt)
 opera.extension.addEventListener('message', function(evt)
 {
 	try {
-		var receivedData = XTranslate.vendors.current.handler(evt.data);
-		when( receivedData ).then(function( data ) {
+		var 
+			text = String(evt.data),
+			ready = XTranslate.vendors.current.handler( text );
+		when( ready ).then(function( data ) {
 			evt.source.postMessage(data);
 		});
 	}

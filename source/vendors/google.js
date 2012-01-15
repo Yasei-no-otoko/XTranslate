@@ -10,7 +10,15 @@ XTranslate.vendors.add(
 	{
 		var 
 			vendor = this,
-			lang = settings('lang');
+			lang = settings('lang'),
+			text = encodeURIComponent(text),
+			sound_url = this.url + 
+			[
+				'/translate_tts?ie=UTF-8',
+				'&tl='+ lang.from,
+				'&q='+ text
+			].join('');
+			
 		return deferred(function(dfr)
 		{
 			ajax({
@@ -19,7 +27,7 @@ XTranslate.vendors.add(
 					'&sl='+ lang.from,
 					'&hl='+ lang.to,
 					'&tl='+ lang.to,
-					'&text='+ encodeURIComponent(text)
+					'&text='+ text
 				].join(''),
 				
 				complete: function( response )
@@ -34,9 +42,13 @@ XTranslate.vendors.add(
 					var html = [
 						'<div class="XTranslate_result Powered_by_Google" title="Translated from '+ lang.name +' ('+ data[2] +')">',
 							'<div class="XTranslate_result_main">',
-								data[0].map(function( line ){
-									return line.shift();
-								}).join(''),
+								'<span class="XTranslate_sound">',
+									'<img src="'+ images.volume +'" data-url="'+ sound_url +'" class="XTranslate_sound_play" alt="" />',
+									'<embed width="1" height="1"></embed>',
+								'</span>',
+								data[0].map(function( line ){ return line.shift() })
+								.join('')
+								.replace(/</g, '&lt;'),
 							 '</div>',
 							function()
 							{

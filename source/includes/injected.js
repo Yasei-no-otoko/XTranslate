@@ -2,7 +2,7 @@
 // @url https://github.com/extensible/XTranslate 
 
 document.toString() == '[object HTMLDocument]' && 
-window.addEventListener('load', function()
+window.addEventListener('DOMContentLoaded', function()
 {
 	var 
 		top_level = window.top == window.self,
@@ -106,7 +106,15 @@ window.addEventListener('load', function()
 				popup = document.createElementNS('http://www.w3.org/1999/xhtml', 'div');
 				popup.className = 'XTranslate';
 				popup.padding = 5;
-				popup.onclick = function( evt ){ evt.stopPropagation() }
+				popup.onclick = function( evt )
+				{
+					var elem = evt.target, sound;
+					if( elem.className == 'XTranslate_sound_play' ) {
+						sound = elem.parentNode.querySelector('embed, object');
+						sound.src = sound.data = elem.getAttribute('data-url');
+					}
+					evt.stopPropagation();
+				};
 	
 				popup.css = css;
 				popup.show = showPopup;
@@ -182,7 +190,7 @@ window.addEventListener('load', function()
 		
 		evt.ctrlKey && key.push('Ctrl');
 		evt.shiftKey && key.push('Shift');
-		evt.which && key.push(String.fromCharCode(evt.which));
+		evt.which && key.push( String.fromCharCode(evt.which).toUpperCase() );
 		
 		settings.trigger.hotkey == key.join('+') &&
 		settings.trigger.type == evt.type && (

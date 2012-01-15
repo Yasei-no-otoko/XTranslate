@@ -32,7 +32,7 @@ XTranslate.vendors.add(
 				{
 					var html = [
 						'<div class="XTranslate_result Powered_by_Bing">',
-							JSON.parse(response),
+							String(JSON.parse(response)).replace(/</g, '&lt;'),
 						'</div>'
 					].join('');
 					

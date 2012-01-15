@@ -6,6 +6,7 @@
 /* Popup */
 	.XTranslate * { margin:0; padding:0; line-height:inherit; color:inherit; font:inherit; border:none; outline:none; width:auto; height:auto; }
 	.XTranslate {
+		width: auto;
 		position:fixed;
 		left:0;
 		top:0;
@@ -41,6 +42,19 @@
 	.XTranslate_wordtype dd {
 		padding-left:2em;
 	}
+	.XTranslate_sound img {
+		background: white;
+		padding: 3px;
+		border-radius: 20px;
+		opacity: .6;
+		cursor: pointer;
+		display: inline-block;
+		vertical-align:middle;
+		margin-right:5px;
+	}
+	.XTranslate_sound img:hover { opacity:1; }
+	.XTranslate_sound object,
+	.XTranslate_sound embed { position:absolute; visibility:hidden; }
 
 /* Options */
 	.XTranslate_body .hidden { display:none; }

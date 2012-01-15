@@ -21,7 +21,7 @@ XTranslate.vendors.add(
 				{
 					var html = [
 						'<div class="XTranslate_result Powered_by_Yandex">',
-							this.responseXML.documentElement.textContent,
+							this.responseXML.documentElement.textContent.replace(/</g, '&lt;'),
 						'</div>'
 					].join('');
 					

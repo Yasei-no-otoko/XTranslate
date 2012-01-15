@@ -203,7 +203,7 @@ window.addEventListener('DOMContentLoaded', function( evt )
 		{
 			if( evt.ctrlKey ) {
 				evt.shiftKey && key.push('Shift');
-				code && key.push(String.fromCharCode(code));
+				code && key.push( String.fromCharCode(code).toUpperCase() );
 			}
 			
 			if( key.length > 1 ){
