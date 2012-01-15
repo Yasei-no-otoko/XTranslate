@@ -9,8 +9,8 @@ function ajax(opt) {
 		url 		= opt.url || location.href,
 		method 		= opt.method || 'GET',
 		complete 	= opt.complete || function(){},
-		type 		= opt.type || 'text/plain';
-		binary 		= opt.binary || false;
+		type 		= opt.type || 'text/plain',
+		binary 		= opt.binary || false,
 		data 		= opt.data ? encodeURIComponent(opt.data) : null;
 	
 	xhr.open(method, url, async);

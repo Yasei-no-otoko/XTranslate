@@ -6,7 +6,7 @@ function observable( name, defvalue )
 	var storage = widget.preferences;
 	
 	if( typeof defvalue == 'object' ){
-		storage[name] = JSON.stringify(defvalue);
+		storage[name] = JSON.stringify(defvalue, null, 3);
 	}
 	
 	var obs = function __( chain, value, if_not_defined )
@@ -51,7 +51,7 @@ function observable( name, defvalue )
 							}
 						}
 						
-						storage[name] = JSON.stringify(obj);
+						storage[name] = JSON.stringify(obj, null, 3);
 						
 						if( __.subscribes[chain] ){
 							__.subscribes[chain].forEach(function( callback ){

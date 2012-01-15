@@ -75,6 +75,7 @@ var configure = function __( callback )
 var images = {};
 ajax({
 	binary: true,
+	type: 'image/png',
 	url: 'icons/volume.png',
 	complete: function(){
 		images.volume = this.dataURL; // base64
