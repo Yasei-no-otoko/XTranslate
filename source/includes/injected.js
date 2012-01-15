@@ -110,10 +110,13 @@ document.toString() == '[object HTMLDocument]' && function()
 					popup.padding = 5;
 					popup.onclick = function( evt )
 					{
-						var elem = evt.target, sound;
-						if( elem.className == 'XTranslate_sound_play' ) {
-							sound = elem.parentNode.querySelector('embed, object');
-							sound.src = sound.data = elem.getAttribute('data-url');
+						var elem = evt.target;
+						if( elem.className == 'XTranslate_sound_play' )
+						{
+							port.postMessage({
+								action: "get-sound",
+								url: elem.getAttribute('data-url')
+							});
 						}
 						evt.stopPropagation();
 					};
@@ -132,6 +135,11 @@ document.toString() == '[object HTMLDocument]' && function()
 				
 				case 'translate':
 					handleSelection(evt);
+				break;
+				
+				case 'audio':
+					var sound = popup.querySelector('object, embed');
+					sound.src = sound.data = evt.data.track;
 				break;
 			}
 	

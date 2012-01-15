@@ -44,7 +44,7 @@ XTranslate.vendors.add(
 							'<div class="XTranslate_result_main">',
 								'<span class="XTranslate_sound">',
 									'<img src="'+ images.volume +'" data-url="'+ sound_url +'" class="XTranslate_sound_play" alt="" />',
-									'<embed width="1" height="1"></embed>',
+									'<object width="1" height="1"></object>',
 								'</span>',
 								data[0].map(function( line ){ return line.shift() })
 								.join('')
@@ -91,6 +91,25 @@ XTranslate.vendors.add(
 					}
 				});
 			}
+		});
+	},
+	
+	'get-sound': function( params )
+	{
+		return deferred(function(dfr)
+		{
+			ajax({
+				url: params.url + '&t='+ Date.now(),
+				binary: true,
+				type: 'audio/mpeg',
+				complete: function()
+				{
+					dfr.resolve({
+						action: 'audio',
+						track: this.dataURL // base64
+					});
+				}
+			});
 		});
 	}
 });

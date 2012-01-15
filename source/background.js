@@ -181,11 +181,12 @@ opera.extension.addEventListener('message', function(evt)
 {
 	try {
 		var 
-			text = String(evt.data),
-			ready = XTranslate.vendors.current.handler( text );
-		when( ready ).then(function( data ) {
-			evt.source.postMessage(data);
-		});
+			params = evt.data,
+			handler = params.action || 'handler';
+		when( XTranslate.vendors.current[ handler ]( params ) )
+			.then(function( data ) {
+				evt.source.postMessage(data)
+			});
 	}
 	catch(e){
 		opera.postError(e)
