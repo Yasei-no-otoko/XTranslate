@@ -12,11 +12,12 @@ XTranslate.vendors.add(
 			vendor = this,
 			lang = settings('lang'),
 			text = encodeURIComponent(text),
+			sound_lang = lang.from != 'auto' ? lang.from : '',
 			sound_url = this.url + 
 			[
 				'/translate_tts?ie=UTF-8',
-				'&tl='+ lang.from,
-				'&q='+ text
+				'&q='+ text,
+				'&tl='+ sound_lang
 			].join('');
 			
 		return deferred(function(dfr)
@@ -34,10 +35,13 @@ XTranslate.vendors.add(
 				{
 					var 
 						data = eval('('+ response +')'),
-						detected = data[2].split('-').shift(),
+						lang_iso_detected = data[2],
 						lang = vendor.langs.filter(function( lang ){
-							return lang.iso == detected;
+							return lang.iso == lang_iso_detected;
 						}).shift() || {};
+					
+					// add language iso-value, if lang.from is auto
+					!sound_lang && (sound_url += lang.iso);
 					
 					var html = [
 						'<div class="XTranslate_result Powered_by_Google" title="Translated from '+ lang.name +' ('+ data[2] +')">',
@@ -69,7 +73,8 @@ XTranslate.vendors.add(
 					
 					dfr.resolve({
 						html: html,
-						response: response
+						response: response,
+						json: JSON.stringify(data, null, 5)
 					});
 				}
 			});
