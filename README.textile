@@ -5,7 +5,11 @@ h3. Description
 *English*:
 The main goal of this extension is providing easy work in the web in different languages.
 All that you needed is get a text selection on the page and to press hotkey (Ctrl+Shift+X by default). After that, translated text immediately showing up beside.
-The extension already supports "Google":http://translate.google.com/ and "Yandex":http://translate.yandex.ru/.
+
+The extension already supports:
+* "Google":http://translate.google.com/
+* "Bing":http://www.microsofttranslator.com/
+* "Yandex":http://translate.yandex.ru/.
 
 *Русский*:
 Главная цель расширения - предоставление легкой работы с веб-страницами на разных языках.
