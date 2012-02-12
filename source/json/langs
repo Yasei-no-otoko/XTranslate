@@ -322,11 +322,11 @@
 			"tr": "En son sürümü kullanıyorsunuz",
 			"pl": "Używasz najnowszej wersji"
 		},
-        {
-        	"en": "Show the sound-icon of voice translation",
-            "ru": "Показывать иконку для голосового перевода",
-            "de": "Zeige Lautsprechersymbol für Sprachausgabe"
-        }
+		{
+			"en": "Show the sound-icon of voice translation",
+			"ru": "Показывать иконку для голосового перевода",
+			"de": "Zeige Lautsprechersymbol für Sprachausgabe"
+		}
 	]
 }
 
