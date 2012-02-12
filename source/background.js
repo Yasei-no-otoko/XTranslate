@@ -33,6 +33,9 @@ var configure = function __( callback )
 		}
 	}, true);
 	
+	// last updates
+	settings('button.voice', 'visible', true);
+	
 	when(
 		deferred(function( dfr )
 		{

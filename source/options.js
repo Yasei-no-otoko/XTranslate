@@ -102,24 +102,45 @@ window.addEventListener('DOMContentLoaded', function( evt )
 	
 	var updateLangs = function __()
 	{
-		var options = '';
+		var 
+			options = '',
+			from = $('select[name="lang.from"]'),
+			to = $('select[name="lang.to"]');
 		
 		vendors.current.langs.forEach(function( lang ){
 			options += parse('<option value="${iso}">${name}</option>', lang);
 		});
 		
-		$('select[name="lang.from"], select[name="lang.to"]').forEach(function( elem )
+		[from, to].forEach(function( elem )
 		{
 			var value = bg.settings(elem.name);
 			elem.innerHTML = options;
 			elem.value = value;
 			elem.value != value && bg.settings(elem.name, elem.value); // fix, if lang not exists (when we change vendor)
-			elem.name == 'lang.to' && function()
-			{
-				var auto = $('option[value="auto"]', elem);
-				auto && elem.removeChild(auto);
-			}();
 			updateIcon(elem);
+		});
+		
+		// remove auto from "lang.to" if exists
+		var auto = $('option[value="auto"]', to);
+		auto && to.removeChild(auto);
+		
+		// fixes when languages are the same
+		if( from.value == to.value )
+		{
+			var next = to[to.selectedIndex + 1];
+			next && (
+				next.selected = true,
+				bg.settings(to.name, to.value),
+				updateIcon(to)
+			);
+		}
+		
+		// lock mirror language
+		[
+			$('option[value="'+ to.value +'"]', from),
+			$('option[value="'+ from.value +'"]', to)
+		].forEach(function( option ){
+			if( option ) option.disabled = true;
 		});
 		
 		return __;
@@ -182,12 +203,28 @@ window.addEventListener('DOMContentLoaded', function( evt )
 		});
 		
 		this.name == 'vendor' && updateLangs();
-		this.name.match(/lang\.(from|to)/) && updateIcon(this);
 		this.name.match(/user\.css/) && function()
 		{
 			bg.settings('user.theme', '');
 			$('select[name="user.theme"]').value = '';
 		}();
+		
+		// update the icon and disabling translation from same to same
+		if( this.name.match(/lang\.(from|to)/) )
+		{
+			var 
+				list = ['lang.to', 'lang.from'],
+				active = list.splice(list.indexOf(this.name), 1),
+				passive = list.shift();
+			
+			$('select[name="'+ passive +'"] option').forEach(function( elem )
+			{
+				elem.value == value
+					? (elem.disabled = true)
+					: elem.removeAttribute('disabled')
+			});
+			updateIcon(this);
+		}
 		
 		preview();
 	}

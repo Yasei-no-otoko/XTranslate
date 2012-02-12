@@ -18,7 +18,8 @@ XTranslate.vendors.add(
 				'/translate_tts?ie=UTF-8',
 				'&q='+ text,
 				'&tl='+ sound_lang
-			].join('');
+			].join(''),
+			sound_display = ! settings('button.voice') ? 'display:none' : '';
 			
 		return deferred(function(dfr)
 		{
@@ -46,7 +47,7 @@ XTranslate.vendors.add(
 					var html = [
 						'<div class="XTranslate_result Powered_by_Google" title="Translated from '+ lang.name +' ('+ data[2] +')">',
 							'<div class="XTranslate_result_main">',
-								'<span class="XTranslate_sound">',
+								'<span class="XTranslate_sound" style="'+ sound_display +'">',
 									'<img src="'+ images.volume +'" data-url="'+ sound_url +'" class="XTranslate_sound_play" alt="" />',
 									'<object width="1" height="1"></object>',
 								'</span>',

@@ -49,7 +49,7 @@
 			"pl": "Po naciśnięciu skrótu"
 		},
 		{
-			"en": "Use button on the toolbar for translation",
+			"en": "Use the button on the toolbar for translation",
 			"ru": "Использовать кнопку на панели инструментов для перевода",
 			"de": "Benutze Toolbar-Button zum Übersetzen",
 			"tr": "Çeviri için araç çubuğunda bir düğme göster",
@@ -92,7 +92,7 @@
 	
 		},
 		{
-			"en": "Show a button on the toolbar",
+			"en": "Show the button on the toolbar",
 			"ru": "Отображать кнопку на панели инструментов",
 			"de": "Zeige Button auf der Symbolleiste",
 			"tr": "Araç çubuğunda bir düğme göster",
@@ -321,7 +321,11 @@
 			"de": "Sie benutzen die neueste Version",
 			"tr": "En son sürümü kullanıyorsunuz",
 			"pl": "Używasz najnowszej wersji"
-		}
+		},
+        {
+        	"en": "Show the sound-icon of voice translation",
+            "ru": "Показывать иконку для голосового перевода"
+        }
 	]
 }
 

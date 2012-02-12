@@ -10,7 +10,7 @@ document.toString() == '[object HTMLDocument]' && function()
 			top_level = window.top == window.self,
 			show_in_frame = window.innerWidth >= 200 && window.innerHeight >= 200,
 			port, settings, 
-			popup, selection;
+			popup, selection, overnode;
 			
 		function extend( source )
 		{
@@ -31,27 +31,46 @@ document.toString() == '[object HTMLDocument]' && function()
 		
 		function handleSelection( evt )
 		{
-			selection = window.getSelection();
-			
-			var text = selection.toString().trim();
-			if( text )
+			var 
+				type = evt.type,
+				text, range;
+			(
+				type == settings.trigger.type || 
+				(type == 'message' && settings.button.trigger)
+			) && function()
 			{
-				(
-					evt.type == settings.trigger.type || 
-					(evt.type == 'message' && settings.button.trigger)
-				) && 
-				popup.compareDocumentPosition(selection.anchorNode) !== (
-					document.DOCUMENT_POSITION_FOLLOWING | 
-					document.DOCUMENT_POSITION_CONTAINED_BY
-				) &&
-				port.postMessage(
-					text
-						.replace(/(\n\s+){2,}/g, '\n\n')
-						.replace(/^.*$/gm, function( line ){
-							return line.trim()
-						})
-				);
-			}
+				selection = window.getSelection();
+				
+				// make selection the children of the last mouseover-ed node
+				var auto_select = selection.rangeCount == 0 && type == 'keypress';
+				if( auto_select && overnode )
+				{
+					overnode.nodeName.match(/input|textarea/i)
+						? (
+							text = overnode.value,
+							range = document.createRange(),
+							range.selectNode( overnode ),
+							selection.addRange( range )
+						)
+						: selection.selectAllChildren( overnode );
+				}
+				
+				text = text || String(selection).trim();
+				if( text )
+				{
+					popup.compareDocumentPosition(selection.anchorNode) !== (
+						document.DOCUMENT_POSITION_FOLLOWING | 
+						document.DOCUMENT_POSITION_CONTAINED_BY
+					) &&
+					port.postMessage(
+						text
+							.replace(/(\n\s+){2,}/g, '\n\n')
+							.replace(/^.*$/gm, function( line ){
+								return line.trim()
+							})
+					);
+				}
+			}();
 		}
 		
 		function showPopup( html, position )
@@ -84,13 +103,15 @@ document.toString() == '[object HTMLDocument]' && function()
 				popup_size = {
 					width: popup.offsetWidth,
 					height: popup.offsetHeight
+				},
+				offset = {
+					x: pos.left + popup_size.width - win_size.width,
+					y: pos.bottom + popup_size.height - win_size.height,
+					padding: settings.user.css.position.offset
 				};
-			if( pos.left + popup_size.width > win_size.width ) {
-				popup.css('marginLeft', -popup_size.width + 'px')
-			}
-			if( pos.bottom + popup_size.height > win_size.height ) {
-				popup.css('marginTop', -(popup_size.height + pos.height ) + 'px')
-			}
+			
+			offset.x > 0 && popup.css('marginLeft', -(offset.x + offset.padding) + 'px');
+			offset.y > 0 && popup.css('marginTop', -(offset.y + offset.padding) + 'px');
 		}
 		
 		function hidePopup() {
@@ -213,7 +234,10 @@ document.toString() == '[object HTMLDocument]' && function()
 		window.addEventListener('keyup', function( evt ){
 			evt.which == 27 && hidePopup(evt); // <ESCAPE>-key
 		}, false);
-		
+
+		window.addEventListener('mouseover', function( evt ) {
+			overnode = evt.target;
+		}, false);
 		
 	}, false);
 	
