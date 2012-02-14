@@ -325,7 +325,9 @@
 		{
 			"en": "Show the sound-icon of voice translation",
 			"ru": "Показывать иконку для голосового перевода",
-			"de": "Zeige Lautsprechersymbol für Sprachausgabe"
+			"de": "Zeige Lautsprechersymbol für Sprachausgabe",
+			"tr": "Sesli çeviri için bir simge göster",
+			"pl": "Pokaż ikonę tłumaczenia głosowego"
 		}
 	]
 }
