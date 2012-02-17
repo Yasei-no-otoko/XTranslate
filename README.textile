@@ -27,6 +27,11 @@ Yapmanız gereken tüm şey web sayfasında biraz yazı seçmeniz ve kısayola b
 Głównym zadaniem rozszerzenia jest zapewnienie łatwego przeglądania stron w różnych językach.
 Wszystko, co trzeba zrobić to zaznaczyć tekst na stronie i nacisnąć skrót klawiszowy (domyślnie jest to Ctrl + Shift + X). Następnie przetłumaczony tekst pokaże się obok.
 
+*日本語*:
+このエクステンションを提供する目的は違う言語で書かれたWebを見るのを簡単にすることです。
+必要な時にはページ上でテキストを選択してホットキー（標準ではCtrl+Shift+X)を押してください。
+そうすればすぐに翻訳済みのテキストが現れます。
+
 h3. Install
 
 Download and execute *.oex-file from "Github":/extensible/XTranslate/tree/master/releases or "Opera":https://addons.opera.com/en/addons/extensions/details/xtranslate/
