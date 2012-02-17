@@ -57,14 +57,20 @@
 	.XTranslate_sound embed { position:absolute; visibility:hidden; }
 
 /* Options */
-	.XTranslate_body .hidden { display:none; }
-	.XTranslate_body { text-align:center; }
-	.XTranslate_options { position:relative; display:inline-block; text-align:left; max-width:380px; font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "Meiryo UI", "MS UI Gothic", "VL ゴシック","VL Gothic", "Times New Roman"}
+	.XTranslate_options, 
 	.XTranslate_options h1,
 	.XTranslate_options input,
 	.XTranslate_options button,
 	.XTranslate_options select,
-	.XTranslate_options textarea { font:16px "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "Meiryo UI", "MS UI Gothic", "VL ゴシック","VL Gothic", "Times New Roman", Times, serif; }
+	.XTranslate_options textarea {
+		font: small 
+			"Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "Meiryo UI", "MS UI Gothic", "VL ゴシック", "VL Gothic", 
+			Verdana, Geneva, sans-serif;
+	}
+
+	.XTranslate_body .hidden { display:none; }
+	.XTranslate_body { text-align:center; }
+	.XTranslate_options { position:relative; display:inline-block; text-align:left; max-width:380px; }
 	.XTranslate_options h1 { font-weight:bold; min-height:20px; }
 	.XTranslate_options h1 span { font-weight:normal; font:10px Arial, Helvetica, sans-serif; }
 	.XTranslate_options .popup_demo { position:static; display:inline-block; margin:1em 0 !important; }
@@ -73,6 +79,7 @@
 	.XTranslate_options .user-css > * > *:first-child { padding-right:10px; }
 	.XTranslate_options .user-css > * > * { display:table-cell; padding-bottom:10px; }
 	.XTranslate_options > dl { display:block; padding:1em; border:1px solid silver; border-radius:10px; }
+	.XTranslate_options > dl > dt { font-weight:bold; }
 	.XTranslate_options > dl > dd,
 	.XTranslate_options .content { margin:0; padding-left:20px; }
 	.XTranslate_options .content > * { vertical-align:middle; }
