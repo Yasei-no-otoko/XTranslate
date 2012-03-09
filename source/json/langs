@@ -28,6 +28,10 @@
 		{
 			"title": "日本語",
 			"code": "ja"
+		},
+		{
+			"title": "Español",
+			"code": "es"
 		}
 	],
 	"texts": [
@@ -37,7 +41,8 @@
 			"de": "Zeige Übersetzungsergebnisse",
 			"tr": "Çeviri sonuçlarını göster",
 			"pl": "Pokaż tłumaczenie",
-			"ja": "翻訳結果の表示"
+			"ja": "翻訳結果の表示",
+			"es": "Mostrar resultados de traducción"
 		},
 		{
 			"en": "Straight after selecting a text",
@@ -45,7 +50,8 @@
 			"de": "direkt nach dem Auswählen des Textes",
 			"tr": "Yazı seçildikten hemen sonra",
 			"pl": "Po zaznaczeniu tekstu",
-			"ja": "テキストを選択した直後"
+			"ja": "テキストを選択した直後",
+			"es": "Justo después de seleccionar un texto"
 		},
 		{
 			"en": "After pressing hotkey",
@@ -53,7 +59,8 @@
 			"de": "nach Drücken von Tastenkombination",
 			"tr": "Kısayola bastıktan sonra",
 			"pl": "Po naciśnięciu skrótu",
-			"ja": "ホットキーを押した時"
+			"ja": "ホットキーを押した時",
+			"es": "Después de presionar una hotkey"
 		},
 		{
 			"en": "Use the button on the toolbar for translation",
@@ -61,7 +68,8 @@
 			"de": "Benutze Toolbar-Button zum Übersetzen",
 			"tr": "Çeviri için araç çubuğunda bir düğme göster",
 			"pl": "Za pomocą przycisku na pasku narzędzi",
-			"ja": "ツールバーのボタンで翻訳する"
+			"ja": "ツールバーのボタンで翻訳する",
+			"es": "Usar el botón de la barra para traducir"
 		},
 		{
 			"en": "Translation",
@@ -69,7 +77,8 @@
 			"de": "Übersetzung",
 			"tr": "Çeviri",
 			"pl": "Tłumaczenie",
-			"ja": "翻訳"
+			"ja": "翻訳",
+			"es": "Traducción"
 		},
 		{
 			"en": "Service",
@@ -77,7 +86,8 @@
 			"de": "Service",
 			"tr": "Hizmet",
 			"pl": "Za pomocą",
-			"ja": "サービス"
+			"ja": "サービス",
+			"es": "Servicio"
 		},
 		{
 			"en": "Direction",
@@ -85,7 +95,8 @@
 			"de": "Richtung",
 			"tr": "Yön",
 			"pl": "Z języka",
-			"ja": "方向"
+			"ja": "方向",
+			"es": "Dirección"
 		},
 		{
 			"en": "Other",
@@ -93,7 +104,8 @@
 			"de": "Weiteres",
 			"tr": "Diğer",
 			"pl": "Inne",
-			"ja": "その他"
+			"ja": "その他",
+			"es": "Otros"
 		},
 		{
 			"en": "UI language",
@@ -101,7 +113,8 @@
 			"de": "Sprache Benutzeroberfläche",
 			"tr": "Arabirim dili",
 			"pl": "Język interfejsu",
-			"ja": "この画面の言語"
+			"ja": "この画面の言語",
+			"es": "Idioma de UI"
 	
 		},
 		{
@@ -110,7 +123,8 @@
 			"de": "Zeige Button auf der Symbolleiste",
 			"tr": "Araç çubuğunda bir düğme göster",
 			"pl": "Pokaż przycisk na pasku narzędzi",
-			"ja": "ボタンをツールバーに表示する"
+			"ja": "ボタンをツールバーに表示する",
+			"es": "Mostrar el botón en la barra"
 		},
 		{
 			"en": "User styles (live preview)",
@@ -118,7 +132,8 @@
 			"de": "Benutzerfarben (Live-Vorschau)",
 			"tr": "Kullanıcı stilleri (canlı önizleme)",
 			"pl": "Styl użytkownika(podgląd na żywo)",
-			"ja": "ユーザースタイル(ライブプレビュー)"
+			"ja": "ユーザースタイル(ライブプレビュー)",
+			"es": "Usar estilos (vista previa en directo)"
 		},
 		{
 			"en": "Translated text",
@@ -126,7 +141,8 @@
 			"de": "Übersetzter Text",
 			"tr": "Çevirilen yazı",
 			"pl": "Przetłumaczony tekst",
-			"ja": "翻訳されたテキスト"
+			"ja": "翻訳されたテキスト",
+			"es": "Texto traducido"
 		},
 		{
 			"en": "noun",
@@ -134,7 +150,8 @@
 			"de": "Hauptwort",
 			"tr": "ad",
 			"pl": "rzeczownik",
-			"ja": "名詞"
+			"ja": "名詞",
+			"es": "sustantivo"
 		},
 		{
 			"en": "Word",
@@ -142,7 +159,8 @@
 			"de": "Wort",
 			"tr": "Kelime",
 			"pl": "Słowo",
-			"ja": "意味"
+			"ja": "意味",
+			"es": "Palabra"
 		},
 		{
 			"en": "Theme",
@@ -150,7 +168,8 @@
 			"de": "Farbschema",
 			"tr": "Tema",
 			"pl": "Temat",
-			"ja": "テーマ"
+			"ja": "テーマ",
+			"es": "Tema"
 		},
 		{
 			"en": "Delete",
@@ -158,7 +177,8 @@
 			"de": "Löschen",
 			"tr": "Sil",
 			"pl": "Usuń",
-			"ja": "削除"
+			"ja": "削除",
+			"es": "Eliminar"
 		},
 		{
 			"en": "Background",
@@ -166,7 +186,8 @@
 			"de": "Hintergrund",
 			"tr": "Arkaplan",
 			"pl": "Tło",
-			"ja": "背景"
+			"ja": "背景",
+			"es": "Fondo"
 		},
 		{
 			"en": "Border",
@@ -174,7 +195,8 @@
 			"de": "Umrandung",
 			"tr": "Kenar",
 			"pl": "Obramówka",
-			"ja": "枠線"
+			"ja": "枠線",
+			"es": "Borde"
 		},
 		{
 			"en": "Text",
@@ -182,7 +204,8 @@
 			"de": "Text",
 			"tr": "Yazı",
 			"pl": "Tekst",
-			"ja": "テキスト"
+			"ja": "テキスト",
+			"es": "Texto"
 		},
 		{
 			"en": "Popup",
@@ -190,7 +213,8 @@
 			"de": "Popup",
 			"tr": "Açılır pencere",
 			"pl": "Popup",
-			"ja": "ポップアップ"
+			"ja": "ポップアップ",
+			"es": "Popup"
 		},
 		{
 			"en": "Shadow",
@@ -198,7 +222,8 @@
 			"de": "Schatten",
 			"tr": "Gölge",
 			"pl": "Cień",
-			"ja": "シャドウ"
+			"ja": "シャドウ",
+			"es": "Sombra"
 		},
 		{
 			"en": "Save",
@@ -206,7 +231,8 @@
 			"de": "Speichern",
 			"tr": "Kaydet",
 			"pl": "Zapisz",
-			"ja": "保存"
+			"ja": "保存",
+			"es": "Guardar"
 		},
 		{
 			"en": "color",
@@ -214,7 +240,8 @@
 			"de": "Farbe",
 			"tr": "renk",
 			"pl": "kolor",
-			"ja": "色"
+			"ja": "色",
+			"es": "color"
 		},
 		{
 			"en": "linear",
@@ -222,7 +249,8 @@
 			"de": "verlaufend",
 			"tr": "doğrusal",
 			"pl": "gradient liniowy",
-			"ja": "線形グラデーション"
+			"ja": "線形グラデーション",
+			"es": "lineal"
 		},
 		{
 			"en": "opacity",
@@ -230,7 +258,8 @@
 			"de": "Deckkraft",
 			"tr": "doygunluk",
 			"pl": "przezroczystość",
-			"ja": "不透明度"
+			"ja": "不透明度",
+			"es": "opacidad"
 		},
 		{
 			"en": "width",
@@ -238,7 +267,8 @@
 			"de": "Breite",
 			"tr": "genişlik",
 			"pl": "szerokość",
-			"ja": "幅"
+			"ja": "幅",
+			"es": "ancho"
 		},
 		{
 			"en": "radius",
@@ -246,7 +276,8 @@
 			"de": "Radius",
 			"tr": "yarıçap",
 			"pl": "zaokrąglanie rogów",
-			"ja": "半径"
+			"ja": "半径",
+			"es": "radio"
 		},
 		{
 			"en": "size",
@@ -254,7 +285,8 @@
 			"de": "Größe",
 			"tr": "boyut",
 			"pl": "rozmiar",
-			"ja": "サイズ"
+			"ja": "サイズ",
+			"es": "tamaño"
 		},
 		{
 			"en": "font",
@@ -262,7 +294,8 @@
 			"de": "Schrift",
 			"tr": "yazıtipi",
 			"pl": "czcionka",
-			"ja": "フォント"
+			"ja": "フォント",
+			"es": "fuente"
 		},
 		{
 			"en": "shadow",
@@ -270,7 +303,8 @@
 			"de": "Schatten",
 			"tr": "gölge",
 			"pl": "cień",
-			"ja": "シャドウ"
+			"ja": "シャドウ",
+			"es": "sombra"
 		},
 		{
 			"en": "position",
@@ -278,7 +312,8 @@
 			"de": "Position",
 			"tr": "konum",
 			"pl": "pozycja",
-			"ja": "位置"
+			"ja": "位置",
+			"es": "posición"
 		},
 		{
 			"en": "offset",
@@ -286,7 +321,8 @@
 			"de": "Vorlauf",
 			"tr": "kayma",
 			"pl": "offset",
-			"ja": "オフセット"
+			"ja": "オフセット",
+			"es": "compensar"
 		},
 		{
 			"en": "not hide",
@@ -294,7 +330,8 @@
 			"de": "nicht verdecken",
 			"tr": "gizleme",
 			"pl": "nie ukrywaj",
-			"ja": "ポップアップを消さない"
+			"ja": "ポップアップを消さない",
+			"es": "no ocultar"
 		},
 		{
 			"en": "inside",
@@ -302,7 +339,8 @@
 			"de": "innen",
 			"tr": "içinde",
 			"pl": "wewnątrz",
-			"ja": "内側"
+			"ja": "内側",
+			"es": "interior"
 		},
 		{
 			"en": "Special thanks to Google and Opera software",
@@ -310,7 +348,8 @@
 			"de": "Besonderen Dank an Google und Opera Software",
 			"tr": "Google ve Opera Software'e özel teşekkürler",
 			"pl": "Specjalne podziękowania dla Google i Opera Software",
-			"ja": "スペシャルサンクス：Google, Opera software"
+			"ja": "スペシャルサンクス：Google, Opera software",
+			"es": "Agradecimiento especial a Google y Opera software"
 		},
 		{
 			"en": "Also you can visit my site",
@@ -318,7 +357,8 @@
 			"de": "Besuchen Sie auch meine seite",
 			"tr": "Web sitemi ziyaret edebilirsin",
 			"pl": "Możesz również odwiedzić moją stronę",
-			"ja": "私のサイトにもアクセスできます"
+			"ja": "私のサイトにもアクセスできます",
+			"es": "También puedes visitar mi página"
 		},
 		{
 			"en": "Caution",
@@ -326,7 +366,8 @@
 			"de": "Achtung",
 			"tr": "Uyarı",
 			"pl": "Ostrzeżenie",
-			"ja": "注意"
+			"ja": "注意",
+			"es": "Precaución"
 		},
 		{
 			"en": "Use the button below, if the extension doesn't work anymore after upgrading to new version",
@@ -334,7 +375,8 @@
 			"de": "Verwenden Sie folgende Schaltfläche, wenn die Erweiterung nach dem Upgrade auf die neuere Version nicht mehr funktioniert",
 			"tr": "Eğer eklenti güncelleme sonrası artık çalışmıyorsa aşağıdaki düğmeyi kullanın.",
 			"pl": "Użyj przycisku poniżej, jeżeli rozszerzenie nie działa po aktualizacji do nowej wersji",
-			"ja": "下のボタンは新バージョンに更新して動作しなくなった時にだけ押してください"
+			"ja": "下のボタンは新バージョンに更新して動作しなくなった時にだけ押してください",
+			"es": "Usa el botón de abajo, si la extensión dejara de funcionar después de actualizar a una nueva versión"
 		},
 		{
 			"en": "Reset global settings",
@@ -342,7 +384,8 @@
 			"de": "Zurücksetzen der globalen Einstellungen",
 			"tr": "Genel ayarları sıfırla",
 			"pl": "Resetuj wszystkie ustawienia",
-			"ja": "全ての設定をリセットする"
+			"ja": "全ての設定をリセットする",
+			"es": "Resetear ajustes globales"
 		},
 		{
 			"en": "Check for updates",
@@ -350,7 +393,8 @@
 			"de": "Suche nach Updates",
 			"tr": "Güncellemeler için denetle",
 			"pl": "Sprawdź aktualizacje",
-			"ja": "アップデートの確認"
+			"ja": "アップデートの確認",
+			"es": "Comprobar actualizaciones"
 		},
 		{
 			"en": "Check!",
@@ -358,7 +402,8 @@
 			"de": "Suche!",
 			"tr": "Denetle!",
 			"pl": "Sprawdź!",
-			"ja": "確認！"
+			"ja": "確認！",
+			"es": "¡Comprobar!"
 		},
 		{
 			"en": "You are using the latest version",
@@ -366,7 +411,8 @@
 			"de": "Sie benutzen die neueste Version",
 			"tr": "En son sürümü kullanıyorsunuz",
 			"pl": "Używasz najnowszej wersji",
-			"ja": "あなたはすでに最新のバージョンを使っています"
+			"ja": "あなたはすでに最新のバージョンを使っています",
+			"es": "Está usando la última versión"
 		},
 		{
 			"en": "Show the sound-icon of voice translation",
@@ -374,7 +420,8 @@
 			"de": "Zeige Lautsprechersymbol für Sprachausgabe",
 			"tr": "Sesli çeviri için bir simge göster",
 			"pl": "Pokaż ikonę tłumaczenia głosowego",
-			"ja": "翻訳音声のアイコンを表示する"
+			"ja": "翻訳音声のアイコンを表示する",
+			"es": "Muestra el icono de sonido de traducción por voz"
 		}
 	]
 }
