@@ -27,6 +27,10 @@ Yapmanız gereken tüm şey web sayfasında biraz yazı seçmeniz ve kısayola b
 Głównym zadaniem rozszerzenia jest zapewnienie łatwego przeglądania stron w różnych językach.
 Wszystko, co trzeba zrobić to zaznaczyć tekst na stronie i nacisnąć skrót klawiszowy (domyślnie jest to Ctrl + Shift + X). Następnie przetłumaczony tekst pokaże się obok.
 
+*Español*:
+El objetivo principal de esta extensión es que puedas trabajar fácilmente en la web en diferentes idiomas.
+Todo lo que necesitas hacer es seleccionar un texto en una página y presionar el hotkey (Ctrl+Shift+X por defecto). Después de ésto, se mostrará inmediatamente el texto traducido.
+
 *日本語*:
 このエクステンションを提供する目的は違う言語で書かれたWebを見るのを簡単にすることです。
 必要な時にはページ上でテキストを選択してホットキー（標準ではCtrl+Shift+X)を押してください。

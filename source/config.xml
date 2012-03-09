@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" id="https://github.com/extensible/XTranslate" version="2.1">
+<widget xmlns="http://www.w3.org/ns/widgets" id="https://github.com/extensible/XTranslate" version="2.2">
 	<name>XTranslate</name>
 	<author href="http://www.mintdesign.ru/" email="ixrock@gmail.com">ixrock</author>
 	<icon src="icons/icon-64.png"/>
@@ -10,5 +10,6 @@
 	<description xml:lang="de">Leicht übersetzen Text auf Webseiten</description>
 	<description xml:lang="tr">Web sayfalarındaki yazıları kolaylıkla çevirin</description>
 	<description xml:lang="pl">Prosty tłumacz tekstu na stronach internetowych</description>
+	<description xml:lang="es">Traduce fácilmente texto en páginas web</description>
 	<description xml:lang="ja">ウェブページのテキスト翻訳を簡単に</description>
 </widget>
