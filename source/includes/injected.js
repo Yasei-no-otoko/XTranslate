@@ -32,13 +32,12 @@ document.toString() == '[object HTMLDocument]' && function()
 		function handleSelection( evt )
 		{
 			var 
-				type = evt.type,
-				text, range;
-			(
-				type == settings.trigger.type || 
-				(type == 'message' && settings.button.trigger)
-			) && function()
-			{
+				text, range,
+				type = evt.type;
+				
+			(type == settings.trigger.type || 
+			(type == 'message' && settings.button.trigger)) && 
+			function() {
 				selection = window.getSelection();
 				
 				// make selection the children of the last mouseover-ed node
@@ -128,30 +127,31 @@ document.toString() == '[object HTMLDocument]' && function()
 					
 					popup = document.createElementNS('http://www.w3.org/1999/xhtml', 'div');
 					popup.className = 'XTranslate';
-					popup.padding = 5;
 					popup.onclick = function( evt )
 					{
 						var elem = evt.target;
-						if( elem.className == 'XTranslate_sound_play' )
-						{
-							port.postMessage({
-								action: "get-sound",
-								url: elem.getAttribute('data-url')
-							});
-						}
+						
+						elem.className == 'XTranslate_sound_play' &&
+						port.postMessage({
+							action: "get-sound",
+							url: elem.getAttribute('data-url')
+						});
+						
 						evt.stopPropagation();
 					};
 		
+					popup.padding = 5;
 					popup.css = css;
 					popup.show = showPopup;
 					popup.hide = hidePopup;
 					
-					document.documentElement.appendChild(popup);
-					
 					var style = document.createElementNS('http://www.w3.org/1999/xhtml', 'style');
 					style.type = 'text/css';
 					style.textContent = evt.data.css;
-					document.documentElement.appendChild(style);
+
+					var root = document.documentElement;
+					(document.head || root).appendChild(style);
+					(document.body || root).appendChild(popup);
 				break;
 				
 				case 'translate':
