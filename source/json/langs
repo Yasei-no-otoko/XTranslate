@@ -398,15 +398,18 @@
 		},
 		{
 			"en": "Additional CSS rules",
-			"ru": "Дополнительные CSS правила"
+			"ru": "Дополнительные CSS правила",
+			"pl": "Dodatkowe reguły CSS"
 		},
 		{
 			"en": "for advanced users only",
-			"ru": "для опытных пользователей"
+			"ru": "для опытных пользователей",
+			"pl": "tylko dla zaawansowanych użytkowników"
 		},
 		{
 			"en": "Sample",
-			"ru": "Пример"
+			"ru": "Пример",
+			"pl": "Przykład"
 		}
 	]
 }
