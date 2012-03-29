@@ -167,13 +167,13 @@ opera.extension.addEventListener('connect', function(evt)
 	evt.source.postMessage(
 	{
 		action: 'init',
-		css: function()
-		{
+		css: function() {
 			return [].slice.call(document.styleSheets[0].cssRules).map(function( rule ){
 				return rule.cssText;
 			}).join('\n');
 		}(),
 		userCSS: userCSS(),
+		customCSS: settings('user.custom.css'),
 		settings: settings(),
 		widget: JSON.stringify(widget)
 	});
@@ -234,10 +234,6 @@ function userCSSDefault()
 			size: 10,
 			color: colors.bgc,
 			inset: css.boxShadow.indexOf('inset') > -1
-		},
-		position: {
-			type: 'auto',
-			offset: 10
 		}
 	};
 }
@@ -255,7 +251,6 @@ function userCSS()
 			color(css.background.color[0], opacity),
 			color(css.background.color[1], opacity)
 		],
-		position = css.position.type.split(' '),
 		style = [];
 	
 	style.push(
@@ -284,14 +279,6 @@ function userCSS()
 			+ css.text.shadow.offset[1] + 'px '
 			+ css.text.shadow.radius + 'px '
 			+ css.text.shadow.color
-	);
-	
-	position.length > 1 && 
-	style.push(
-		'margin:'+ css.position.offset + 'px',
-		['top', 'right', 'bottom', 'left'].map(function( prop, index ){
-			return prop +': '+ position[ index ];
-		}).join('; ')
 	);
 	
 	return style.join('; ');

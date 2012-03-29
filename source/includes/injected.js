@@ -85,13 +85,12 @@ document.toString() == '[object HTMLDocument]' && function()
 				}();
 			
 			first ? popup.replaceChild(html, first) : popup.appendChild(html);
-			
-			settings.user.css.position.type == 'auto' && popup.css({
+			popup.css({
 				left: pos.left + 'px',
 				top: (pos.bottom + popup.padding) + 'px',
-				margin: 0
+				margin: 0,
+				display: 'block'
 			});
-			popup.css('display', 'block');
 			
 			// fix position
 			var
@@ -105,8 +104,7 @@ document.toString() == '[object HTMLDocument]' && function()
 				},
 				offset = {
 					x: pos.left + popup_size.width - win_size.width,
-					y: pos.bottom + popup_size.height - win_size.height,
-					padding: settings.user.css.position.offset
+					y: pos.bottom + popup_size.height - win_size.height
 				};
 			
 			offset.x > 0 && popup.css('marginLeft', -(offset.x + offset.padding) + 'px');
@@ -115,11 +113,13 @@ document.toString() == '[object HTMLDocument]' && function()
 		
 		function hidePopup() {
 			!top_level && window.top.postMessage('hide', '*');
-			!settings.user.css.position.visible && popup.css('display', 'none');
+			popup.css('display', 'none');
 		}
 		
 		opera.extension.onmessage = function( evt )
 		{
+			var root = document.documentElement;
+			
 			switch(evt.data.action)
 			{
 				case 'init':
@@ -146,10 +146,9 @@ document.toString() == '[object HTMLDocument]' && function()
 					popup.hide = hidePopup;
 					
 					var style = document.createElementNS('http://www.w3.org/1999/xhtml', 'style');
-					style.type = 'text/css';
+					style.id = 'XTranslate_CSS';
 					style.textContent = evt.data.css;
 
-					var root = document.documentElement;
 					(document.head || root).appendChild(style);
 					(document.body || root).appendChild(popup);
 				break;
@@ -163,9 +162,18 @@ document.toString() == '[object HTMLDocument]' && function()
 					sound.src = sound.data = evt.data.track;
 				break;
 			}
-	
+
 			evt.data.settings && (settings = evt.data.settings);
 			evt.data.userCSS && popup.setAttribute('style', evt.data.userCSS);
+			evt.data.customCSS !== undefined && function()
+			{
+				var 
+					id = 'XTranslate_custom_CSS'
+					custom_css = document.getElementById(id) || document.createElementNS('http://www.w3.org/1999/xhtml', 'style');
+				custom_css.id = id;
+				custom_css.textContent = evt.data.customCSS;
+				(root || document.head).appendChild(custom_css);
+			}();
 			
 			evt.data.html && (
 				top_level || show_in_frame

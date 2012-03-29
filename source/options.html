@@ -122,9 +122,9 @@
 					<div>
 						<span>Border</span>
 						<span>
-							<label class="nobr">width: <input type="number" name="user.css.border.width" min="0" max="10" size="3"/></label>
+							<label class="nobr">width: <input type="number" name="user.css.border.width" min="0" max="10" size="4"/></label>
 							<label class="nobr">color: <input type="color" name="user.css.border.color"/></label>
-							<label class="nobr">radius: <input type="number" name="user.css.border.radius" min="0" max="50" size="3"/></label>
+							<label class="nobr">radius: <input type="number" name="user.css.border.radius" min="0" max="50" size="4"/></label>
 						</span>
 					</div>
 					<div>
@@ -145,37 +145,18 @@
 							</label><br>
 							<label class="nobr">
 								shadow:
-								<input type="number" name="user.css.text.shadow.offset.0" min="-10" max="10" size="3"/>
-								<input type="number" name="user.css.text.shadow.offset.1" min="-10" max="10" size="3"/>
-								<input type="number" name="user.css.text.shadow.radius" min="-10" max="10" size="3"/>
+								<input type="number" name="user.css.text.shadow.offset.0" min="-10" max="10" size="4"/>
+								<input type="number" name="user.css.text.shadow.offset.1" min="-10" max="10" size="4"/>
+								<input type="number" name="user.css.text.shadow.radius" min="-10" max="10" size="4"/>
 								<input type="color" name="user.css.text.shadow.color"/>
 							</label>
-						</span>
-					</div>
-					<div>
-						<span>Popup</span>
-						<span>
-							<label>
-								position:
-								<select name="user.css.position.type">
-									<option value="auto">Auto</option>
-									<option value="0 auto auto 0">Left Top</option>
-									<option value="0 0 auto auto">Right Top</option>
-									<option value="auto auto 0 0">Left Bottom</option>
-									<option value="auto 0 0 auto">Right Bottom</option>
-								</select>
-							</label><br/>
-							<label>
-								offset: <input type="range" name="user.css.position.offset" min="0" max="100" value="10"/>
-							</label><br/>
-							<label><input type="checkbox" name="user.css.position.visible"/> not hide</label><br/>
 						</span>
 					</div>
 					<div>
 						<span>Shadow</span>
 						<span>
 							<label>color: <input type="color" name="user.css.shadow.color"/></label><br/>
-							<label>size: <input type="range" name="user.css.shadow.size" min="0" max="50" size="3"/></label><br/>
+							<label>size: <input type="range" name="user.css.shadow.size" min="0" max="50" size="4"/></label><br/>
 							<label><input type="checkbox" name="user.css.shadow.inset"/> inside</label><br/>
 						</span>
 					</div>
@@ -187,15 +168,19 @@
 				<input type="text" name="theme.name" class="hidden">
 				<div class="error hidden">Theme with same name already exists!</div>
 			</div>
+
+            <div class="custom_css">
+                <strong class="custom_css_trigger">Additional CSS rules</strong>
+                <span class="custom_css_content">
+                    <span>(for advanced users only!)</span>
+                    <textarea name="user.custom.css" cols="45" rows="5"></textarea><br>
+                    <span class="sample" title=".XTranslate > * { margin: -5px; }">Sample 1</span> | 
+                    <span class="sample" title=".XTranslate { border:3px double gray !important; }">Sample 2</span>
+                </span>
+            </div>
 		</dl>
 
 		<dl class="option">
-			<dt>Check for updates</dt>
-			<dd style="margin-bottom:10px;">
-				<button type="button" name="check-updates">Check!</button>
-				<img src="icons/loader.gif" width="16" height="11" align="absmiddle" hspace="5" alt="" style="display:none">
-				<div class="latest" style="display:none">You are using the latest version.</div>
-			</dd>
 			<dd>
 				<strong>Caution!</strong> Use the button below, if the extension doesn't work anymore after upgrading to new version.
 				<button type="button" name="reset-globals">Reset global settings</button>

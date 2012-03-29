@@ -77,7 +77,7 @@
 	.XTranslate_options .user-css { display:table; }
 	.XTranslate_options .user-css > * { display:table-row; }
 	.XTranslate_options .user-css > * > *:first-child { padding-right:10px; }
-	.XTranslate_options .user-css > * > * { display:table-cell; padding-bottom:10px; }
+	.XTranslate_options .user-css > * > span { display:table-cell; padding-bottom:10px; vertical-align:top; }
 	.XTranslate_options > dl { display:block; padding:1em; border:1px solid silver; border-radius:10px; }
 	.XTranslate_options > dl > dt { font-weight:bold; }
 	.XTranslate_options > dl > dd,
@@ -93,5 +93,9 @@
 	.XTranslate_options .nobr { white-space:nowrap; }
 	.XTranslate_options label { cursor:pointer; }
 	
-
+	.XTranslate_options .custom_css { padding:10px 0; }
+	.XTranslate_options .custom_css_trigger { border-bottom:1px dotted black; cursor:pointer; display:inline-block; }
+	.XTranslate_options .custom_css_content { display:none; }
+	.XTranslate_options .custom_css .sample { cursor:pointer; font-style:italic; border-bottom:1px dotted black; }
+	
 

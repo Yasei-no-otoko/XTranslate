@@ -1,6 +1,27 @@
 // @project XTranslate (options.js)
 // @url https://github.com/extensible/XTranslate  
 
+function $( selector, ctx ){
+	var nodes = [].slice.call((ctx || document).querySelectorAll(selector));
+	return nodes.length > 1 ? nodes : nodes.shift();
+}
+
+function parse( tmpl, data )
+{
+	return tmpl.replace(/\$\{([\w.]+)\}/g, function(S, prop)
+	{
+		var props = prop.split('.');
+		return function()
+		{
+			var value = data[ props.shift() ];
+			while( prop = props.shift() ){
+				value = value[prop];
+			}
+			return value;
+		}();
+	});
+}
+
 window.addEventListener('DOMContentLoaded', function( evt )
 {
 	var 
@@ -94,7 +115,7 @@ window.addEventListener('DOMContentLoaded', function( evt )
 	var preview = function()
 	{
 		var popup = $('.XTranslate');
-		return function __(){
+		return function __() {
 			popup.setAttribute('style', bg.userCSS());
 			return __;
 		}();
@@ -391,7 +412,7 @@ window.addEventListener('DOMContentLoaded', function( evt )
 					node.textContent = content.replace(function()
 					{
 						var expr = data.replace(/[\[\]\(\)\.\*\+\\\{\}\^\$]/g, '\\$&');
-						return new RegExp(expr, 'g');
+						return RegExp(expr, 'g');
 					}(), text[lang.to])
 				);
 			});
@@ -406,75 +427,49 @@ window.addEventListener('DOMContentLoaded', function( evt )
 		});
 	});
 	
-	$('button[name="check-updates"]').onclick = function()
+	// Custom CSS-rules support (for advanced users)
+	var custom_css = $('.custom_css textarea');
+	custom_css.onkeyup = custom_css.update = function __(evt)
 	{
 		var 
-			button = this,
-			block = button.parentNode,
-			loader = block.querySelector('img'),
-			latest = block.querySelector('.latest');
-			
-		button.disabled = true;
-		loader.style.display = '';
+			id = 'XTranslate_custom_css',
+			style = $('#'+ id),
+			css_rules = bg.settings(custom_css.name) || '',
+			value = custom_css.value;
+
+		if( !style ) {
+			style = document.createElement('style');
+			style.id = id;
+			style.textContent = custom_css.value = css_rules;
+			document.head.appendChild(style);
+		}
+		else {
+			bg.settings(custom_css.name, custom_css.value);
+			bg.opera.extension.broadcastMessage({
+				action: 'update_custom_css',
+				customCSS: value
+			});
+			style.textContent = value;
+		}
 		
-		checkUpdates(function( version, node )
+		return __;
+	}();
+
+	$('.custom_css').onclick = function(evt)
+	{
+		var elem = evt.target;
+		switch( elem.className )
 		{
-			loader.style.display = 'none';
-			version
-				? block.appendChild(node)
-				: (latest.style.display = 'inline');
-		});
+			case 'custom_css_trigger':
+				var content = $('.custom_css_content', this.parentNode);
+				content.style.display = (content.currentStyle.display == 'none' ? 'inline' : 'none');
+			break;
+			
+			case 'sample':
+				custom_css.value = elem.title;
+				custom_css.update();
+			break;
+		}
 	};
 	
 }, false);
-
-function checkUpdates( callback )
-{
-	var addons_url = 'https://addons.opera.com';
-	opera.extension.bgProcess.ajax(
-	{
-		url: addons_url + '/en/addons/extensions/details/xtranslate/'+ widget.version,
-		complete: function( response )
-		{
-			var 
-				data = [],
-				node = document.createElementNS('http://www.w3.org/1999/xhtml', 'div'),
-				content = response.match(/<body\s?.*?>([\s\S]+)<\/body>/i),
-				latest = 
-					content && 
-					(node.innerHTML = content[1]) && 
-					node.querySelector('.latest');
-			if( latest )
-			{
-				var 
-					a = latest.querySelector('a'),
-					url = addons_url + a.getAttribute('href'),
-					version = url.match(/\d(\.\d)+/).shift();
-				a.setAttribute('href', url);
-				data.push(version, latest);
-			}
-			callback.apply(this, data);
-		}
-	});
-}
-
-function $( selector, ctx ){
-	var nodes = [].slice.call((ctx || document).querySelectorAll(selector));
-	return nodes.length > 1 ? nodes : nodes.shift();
-}
-
-function parse( tmpl, data )
-{
-	return tmpl.replace(/\$\{([\w.]+)\}/g, function(S, prop)
-	{
-		var props = prop.split('.');
-		return function()
-		{
-			var value = data[ props.shift() ];
-			while( prop = props.shift() ){
-				value = value[prop];
-			}
-			return value;
-		}();
-	});
-}

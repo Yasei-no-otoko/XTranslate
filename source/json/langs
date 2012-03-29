@@ -388,33 +388,6 @@
 			"es": "Resetear ajustes globales"
 		},
 		{
-			"en": "Check for updates",
-			"ru": "Проверить наличие обновлений",
-			"de": "Suche nach Updates",
-			"tr": "Güncellemeler için denetle",
-			"pl": "Sprawdź aktualizacje",
-			"ja": "アップデートの確認",
-			"es": "Comprobar actualizaciones"
-		},
-		{
-			"en": "Check!",
-			"ru": "Проверить!",
-			"de": "Suche!",
-			"tr": "Denetle!",
-			"pl": "Sprawdź!",
-			"ja": "確認！",
-			"es": "¡Comprobar!"
-		},
-		{
-			"en": "You are using the latest version",
-			"ru": "Вы используете самую последнюю версию",
-			"de": "Sie benutzen die neueste Version",
-			"tr": "En son sürümü kullanıyorsunuz",
-			"pl": "Używasz najnowszej wersji",
-			"ja": "あなたはすでに最新のバージョンを使っています",
-			"es": "Está usando la última versión"
-		},
-		{
 			"en": "Show the sound-icon of voice translation",
 			"ru": "Показывать иконку для голосового перевода",
 			"de": "Zeige Lautsprechersymbol für Sprachausgabe",
@@ -422,6 +395,18 @@
 			"pl": "Pokaż ikonę tłumaczenia głosowego",
 			"ja": "翻訳音声のアイコンを表示する",
 			"es": "Muestra el icono de sonido de traducción por voz"
+		},
+		{
+			"en": "Additional CSS rules",
+			"ru": "Дополнительные CSS правила"
+		},
+		{
+			"en": "for advanced users only",
+			"ru": "для опытных пользователей"
+		},
+		{
+			"en": "Sample",
+			"ru": "Пример"
 		}
 	]
 }
