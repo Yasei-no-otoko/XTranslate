@@ -399,16 +399,19 @@
 		{
 			"en": "Additional CSS rules",
 			"ru": "Дополнительные CSS правила",
+			"de": "Zusätzliche CCS-Regeln",
 			"pl": "Dodatkowe reguły CSS"
 		},
 		{
 			"en": "for advanced users only",
 			"ru": "для опытных пользователей",
+			"de": "nur für erfahrene Nutzer",
 			"pl": "tylko dla zaawansowanych użytkowników"
 		},
 		{
 			"en": "Sample",
 			"ru": "Пример",
+			"de": "Beispiel",
 			"pl": "Przykład"
 		}
 	]
