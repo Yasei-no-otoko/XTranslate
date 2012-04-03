@@ -11,16 +11,22 @@ XTranslate.vendors.add(
 		var 
 			lang = settings('lang'),
 			text = encodeURIComponent( selection ),
+			
 			type = selection.split(' ').length > 1 ? 'common' : 'dictionary',
 			translation = {
 				common: {
 					url: this.url + [
-						'/tr/translate?lang=', lang.from +'-'+ lang.to,
+						'/tr/translate',
+						'?lang='+ lang.from +'-'+ lang.to,
 						'&text='+ text
 					].join(''),
 					
-					data: function( response ){ return this.responseXML.documentElement.textContent.replace(/</g, '&lt;') },
-					content: function( data ){ return data }
+					data: function( response ){
+						return this.responseXML.documentElement.textContent.replace(/</g, '&lt;');
+					},
+					content: function( data ){
+						return data;
+					}
 				},
 
 				dictionary: {
@@ -33,12 +39,13 @@ XTranslate.vendors.add(
 					].join(''),
 					
 					data: function( response ){
-						return Function('return '+ response.replace(/</g, '&lt;'))()
+						return Function('return '+ response)();
 					},
 					
 					content: function( data )
 					{
-						return data.def.map(function( wordtype )
+						if( ! data.def.length ) return selection;
+						else return data.def.map(function( wordtype )
 						{
 							return [
 								'<dl class="XTranslate_wordtype">',

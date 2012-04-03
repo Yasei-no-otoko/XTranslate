@@ -34,13 +34,15 @@
 		display:block;
 	}
 	
+	.XTranslate_wordtype:last-child > dd { padding-bottom:0; }
+	
 	.XTranslate_wordtype dt {
 		font-weight:bold;
 		font-style:normal;
-		margin-top:.5em;
 	}
 	.XTranslate_wordtype dd {
 		padding-left:2em;
+		padding-bottom:.7em;
 	}
 	.XTranslate_sound img {
 		background: white;
