@@ -165,15 +165,24 @@ document.toString() == '[object HTMLDocument]' && function()
 
 			evt.data.settings && (settings = evt.data.settings);
 			evt.data.userCSS && popup.setAttribute('style', evt.data.userCSS);
-			evt.data.customCSS !== undefined && function()
+			
+			(function()
 			{
 				var 
-					id = 'XTranslate_custom_CSS'
+					id = 'XTranslate_custom_CSS',
+					css_rules = evt.data.customCSS,
 					custom_css = document.getElementById(id) || document.createElementNS('http://www.w3.org/1999/xhtml', 'style');
-				custom_css.id = id;
-				custom_css.textContent = evt.data.customCSS;
-				(root || document.head).appendChild(custom_css);
-			}();
+				
+				if( css_rules ){
+					custom_css.id = id;
+					custom_css.textContent = css_rules;
+					(document.head || root).appendChild(custom_css);
+				}
+				
+				if( css_rules !== undefined && !css_rules ){
+					custom_css.parentNode.removeChild( custom_css );
+				}
+			}());
 			
 			evt.data.html && (
 				top_level || show_in_frame
