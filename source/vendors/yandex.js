@@ -1,8 +1,6 @@
 // @project XTranslate (vendors/yandex.js)
 // @url https://github.com/extensible/XTranslate
 
-// http://translate.yandex.ru/dicservice.json/lookup?callback=&ui=ru&lang=en-ru&text=test
-
 XTranslate.vendors.add(
 {
 	name: 'Yandex',
