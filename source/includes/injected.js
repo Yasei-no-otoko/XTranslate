@@ -171,15 +171,16 @@ document.toString() == '[object HTMLDocument]' && function()
 				var 
 					id = 'XTranslate_custom_CSS',
 					css_rules = evt.data.customCSS,
-					custom_css = document.getElementById(id) || document.createElementNS('http://www.w3.org/1999/xhtml', 'style');
+					custom_css = document.getElementById(id);
 				
-				if( css_rules ){
+				if( css_rules ) {
+					custom_css = custom_css || document.createElementNS('http://www.w3.org/1999/xhtml', 'style');
 					custom_css.id = id;
 					custom_css.textContent = css_rules;
 					(document.head || root).appendChild(custom_css);
 				}
 				
-				if( css_rules !== undefined && !css_rules ){
+				if( custom_css && css_rules !== undefined && !css_rules ){
 					custom_css.parentNode.removeChild( custom_css );
 				}
 			}());
