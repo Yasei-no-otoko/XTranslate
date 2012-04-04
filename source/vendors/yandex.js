@@ -76,10 +76,14 @@ XTranslate.vendors.add(
 				complete: function( response )
 				{
 					try {
-						var data = action.data.call(this, response);
+						var 
+							error = this.status != 200,
+							data = !error ? action.data.call(this, response) : response,
+							content = !error ? action.content.call(this, data) : response;
+							
 						var html = [
 							'<div class="XTranslate_result Powered_by_Yandex">',
-								action.content.call(this, data),
+								content,
 							'</div>'
 						].join('');
 						
