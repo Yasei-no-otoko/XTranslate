@@ -39,14 +39,7 @@ XTranslate.vendors.add(
 					].join(''),
 					
 					data: function( response ){
-						try {
-							return Function('return '+ response)();
-						}
-						catch(e){
-							console.warn('Not correct response from Yandex or something nasty happens.');
-							console.log('Response: '+ response);
-							return {def: []};
-						}
+						return Function('return '+ response)();
 					},
 					
 					content: function( data )
@@ -82,17 +75,32 @@ XTranslate.vendors.add(
 				url: action.url,
 				complete: function( response )
 				{
-					var data = action.data.call(this, response);
-					var html = [
-						'<div class="XTranslate_result Powered_by_Yandex">',
-							action.content.call(this, data),
-						'</div>'
-					].join('');
-					
-					dfr.resolve({
-						html: html,
-						response: response
-					});
+					try {
+						var data = action.data.call(this, response);
+						var html = [
+							'<div class="XTranslate_result Powered_by_Yandex">',
+								action.content.call(this, data),
+							'</div>'
+						].join('');
+						
+						dfr.resolve({
+							html: html,
+							response: response
+						});
+					}
+					catch(e) {
+						console.error(
+							[
+								'---',
+								'XTranslate: not correct response from Yandex or something nasty happens.',
+								'URL: '+ action.url,
+								'Status: '+ this.status,
+								'Response: '+ response,
+								'Error: '+ e.message,
+								'---'
+							].join('\n')
+						);
+					}
 				}
 			});
 		});
