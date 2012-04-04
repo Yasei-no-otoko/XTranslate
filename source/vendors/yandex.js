@@ -39,7 +39,14 @@ XTranslate.vendors.add(
 					].join(''),
 					
 					data: function( response ){
-						return Function('return '+ response)();
+						try {
+							return Function('return '+ response)();
+						}
+						catch(e){
+							console.warn('Not correct response from Yandex or something nasty happens.');
+							console.log('Response: '+ response);
+							return {def: []};
+						}
 					},
 					
 					content: function( data )
