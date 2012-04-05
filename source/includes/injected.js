@@ -104,7 +104,8 @@ document.toString() == '[object HTMLDocument]' && function()
 				},
 				offset = {
 					x: pos.left + popup_size.width - win_size.width,
-					y: pos.bottom + popup_size.height - win_size.height
+					y: pos.bottom + popup_size.height - win_size.height,
+					padding: 20
 				};
 			
 			offset.x > 0 && popup.css('marginLeft', -(offset.x + offset.padding) + 'px');
