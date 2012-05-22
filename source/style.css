@@ -114,5 +114,5 @@
 	.XTranslate_user_input_area { width:99%; border:1px solid silver; border-radius:5px; margin:1px; }
 	.XTranslate_user_input_area:focus { border:2px solid gray; margin:0; }
 	.XTranslate_user_input_result { margin-top:1em; }
-	.XTranslate_user_input_result .XTranslate_result { max-height:none; max-width:none; word-wrap:break-word; }
+	.XTranslate_user_input_result .XTranslate_result { max-height:none; max-width:none; word-wrap:break-word; white-space:pre-line; }
 
