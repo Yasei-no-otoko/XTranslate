@@ -24,6 +24,7 @@ XTranslate.vendors.add(
 		return deferred(function(dfr)
 		{
 			ajax({
+				method: 'POST',
 				url: vendor.url + [
 					'/translate_a/t?client=t',
 					'&sl='+ lang.from,

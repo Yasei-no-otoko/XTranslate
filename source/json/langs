@@ -413,8 +413,14 @@
 			"ru": "Пример",
 			"de": "Beispiel",
 			"pl": "Przykład"
+		},
+		{
+			"en": "Settings",
+			"ru": "Настройки"
+		},
+		{
+			"en": "User input",
+			"ru": "Ввод текста"
 		}
 	]
 }
-
-

@@ -8,8 +8,13 @@
 </head>
 <body class="XTranslate_body">
 	
-	<div class="XTranslate_options">
+	<div class="XTranslate_options" style="display:none">
 		<h1 class="header"></h1>
+        
+        <div class="toolbar" data-chain="user.active_tab">
+        	<span class="tab active" data-target="XTranslate_tab_settings">Settings</span>
+        	<span class="tab" data-target="XTranslate_tab_user_input">User input</span>
+        </div>
 		
 		<dl class="option">
 			<dt>Show translation results</dt>
@@ -74,15 +79,15 @@
 					UI language
 					<select name="lang.ui.current"></select>
 				</label>
-				<br/>
-				<label>
-					<input type="checkbox" name="button.show"/>
-					Show the button on the toolbar
-				</label>
                 <br/>
 				<label>
 					<input type="checkbox" name="button.voice"/>
 					Show the sound-icon of voice translation
+				</label>
+				<br/>
+				<label>
+					<input type="checkbox" name="button.show"/>
+					Show the button on the toolbar
 				</label>
 			</dd>
 		</dl>
@@ -186,6 +191,11 @@
 				<button type="button" name="reset-globals">Reset global settings</button>
 			</dd>
 		</dl>
+        
+        <dl class="user_input">
+        	<textarea rows="5" class="XTranslate_user_input_area"></textarea>
+            <div class="XTranslate_user_input_result"></div>
+        </dl>
 		
 		<hr/>
 		<div class="footer">
@@ -193,6 +203,11 @@
 			Also you can visit my site <a href="http://mintdesign.ru/">www.mintdesign.ru</a>
 		</div>
 	</div>
+    
+    <script type="text/javascript">
+		XTranslate_options();
+		$('.XTranslate_options').style.display = ''; // reset to default
+	</script>
 	
 	
 </body>

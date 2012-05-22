@@ -43,6 +43,7 @@
 	.XTranslate_wordtype dd {
 		padding-left:2em;
 		padding-bottom:.7em;
+		margin:0;
 	}
 	.XTranslate_sound img {
 		background: white;
@@ -100,4 +101,18 @@
 	.XTranslate_options .custom_css_content { display:none; }
 	.XTranslate_options .custom_css .sample { cursor:pointer; font-style:italic; border-bottom:1px dotted black; }
 	
+	.XTranslate_options .toolbar { position:absolute; right:0; top:.5em; }
+	.XTranslate_options .toolbar .tab { color:silver; border-bottom:1px dashed silver; margin-right:.5em; }
+	.XTranslate_options .toolbar .tab:hover,
+	.XTranslate_options .toolbar .tab.active { border-bottom:1px dashed black; color:black; cursor:pointer; }
+	.XTranslate_options .toolbar .tab.active { cursor:default; border:0; font-weight:bold; }
+	
+	.XTranslate_options > dl { display:none; }
+	.XTranslate_tab_settings > dl.option,
+	.XTranslate_tab_user_input > dl.user_input { display:block; }
+	
+	.XTranslate_user_input_area { width:99%; border:1px solid silver; border-radius:5px; margin:1px; }
+	.XTranslate_user_input_area:focus { border:2px solid gray; margin:0; }
+	.XTranslate_user_input_result { margin-top:1em; }
+	.XTranslate_user_input_result .XTranslate_result { max-height:none; max-width:none; word-wrap:break-word; }
 
