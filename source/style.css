@@ -60,7 +60,7 @@
 	.XTranslate_sound embed { position:absolute; visibility:hidden; }
 	
 	/* Translation with similar words (table) */
-	.XTranslate_words_list { width:auto; margin-left:1em; }
+	.XTranslate_words_list { width:100%; }
 	.XTranslate_words_list,
 	.XTranslate_words_list td {
 		border-collapse:collapse; 
@@ -68,8 +68,8 @@
 		padding-bottom:.5em;
 		word-wrap:break-word;		
 	}
-	.XTranslate_word { width:35%; padding-right:.5em; }
-	.XTranslate_sim_word { color:gray; }
+	.XTranslate_word { width:35%; padding-right:.5em; padding-left:1em; }
+	.XTranslate_similars { color:gray; }
 	.XTranslate_sim_word { border-bottom:1px dotted gray; cursor:pointer; }
 	.XTranslate_sim_word:hover { color:black; border-bottom-color:black; }
 

@@ -67,33 +67,37 @@ XTranslate.vendors.add(
 								return data[1]
 									? data[1].map(function( wordtype )
 									{
-										return [
-											'<dl class="XTranslate_wordtype">',
-												'<dt>'+ wordtype[0] +'</dt>',
-												
-												show_similars
-												? [
-													'<table class="XTranslate_words_list">',
-														wordtype[2].map(function( word ){
-															return [
-																'<tr>',
-																	'<td class="XTranslate_word">'+ word[0] +'</td>',
-																	'<td class="XTranslate_similars">',
-																		word[1]
-																			? word[1].map(function( similar ){
-																				return '<span class="XTranslate_sim_word">'+ similar +'</span>'
-																			}).join(', ')
-																			: '',
-																	'</td>',
-																'</tr>'
-															].join('')
-														}).join(''),
-													'</table>'
-												].join('')
-												: '<dd>'+ wordtype[1].join(', ') +'</dd>',
-												
-											'</dl>'
-										].join('')
+										return (
+											! wordtype[0]
+											? ''
+											: [
+												'<dl class="XTranslate_wordtype">',
+													'<dt>'+ wordtype[0] +'</dt>',
+													
+													! show_similars
+													? '<dd>'+ wordtype[1].join(', ') +'</dd>'
+													: [
+														'<table class="XTranslate_words_list">',
+															wordtype[2].map(function( word ){
+																return [
+																	'<tr>',
+																		'<td class="XTranslate_word">'+ word[0] +'</td>',
+																		'<td class="XTranslate_similars">',
+																			word[1]
+																				? word[1].map(function( similar ){
+																					return '<span class="XTranslate_sim_word">'+ similar +'</span>'
+																				}).join(', ')
+																				: '',
+																		'</td>',
+																	'</tr>'
+																].join('')
+															}).join(''),
+														'</table>'
+													].join(''),
+													
+												'</dl>'
+											].join('')
+										);
 									}).join('')
 									: '';
 							}(),

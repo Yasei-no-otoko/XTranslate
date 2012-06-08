@@ -496,7 +496,7 @@ function XTranslate_options()
 		}
 	};
 	
-	// User input tab
+	// User input (additional tab in the settings)
 	var user_input = 
 	{
 		area: $('.XTranslate_user_input_area'),
@@ -520,15 +520,23 @@ function XTranslate_options()
 			// translation
 			if( self.prev !== value )
 			{
-				self.prev = value;
-				bg.when( bg.XTranslate.vendors.current.handler(value, true) )
-					.then(function( result ) {
-						user_input.result.innerHTML = value ? result.html : '';
+				if( value ){
+					var response = bg.XTranslate.vendors.current.handler(value, true);
+					
+					bg.when( response ).then(function( result ) {
+						user_input.result.innerHTML = result.html;
 					});
+				}
+				else {
+					user_input.result.innerHTML = '';
+				}
+
+				self.prev = value;
 			}
 		}
 	};
 	
+	// User input's typing handler
 	user_input.area.onkeypress = function( evt )
 	{
 		var timer = 'XTranslate_user_typing_timer';
@@ -572,6 +580,7 @@ function XTranslate_options()
 		{
 			user_input.area.value = this.innerHTML;
 			user_input.translate.call(user_input.area, evt, user_input)
+			user_input.area.focus();
 		}.call(target);
 	};
 	
