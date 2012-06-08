@@ -6,14 +6,14 @@ XTranslate.vendors.add(
 	name: 'Google',
 	url: 'http://translate.google.com',
 	
-	handler: function( text )
+	handler: function( text, show_similars )
 	{
 		var 
 			vendor = this,
 			lang = settings('lang'),
 			text = encodeURIComponent(text),
 			sound_lang = lang.from != 'auto' ? lang.from : '',
-			sound_url = this.url + 
+			sound_url = vendor.url + 
 			[
 				'/translate_tts?ie=UTF-8',
 				'&q='+ text,
@@ -34,8 +34,15 @@ XTranslate.vendors.add(
 				
 				complete: function( response )
 				{
+					try {
+						response = eval('('+ response +')');
+					} catch(e){
+						opera.postError("Can't parse JSON-response from the Google: ", response);
+						throw e;
+					}
+					
 					var 
-						data = eval('('+ response +')'),
+						data = response,
 						lang_iso_detected = data[2],
 						lang = vendor.langs.filter(function( lang ){
 							return lang.iso == lang_iso_detected;
@@ -63,7 +70,28 @@ XTranslate.vendors.add(
 										return [
 											'<dl class="XTranslate_wordtype">',
 												'<dt>'+ wordtype[0] +'</dt>',
-												'<dd>'+ wordtype[1].join(', ') +'</dd>',
+												
+												show_similars
+												? [
+													'<table class="XTranslate_words_list">',
+														wordtype[2].map(function( word ){
+															return [
+																'<tr>',
+																	'<td class="XTranslate_word">'+ word[0] +'</td>',
+																	'<td class="XTranslate_similars">',
+																		word[1]
+																			? word[1].map(function( similar ){
+																				return '<span class="XTranslate_sim_word">'+ similar +'</span>'
+																			}).join(', ')
+																			: '',
+																	'</td>',
+																'</tr>'
+															].join('')
+														}).join(''),
+													'</table>'
+												].join('')
+												: '<dd>'+ wordtype[1].join(', ') +'</dd>',
+												
 											'</dl>'
 										].join('')
 									}).join('')

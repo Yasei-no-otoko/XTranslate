@@ -11,10 +11,13 @@ function ajax(opt) {
 		complete 	= opt.complete || function(){},
 		type 		= opt.type || 'text/plain',
 		binary 		= opt.binary || false,
-		data 		= opt.data ? encodeURIComponent(opt.data) : null;
+		data 		= opt.data || null;
 	
 	xhr.open(method, url, async);
+	
+	'POST' == method.toUpperCase() && xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	binary && xhr.overrideMimeType('text/plain; charset=x-user-defined'); // some magic
+	
 	xhr.onreadystatechange = function() {
 		if( this.readyState == 4 )
 		{

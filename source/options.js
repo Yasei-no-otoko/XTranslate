@@ -521,7 +521,7 @@ function XTranslate_options()
 			if( self.prev !== value )
 			{
 				self.prev = value;
-				bg.when( bg.XTranslate.vendors.current.handler(value) )
+				bg.when( bg.XTranslate.vendors.current.handler(value, true) )
 					.then(function( result ) {
 						user_input.result.innerHTML = value ? result.html : '';
 					});
@@ -554,6 +554,7 @@ function XTranslate_options()
 			self = this,
 			target = evt.target;
 		
+		// sound play
 		target.className == 'XTranslate_sound_play' && function()
 		{
 			var get_sound = bg.XTranslate.vendors.current['get-sound']({
@@ -564,6 +565,13 @@ function XTranslate_options()
 				var sound = $('.XTranslate_sound object');
 				sound.src = sound.data = data.track;
 			});
+		}.call(target);
+		
+		// similar words in the result
+		target.className == 'XTranslate_sim_word' && function()
+		{
+			user_input.area.value = this.innerHTML;
+			user_input.translate.call(user_input.area, evt, user_input)
 		}.call(target);
 	};
 	
