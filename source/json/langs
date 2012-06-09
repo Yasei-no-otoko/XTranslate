@@ -1,4 +1,4 @@
-/*
+﻿/*
 	@project XTranslate (json/langs)
 	@url https://github.com/extensible/XTranslate
 */
@@ -417,10 +417,12 @@
 		{
 			"en": "Settings",
 			"ru": "Настройки"
+			"de": "Einstellungen"
 		},
 		{
 			"en": "User input",
 			"ru": "Ввод текста"
+			"de": "Benutzereingabe"
 		}
 	]
 }
