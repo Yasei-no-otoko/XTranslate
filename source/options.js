@@ -603,6 +603,15 @@ function XTranslate_options()
 		this.parentNode.removeChild(this);
 	};
 	
+	// Translate active page (not implemented at the moment)
+	/*$('.translate_all button').onclick = function()
+	{
+		this.disabled = true;
+		bg.opera.extension.broadcastMessage({
+			action: 'translate-all'
+		});
+	};*/
+	
 	// Misc: throw out from the flow
 	setTimeout(function() {
 		user_input.area.focus();

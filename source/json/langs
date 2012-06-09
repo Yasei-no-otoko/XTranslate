@@ -427,6 +427,10 @@
 		{
 			"en": "Clear settings",
 			"ru": "Сброс настроек"
+		},
+		{
+			"en": "Translate the page",
+			"ru": "Перевести страницу"
 		}
 	]
 }

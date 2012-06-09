@@ -10,7 +10,8 @@ document.toString() == '[object HTMLDocument]' && function()
 			top_level = window.top == window.self,
 			show_in_frame = window.innerWidth >= 200 && window.innerHeight >= 200,
 			port, settings, 
-			popup, selection, overnode;
+			popup, selection, overnode,
+			text_nodes, separator;
 			
 		function extend( source )
 		{
@@ -117,6 +118,60 @@ document.toString() == '[object HTMLDocument]' && function()
 			popup.css('display', 'none');
 		}
 		
+		// Google со временем палит большой трафик в POST-запросах и начинает отдавать страницу с капчей
+		// TODO: Попытаться заюзать для больших переводов Bing (или забить на это дело)
+		// P.S Также есть проблема с переводом при наличии (и)фреймов
+		function translateThePage( evt )
+		{
+			// create the spacer at once
+			if( !separator ){
+				separator = ' (X.'+ Math.random() * Date.now() +') ';
+			}
+			
+			// make texts together
+			if( !evt.data.text )
+			{
+				var input_types = ['text', 'submit', 'button', 'reset'].map(function( type ){
+					return '@type = "'+ type +'"';
+				}).join(' or ');
+				
+				// cache node list
+				text_nodes = [].slice.call(document.body.selectNodes('//text() | //input['+ input_types +'] | //textarea'))
+					.filter(function( node )
+					{
+						var parent = node.parentNode.nodeName.toLowerCase();
+						return [
+							String(node.textContent || node.innerText || node.value).trim(),
+							parent != 'script',
+							parent != 'style'
+						].every(function( expr ){ return expr })
+					});
+				
+				// send data for the translating
+				port.postMessage(
+				{
+					action: 'translate-all',
+					text: text_nodes.map(function( node ) {
+						return String(node.textContent || node.value).trim();
+					}).join( separator )
+				});
+			}
+			
+			// replace text-chunks in the document
+			else {
+				var texts = evt.data.text.split( separator.trim() )
+					.map(function( text ){
+						return text.trim();
+					});
+				
+				text_nodes.forEach(function( node, i ) {
+					var name = node.nodeName.toLowerCase();
+					node[name.match(/input|textarea/) ? 'value' : 'textContent'] = texts[i];
+				});
+			}
+		}
+		
+		// Messaging handler
 		opera.extension.onmessage = function( evt )
 		{
 			var root = document.documentElement;
@@ -158,6 +213,10 @@ document.toString() == '[object HTMLDocument]' && function()
 					handleSelection(evt);
 				break;
 				
+				/*case 'translate-all':
+					translateThePage(evt);
+				break;*/
+				
 				case 'audio':
 					var sound = popup.querySelector('object, embed');
 					sound.src = sound.data = evt.data.track;
@@ -198,7 +257,7 @@ document.toString() == '[object HTMLDocument]' && function()
 			);
 		};
 		
-		// add handling for iframes
+		// Extra handling for iframes
 		if( top_level )
 		{
 			var frames = [].slice.call(document.querySelectorAll('iframe'));
@@ -233,6 +292,7 @@ document.toString() == '[object HTMLDocument]' && function()
 			}, false)
 		}
 		
+		// DOM-events
 		window.addEventListener('mouseup', handleSelection, false);
 		window.addEventListener('keypress', function( evt )
 		{

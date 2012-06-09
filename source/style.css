@@ -141,6 +141,7 @@
 	}
 	.XTranslate_tab_settings .toggle:before { content: "−"; }
 	.XTranslate_tab_settings dl.shut { padding:.5em 1em; }
+	.XTranslate_tab_settings dl.shut > dt { color:gray; }
 	.XTranslate_tab_settings dl.shut .toggle:before { content: "+"; }
 	.XTranslate_tab_settings dl.shut > * { display:none; }
 	.XTranslate_tab_settings dl.shut > dt { display:block; }
@@ -152,7 +153,8 @@
 	.XTranslate_options .pseudo { color:gray; border-bottom:1px dotted gray; cursor:pointer; }
 	.XTranslate_options .pseudo:hover { color:black; border-bottom-color:black; }
 	.XTranslate_options .button { font-weight:bold; padding:.2em .5em; cursor:pointer; }
+	.XTranslate_options .button[disabled] { cursor:default; }
 	
-
+	.XTranslate_options .translate_all { padding-bottom:.5em; text-align:center; font-weight:bold; }
 
 
