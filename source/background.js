@@ -33,9 +33,18 @@ var configure = function __( callback )
 		}
 	}, true);
 	
-	// last updates
-	settings('button.voice', 'visible', true);
+	// new settings
+	settings({
+		'button.voice': 'visible',
+		'blocks.shut': {
+			"hotkey": true,
+			"vendor": false,
+			"other": false,
+			"customization": true
+		}
+	}, true);
 	
+	// loading json files
 	when(
 		deferred(function( dfr )
 		{

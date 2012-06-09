@@ -58,20 +58,6 @@
 	.XTranslate_sound img:hover { opacity:1; }
 	.XTranslate_sound object,
 	.XTranslate_sound embed { position:absolute; visibility:hidden; }
-	
-	/* Translation with similar words (table) */
-	.XTranslate_words_list { width:100%; }
-	.XTranslate_words_list,
-	.XTranslate_words_list td {
-		border-collapse:collapse; 
-		vertical-align:top;
-		padding-bottom:.5em;
-		word-wrap:break-word;		
-	}
-	.XTranslate_word { width:35%; padding-right:.5em; padding-left:1em; }
-	.XTranslate_similars { color:gray; }
-	.XTranslate_sim_word { border-bottom:1px dotted gray; cursor:pointer; }
-	.XTranslate_sim_word:hover { color:black; border-bottom-color:black; }
 
 /* Options */
 	.XTranslate_options, 
@@ -121,12 +107,52 @@
 	.XTranslate_options .toolbar .tab.active { border-bottom:1px dashed black; color:black; cursor:pointer; }
 	.XTranslate_options .toolbar .tab.active { cursor:default; border:0; font-weight:bold; }
 	
-	.XTranslate_options > dl { display:none; }
+	.XTranslate_options > dl { display:none; position:relative; }
 	.XTranslate_tab_settings > dl.option,
 	.XTranslate_tab_user_input > dl.user_input { display:block; }
 	
 	.XTranslate_user_input_area { width:99%; border:1px solid silver; border-radius:5px; margin:1px; }
 	.XTranslate_user_input_area:focus { border:2px solid gray; margin:0; }
 	.XTranslate_user_input_result { margin-top:1em; }
+	.XTranslate_user_input_result:empty { margin:0; }
 	.XTranslate_user_input_result .XTranslate_result { max-height:none; max-width:none; word-wrap:break-word; white-space:pre-line; }
+
+	.XTranslate_words_list { width:100%; }
+	.XTranslate_words_list,
+	.XTranslate_words_list td {
+		border-collapse:collapse; 
+		vertical-align:top;
+		padding-bottom:.5em;
+		word-wrap:break-word;		
+	}
+	.XTranslate_word { width:35%; padding-right:.5em; padding-left:1em; }
+	.XTranslate_similars { color:gray; }
+	.XTranslate_sim_word { border-bottom:1px dotted gray; cursor:pointer; }
+	.XTranslate_sim_word:hover { color:black; border-bottom-color:black; }
+
+	.XTranslate_tab_settings .toggle {
+		position:absolute; right:0; top:0; margin:.5em; 
+		border:1px solid transparent; border-radius:2px; color:silver;
+		width:1em; height:1em; line-height:1em; text-align:center;
+		cursor:pointer; display:block !important;
+	}
+	.XTranslate_tab_settings .toggle:hover {
+		border-color:gray; color:black;
+	}
+	.XTranslate_tab_settings .toggle:before { content: "−"; }
+	.XTranslate_tab_settings dl.shut { padding:.5em 1em; }
+	.XTranslate_tab_settings dl.shut .toggle:before { content: "+"; }
+	.XTranslate_tab_settings dl.shut > * { display:none; }
+	.XTranslate_tab_settings dl.shut > dt { display:block; }
+	
+	.XTranslate_options .reset-settings { margin-top:1em; }
+	.XTranslate_options .reset-settings .expand ~ * { display:none; }
+	.XTranslate_options .reset-settings .expand:after { content:" >>"; }
+	.XTranslate_options .reset-settings button { margin:auto; margin-top:.5em; display:block; }
+	.XTranslate_options .pseudo { color:gray; border-bottom:1px dotted gray; cursor:pointer; }
+	.XTranslate_options .pseudo:hover { color:black; border-bottom-color:black; }
+	.XTranslate_options .button { font-weight:bold; padding:.2em .5em; cursor:pointer; }
+	
+
+
 

@@ -584,7 +584,26 @@ function XTranslate_options()
 		}.call(target);
 	};
 	
-	// throw out from the flow
+	// Expand/collapse blocks
+	$('dl[data-name]').forEach(function( block )
+	{
+		var key = block.getAttribute('data-name');
+		bg.settings('blocks.shut.'+ key) && (block.className += ' shut');
+		
+		$('.toggle', block).onclick = function()
+		{
+			var is_shut = block.className.split(' ').indexOf('shut') > -1;
+			block.className = is_shut ? 'option' : 'option shut';
+			bg.settings('blocks.shut.'+ key, !is_shut);
+		};
+	});
+	
+	// Show reset-button
+	$('.reset-settings .expand').onclick = function(){
+		this.parentNode.removeChild(this);
+	};
+	
+	// Misc: throw out from the flow
 	setTimeout(function() {
 		user_input.area.focus();
 	}, 10);

@@ -423,6 +423,10 @@
 			"en": "User input",
 			"ru": "Ввод текста",
 			"de": "Benutzereingabe"
+		},
+		{
+			"en": "Clear settings",
+			"ru": "Сброс настроек"
 		}
 	]
 }

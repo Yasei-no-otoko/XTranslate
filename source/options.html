@@ -16,7 +16,7 @@
         	<span class="tab" data-target="XTranslate_tab_user_input">User input</span>
         </div>
 		
-		<dl class="option">
+		<dl class="option" data-name="hotkey">
 			<dt>Show translation results</dt>
 			<dd>
 				<div>
@@ -39,9 +39,10 @@
 					</label>
 				</div>
 			</dd>
+        	<i class="toggle"></i>
 		</dl>
 		
-		<dl class="option">
+		<dl class="option" data-name="vendor">
 			<dt>Translation</dt>
 			<dd>
 				<span class="title">Service:</span>
@@ -70,9 +71,10 @@
 					</select>
 				</div>
 			</dd>
+        	<i class="toggle"></i>
 		</dl>
 
-		<dl class="option">
+		<dl class="option" data-name="other">
 			<dt>Other</dt>
 			<dd>
 				<label>
@@ -90,9 +92,17 @@
 					Show the button on the toolbar
 				</label>
 			</dd>
+            
+            <div class="reset-settings">
+            	<span class="expand pseudo"><strong>Clear settings</strong></span>
+                <span class="info">Use the button below, if the extension doesn't work anymore after upgrading to new version.</span>
+                <button type="button" name="reset-globals" class="button">Reset global settings</button>
+            </div>
+            
+        	<i class="toggle"></i>
 		</dl>
 		
-		<dl class="option">
+		<dl class="option" data-name="customization">
 			<dt>User styles (live preview)</dt>
 			<dd>
 				<div class="XTranslate popup_demo">
@@ -183,13 +193,7 @@
                     <span class="sample" title=".XTranslate { left:10px !important; top:auto !important; bottom:10px; }">Sample 2</span>
                 </span>
             </div>
-		</dl>
-
-		<dl class="option">
-			<dd>
-				<strong>Caution!</strong> Use the button below, if the extension doesn't work anymore after upgrading to new version.
-				<button type="button" name="reset-globals">Reset global settings</button>
-			</dd>
+        	<i class="toggle"></i>
 		</dl>
         
         <dl class="user_input">
