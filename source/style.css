@@ -136,11 +136,13 @@
 		width:1em; height:1em; line-height:1em; text-align:center;
 		cursor:pointer; display:block !important;
 	}
+	.XTranslate_tab_settings dl.shut > dt:hover,
+	.XTranslate_tab_settings dl.shut > dt:hover ~ .toggle,
 	.XTranslate_tab_settings .toggle:hover {
 		border-color:gray; color:black;
 	}
 	.XTranslate_tab_settings .toggle:before { content: "−"; }
-	.XTranslate_tab_settings dl.shut { padding:.5em 1em; }
+	.XTranslate_tab_settings dl.shut { padding:.5em 1em; cursor:pointer; }
 	.XTranslate_tab_settings dl.shut > dt { color:gray; }
 	.XTranslate_tab_settings dl.shut .toggle:before { content: "+"; }
 	.XTranslate_tab_settings dl.shut > * { display:none; }

@@ -37,7 +37,7 @@ var configure = function __( callback )
 	settings({
 		'button.voice': 'visible',
 		'blocks.shut': {
-			"hotkey": true,
+			"hotkey": false,
 			"vendor": false,
 			"other": false,
 			"customization": true

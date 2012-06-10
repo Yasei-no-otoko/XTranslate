@@ -587,14 +587,22 @@ function XTranslate_options()
 	// Expand/collapse blocks
 	$('dl[data-name]').forEach(function( block )
 	{
-		var key = block.getAttribute('data-name');
+		var 
+			key = block.getAttribute('data-name'),
+			toggle = $('.toggle', block);
+		
 		bg.settings('blocks.shut.'+ key) && (block.className += ' shut');
 		
-		$('.toggle', block).onclick = function()
+		block.onclick = function(){
+			this.className.indexOf('shut') > -1 && toggle.onclick();
+		};
+		
+		toggle.onclick = function( evt )
 		{
 			var is_shut = block.className.split(' ').indexOf('shut') > -1;
 			block.className = is_shut ? 'option' : 'option shut';
 			bg.settings('blocks.shut.'+ key, !is_shut);
+			evt.stopPropagation();
 		};
 	});
 	
