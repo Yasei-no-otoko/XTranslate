@@ -61,5 +61,19 @@ XTranslate.vendors.add(
 				});
 			}
 		});
+	},
+	
+	getTranslateThePageURL: function( tab_url )
+	{
+		var 
+			url = this.url + '/bv.aspx?',
+			lang = settings('lang'),
+			query = [
+				'from='+ (lang.from == 'auto' ? '' : lang.from),
+				'to='+ lang.to,
+				'a='+ tab_url
+			].join('&');
+			
+		return url + query;
 	}
 });

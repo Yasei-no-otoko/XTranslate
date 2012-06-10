@@ -126,5 +126,18 @@ XTranslate.vendors.add(
 				});
 			}
 		});
+	},
+	
+	getTranslateThePageURL: function( tab_url )
+	{
+		var 
+			url = this.url + '/tr-start?',
+			lang = settings('lang'),
+			query = [
+				'lang='+ [lang.from, lang.to].join('-'),
+				'url='+ tab_url
+			].join('&');
+			
+		return url + query;
 	}
 });

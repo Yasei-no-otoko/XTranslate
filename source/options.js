@@ -603,14 +603,20 @@ function XTranslate_options()
 		this.parentNode.removeChild(this);
 	};
 	
-	// Translate active page (not implemented at the moment)
-	/*$('.translate_all button').onclick = function()
+	// Go to the vendor's page for translation url
+	$('.translate_all a').onclick = function()
 	{
-		this.disabled = true;
-		bg.opera.extension.broadcastMessage({
-			action: 'translate-all'
+		var 
+			vendor = bg.XTranslate.vendors.current,
+			tab = bg.opera.extension.tabs.getFocused();
+
+		tab && bg.opera.extension.tabs.create({
+			url: vendor.getTranslateThePageURL( tab.url ), 
+			focused: true
 		});
-	};*/
+		
+		return false;
+	};
 	
 	// Misc: throw out from the flow
 	setTimeout(function() {

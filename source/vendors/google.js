@@ -6,40 +6,20 @@ XTranslate.vendors.add(
 	name: 'Google',
 	url: 'http://translate.google.com',
 	
-	params: function( text, method )
-	{
-		var
-			method = method || 'GET',
-			lang = settings('lang'),
-			text = encodeURIComponent(text),
-			url = this.url + '/translate_a/t',
-			query = [
-				'?client=t',
-				'sl='+ lang.from,
-				'hl='+ lang.to,
-				'tl='+ lang.to,
-			],
-			data = 'text='+ text;
-		
-		if( method != 'POST' ){
-			query.push(data);
-			data = null;
-		}
-		
-		return {
-			url: url + query.join('&'),
-			method: method,
-			data: data
-		}
-	},
-	
 	handler: function( text, show_similars )
 	{
 		var 
 			vendor = this,
-			params = vendor.params(text),
 			lang = settings('lang'),
 			text = encodeURIComponent(text),
+			url = vendor.url + 
+			[
+				'/translate_a/t?client=t',
+				'sl='+ lang.from,
+				'hl='+ lang.to,
+				'tl='+ lang.to,
+				'text='+ text
+			].join('&'),
 			
 			sound_lang = lang.from != 'auto' ? lang.from : '',
 			sound_url = vendor.url + 
@@ -53,9 +33,7 @@ XTranslate.vendors.add(
 		return deferred(function(dfr)
 		{
 			ajax({
-				method	: params.method,
-				url		: params.url,
-				data	: params.data,
+				url: url,
 				complete: function( response )
 				{
 					try {
@@ -175,31 +153,18 @@ XTranslate.vendors.add(
 		});
 	},
 	
-	// Google makes the problem with captcha after some time ;(
-	'translate-all': function( data )
+	getTranslateThePageURL: function( tab_url )
 	{
-		var params = this.params(data.text, 'POST');
-		
-		return deferred(function(dfr)
-		{
-			params.complete = function( response ) {
-				dfr.resolve({
-					action: 'translate-all',
-					text: function(){
-						try {
-							var data = eval('('+ response +')');
-							return data[0].map(function( line ){
-								return line.shift().trim();
-							}).join('');
-						} catch(e){
-							opera.postError(response);
-							return '';
-						}
-					}()
-				});
-			};
+		var 
+			url = this.url + '/translate?',
+			lang = settings('lang'),
+			query = [
+				'sl='+ lang.from,
+				'hl='+ lang.to,
+				'tl='+ lang.to,
+				'u='+ tab_url
+			].join('&');
 			
-			ajax(params);
-		});
+		return url + query;
 	}
 });

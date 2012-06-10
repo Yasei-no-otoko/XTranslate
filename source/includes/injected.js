@@ -119,7 +119,7 @@ document.toString() == '[object HTMLDocument]' && function()
 		}
 		
 		// Google со временем палит большой трафик в POST-запросах и начинает отдавать страницу с капчей
-		// TODO: Попытаться заюзать для больших переводов Bing (или забить на это дело)
+		// Выход: разбивать перевод на несколько GET-запросов и склеивать ответы (так делается у Bing)
 		// P.S Также есть проблема с переводом при наличии (и)фреймов
 		function translateThePage( evt )
 		{
@@ -212,10 +212,6 @@ document.toString() == '[object HTMLDocument]' && function()
 				case 'translate':
 					handleSelection(evt);
 				break;
-				
-				/*case 'translate-all':
-					translateThePage(evt);
-				break;*/
 				
 				case 'audio':
 					var sound = popup.querySelector('object, embed');
