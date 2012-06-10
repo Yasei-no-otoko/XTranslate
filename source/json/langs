@@ -417,22 +417,26 @@
 		{
 			"en": "Settings",
 			"ru": "Настройки",
-			"de": "Einstellungen"
+			"de": "Einstellungen",
+			"pl": "Ustawienia"
 		},
 		{
 			"en": "User input",
 			"ru": "Ввод текста",
-			"de": "Benutzereingabe"
+			"de": "Benutzereingabe",
+			"pl": "Wprowadź tekst"
 		},
 		{
 			"en": "Clear settings",
 			"ru": "Сброс настроек",
-			"de": "Einstellungen löschen"
+			"de": "Einstellungen löschen",
+			"pl": "Resetuj ustawienia"
 		},
 		{
 			"en": "Translate the page",
 			"ru": "Перевести страницу",
-			"de": "Diese Seite übersetzen"
+			"de": "Diese Seite übersetzen",
+			"pl": "Przetłumacz stronę"
 		}
 	]
 }
