@@ -38,7 +38,7 @@
 		{
 			"en": "Show translation results",
 			"ru": "Показывать результаты перевода",
-			"de": "Zeige Übersetzungsergebnisse",
+			"de": "Anzeige der Übersetzungsergebnisse",
 			"tr": "Çeviri sonuçlarını göster",
 			"pl": "Pokaż tłumaczenie",
 			"ja": "翻訳結果の表示",
@@ -426,11 +426,13 @@
 		},
 		{
 			"en": "Clear settings",
-			"ru": "Сброс настроек"
+			"ru": "Сброс настроек",
+			"de": "Einstellungen löschen"
 		},
 		{
 			"en": "Translate the page",
-			"ru": "Перевести страницу"
+			"ru": "Перевести страницу",
+			"de": "Diese Seite übersetzen"
 		}
 	]
 }
