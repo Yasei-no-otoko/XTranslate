@@ -86,7 +86,7 @@
 	.XTranslate_options > dl > dd,
 	.XTranslate_options .content { margin:0; padding-left:20px; }
 	.XTranslate_options .content > * { vertical-align:middle; }
-	.XTranslate_options #langs select { width:100px; }
+	.XTranslate_options #langs select { width:115px; }
 	.XTranslate_options span.arrow { display:inline-block; line-height:100%; padding:0 2px; cursor:pointer; }
 	.XTranslate_options div.footer a { color:black; text-decoration:none }
 	.XTranslate_options div.footer a:hover { text-decoration:underline; }
@@ -132,14 +132,15 @@
 
 	.XTranslate_tab_settings .toggle {
 		position:absolute; right:0; top:0; margin:.5em; 
-		border:1px solid transparent; border-radius:2px; color:silver;
+		border:1px solid transparent; border-radius:2px;
 		width:1em; height:1em; line-height:1em; text-align:center;
 		cursor:pointer; display:block !important;
+		color:gray;
 	}
 	.XTranslate_tab_settings dl.shut > dt:hover,
 	.XTranslate_tab_settings dl.shut > dt:hover ~ .toggle,
 	.XTranslate_tab_settings .toggle:hover {
-		border-color:gray; color:black;
+		border-color:black; color:black;
 	}
 	.XTranslate_tab_settings .toggle:before { content: "−"; }
 	.XTranslate_tab_settings dl.shut { padding:.5em 1em; cursor:pointer; }
@@ -148,10 +149,6 @@
 	.XTranslate_tab_settings dl.shut > * { display:none; }
 	.XTranslate_tab_settings dl.shut > dt { display:block; }
 	
-	.XTranslate_options .reset-settings { margin-top:1em; }
-	.XTranslate_options .reset-settings .expand ~ * { display:none; }
-	.XTranslate_options .reset-settings .expand:after { content:" >>"; }
-	.XTranslate_options .reset-settings button { margin:auto; margin-top:.5em; display:block; }
 	.XTranslate_options .pseudo { color:gray; border-bottom:1px dotted gray; cursor:pointer; }
 	.XTranslate_options .pseudo:hover { color:black; border-bottom-color:black; }
 	.XTranslate_options .button { font-weight:bold; padding:.2em .5em; cursor:pointer; }

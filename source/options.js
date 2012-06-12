@@ -29,16 +29,6 @@ function XTranslate_options()
 		header = document.title +' '+ parse('<span class="version">${version}</span>', widget);
 	
 	$('h1').innerHTML = header;
-	$('button[name="reset-globals"]').onclick = function(evt)
-	{
-		delete widget.preferences.settings;
-		bg.configure(function()
-		{
-			bg.settings('button.trigger', true);
-			bg.settings('button.trigger', false);
-			location.reload();
-		});
-	};
 
 	// Tabs
 	var toolbar = $('.toolbar');
@@ -606,11 +596,6 @@ function XTranslate_options()
 		};
 	});
 	
-	// Show reset-button
-	$('.reset-settings .expand').onclick = function(){
-		this.parentNode.removeChild(this);
-	};
-	
 	// Go to the vendor's page for translation url
 	$('.translate_all a').onclick = function()
 	{
@@ -624,6 +609,21 @@ function XTranslate_options()
 		});
 		
 		return false;
+	};
+
+	// Reset global settings
+	$('.reset').onclick = function(evt)
+	{
+		if( confirm(this.innerText + '?') )
+		{
+			delete widget.preferences.settings;
+			bg.configure(function()
+			{
+				bg.settings('button.trigger', true);
+				bg.settings('button.trigger', false);
+				location.reload();
+			});
+		}
 	};
 	
 	// Misc: throw out from the flow
