@@ -204,9 +204,12 @@ document.toString() == '[object HTMLDocument]' && function()
 					var style = document.createElementNS('http://www.w3.org/1999/xhtml', 'style');
 					style.id = 'XTranslate_CSS';
 					style.textContent = evt.data.css;
-
-					(document.head || root).appendChild(style);
-					(document.body || root).appendChild(popup);
+					
+					// throw from the flow and append with timeout because otherwise acid3 test has 97/100
+					setTimeout(function(){
+						(document.head || root).appendChild(style);
+						(document.body || root).appendChild(popup);
+					}, 1000)
 				break;
 				
 				case 'translate':
