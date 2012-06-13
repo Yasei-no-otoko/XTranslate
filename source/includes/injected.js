@@ -205,11 +205,9 @@ document.toString() == '[object HTMLDocument]' && function()
 					style.id = 'XTranslate_CSS';
 					style.textContent = evt.data.css;
 					
-					// throw from the flow and append with timeout because otherwise acid3 test has 97/100
-					setTimeout(function(){
-						(document.head || root).appendChild(style);
-						(document.body || root).appendChild(popup);
-					}, 1000)
+					// append to the root node, cause acid3 test otherwise has 97/100
+					(/*document.head ||*/ root).appendChild(style);
+					(/*document.body ||*/ root).appendChild(popup);
 				break;
 				
 				case 'translate':
