@@ -32,39 +32,43 @@ document.toString() == '[object HTMLDocument]' && function()
 		
 		function handleSelection( evt )
 		{
+			selection = window.getSelection();
+			
 			var 
-				text, range,
-				type = evt.type;
+				type = evt.type,
+				range = document.createRange(),
+				autoselect = selection.rangeCount == 0 && type == 'keypress';
 				
 			(type == settings.trigger.type || 
 			(type == 'message' && settings.button.trigger)) && 
-			function() {
-				selection = window.getSelection();
+			function()
+			{
+				var text = function( text ) {
+					if( autoselect && overnode )
+					{
+						var name = overnode.nodeName;
+						
+						text = name.match(/input|textarea/i)
+							? overnode.value || overnode.placeholder
+							: [].slice.call( overnode.selectNodes('.//text()') )
+								.map(function( node ){ return node.textContent })
+								.join(' ');
+						
+						range.selectNode( overnode );
+						selection.addRange( range );
+					}
+					return text || String(selection).trim();
+				}();
 				
-				// make selection the children of the last mouseover-ed node
-				var auto_select = selection.rangeCount == 0 && type == 'keypress';
-				if( auto_select && overnode )
-				{
-					overnode.nodeName.match(/input|textarea/i)
-						? (
-							text = overnode.value,
-							range = document.createRange(),
-							range.selectNode( overnode ),
-							selection.addRange( range )
-						)
-						: selection.selectAllChildren( overnode );
-				}
-				
-				text = text || String(selection).trim();
 				if( text )
 				{
-					popup.compareDocumentPosition(selection.anchorNode) !== (
+					popup.compareDocumentPosition(selection.anchorNode || overnode) !== (
 						document.DOCUMENT_POSITION_FOLLOWING | 
 						document.DOCUMENT_POSITION_CONTAINED_BY
 					) &&
 					port.postMessage(
 						text
-							.replace(/(\n\s+){2,}/g, '\n\n')
+							.replace(/(\s*\n\s*){2,}/g, '\n\n')
 							.replace(/^.*$/gm, function( line ){
 								return line.trim()
 							})
@@ -77,9 +81,14 @@ document.toString() == '[object HTMLDocument]' && function()
 		{
 			var 
 				first = popup.firstChild,
-				pos = position || selection.getRangeAt(0).getBoundingClientRect(),
-				html = function()
-				{
+				pos = position || function(){
+					try {
+						return selection.getRangeAt(0).getBoundingClientRect()
+					} catch(e){
+						return {left: 0, top: 0, bottom: 0, right: 0}
+					}
+				}(),
+				html = function() {
 					var node = document.createElement('div');
 					node.innerHTML = html;
 					return node;
