@@ -39,9 +39,13 @@ var configure = function __( callback )
 		'blocks.shut': {
 			"hotkey": false,
 			"vendor": false,
-			"other": false,
-			"customization": true
-		}
+			"other": true,
+			"customization": true,
+			"exclusions": true
+		},
+		'exclude.urls': [
+			'acid3.acidtests.org'
+		].join('\n')
 	}, true);
 	
 	// loading json files

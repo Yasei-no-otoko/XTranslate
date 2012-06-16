@@ -96,7 +96,8 @@
 	.XTranslate_options .nobr { white-space:nowrap; }
 	.XTranslate_options label { cursor:pointer; }
 	
-	.XTranslate_options .custom_css { padding:10px 0; }
+	.XTranslate_options .custom_css,
+	.XTranslate_options .vspace { padding:10px 0; }
 	.XTranslate_options .custom_css_trigger { border-bottom:1px dotted black; cursor:pointer; display:inline-block; }
 	.XTranslate_options .custom_css_content { display:none; }
 	.XTranslate_options .custom_css .sample { cursor:pointer; font-style:italic; border-bottom:1px dotted black; }

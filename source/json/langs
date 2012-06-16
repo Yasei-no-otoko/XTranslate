@@ -415,10 +415,20 @@
 			"pl": "Resetuj ustawienia"
 		},
 		{
-			"en": "Translate the page",
-			"ru": "Перевести страницу",
-			"de": "Diese Seite übersetzen",
-			"pl": "Przetłumacz stronę"
+			"en": "Exclusions (list of URLs)",
+			"ru": "Исключения (список адресов сайтов)"
+		},
+		{
+			"en": "If you don't want to execute the extension on some pages in the web, you can simply list URLs or them parts below",
+			"ru": "Если вы не хотите выполнять расширение на некоторых страницах в интернете, то просто добавьте URL или его часть в список ниже"
+		},
+		{
+			"en": "Use [Enter] to separate the addresses",
+			"ru": "Используйте [Enter] для разделения адресов"
+		},
+		{
+			"en": "Don't forget reload the page to apply the changes",
+			"ru": "Не забудьте перезагрузить страницу после внесенных изменений"
 		}
 	]
 }

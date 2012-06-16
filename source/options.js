@@ -525,6 +525,10 @@ function XTranslate_options()
 			}
 		}
 	};
+
+	setTimeout(function() {
+		user_input.area.focus();
+	}, 10);
 	
 	// User input's typing handler
 	user_input.area.onkeypress = function( evt )
@@ -626,8 +630,23 @@ function XTranslate_options()
 		}
 	};
 	
-	// Misc: throw out from the flow
-	setTimeout(function() {
-		user_input.area.focus();
-	}, 10);
+	// List of URLs to exclude applying the extension
+	var exclude_urls = function __( evt )
+	{
+		var
+			name = this.name,
+			value = bg.settings(name),
+			new_value = this.value.trim();
+			
+		// init
+		if( !evt ) {
+			this.onkeyup = __;
+			this.value = new_value = value;
+		}
+		
+		if( new_value != value ){
+			bg.settings(name, new_value);
+		}
+	}.bind($('*[name="exclude.urls"]'))();
 }
+

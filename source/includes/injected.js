@@ -10,8 +10,7 @@ document.toString() == '[object HTMLDocument]' && function()
 			top_level = window.top == window.self,
 			show_in_frame = window.innerWidth >= 200 && window.innerHeight >= 200,
 			port, settings, 
-			popup, selection, overnode,
-			text_nodes, separator;
+			popup, selection, overnode;
 			
 		function extend( source )
 		{
@@ -30,7 +29,7 @@ document.toString() == '[object HTMLDocument]' && function()
 			return this;
 		}
 		
-		function handleSelection( evt )
+		function handle_selection( evt )
 		{
 			selection = window.getSelection();
 			
@@ -77,7 +76,7 @@ document.toString() == '[object HTMLDocument]' && function()
 			}();
 		}
 		
-		function showPopup( html, position )
+		function show_popup( html, position )
 		{
 			var 
 				first = popup.firstChild,
@@ -122,69 +121,37 @@ document.toString() == '[object HTMLDocument]' && function()
 			offset.y > 0 && popup.css('marginTop', -(offset.y + offset.padding) + 'px');
 		}
 		
-		function hidePopup() {
+		function hide_popup() {
 			!top_level && window.top.postMessage('hide', '*');
 			popup.css('display', 'none');
 		}
 		
-		// Google со временем палит большой трафик в POST-запросах и начинает отдавать страницу с капчей
-		// Выход: разбивать перевод на несколько GET-запросов и склеивать ответы (так делается у Bing)
-		// P.S Также есть проблема с переводом при наличии (и)фреймов
-		function translateThePage( evt )
+		function url_is_excluded( urls )
 		{
-			// create the spacer at once
-			if( !separator ){
-				separator = ' (X.'+ Math.random() * Date.now() +') ';
-			}
+			var location = String(window.location).replace(/https?:\/\/(www\.)?/, '');
 			
-			// make texts together
-			if( !evt.data.text )
-			{
-				var input_types = ['text', 'submit', 'button', 'reset'].map(function( type ){
-					return '@type = "'+ type +'"';
-				}).join(' or ');
-				
-				// cache node list
-				text_nodes = [].slice.call(document.body.selectNodes('//text() | //input['+ input_types +'] | //textarea'))
-					.filter(function( node )
-					{
-						var parent = node.parentNode.nodeName.toLowerCase();
-						return [
-							String(node.textContent || node.innerText || node.value).trim(),
-							parent != 'script',
-							parent != 'style'
-						].every(function( expr ){ return expr })
-					});
-				
-				// send data for the translating
-				port.postMessage(
+			return !! urls.split('\n')
+				.filter(function( url )
 				{
-					action: 'translate-all',
-					text: text_nodes.map(function( node ) {
-						return String(node.textContent || node.value).trim();
-					}).join( separator )
-				});
-			}
-			
-			// replace text-chunks in the document
-			else {
-				var texts = evt.data.text.split( separator.trim() )
-					.map(function( text ){
-						return text.trim();
-					});
-				
-				text_nodes.forEach(function( node, i ) {
-					var name = node.nodeName.toLowerCase();
-					node[name.match(/input|textarea/) ? 'value' : 'textContent'] = texts[i];
-				});
-			}
+					var
+						url = url.trim()
+							.replace(/[.]/g, '[.]')
+							.replace(/\*/g, '.*?'),
+						checker = RegExp('^(https?://)?(www[.])?' + url, 'mi');
+					
+					return location.match(checker);
+				}).shift();
 		}
 		
 		// Messaging handler
 		opera.extension.onmessage = function( evt )
 		{
-			var root = document.documentElement;
+			evt.data.settings && (settings = evt.data.settings);
 			
+			// Don't execute the extension from the excluded URL list
+			if( url_is_excluded(settings.exclude.urls) ) return;
+			
+			var root = document.documentElement;
 			switch(evt.data.action)
 			{
 				case 'init':
@@ -207,20 +174,20 @@ document.toString() == '[object HTMLDocument]' && function()
 		
 					popup.padding = 5;
 					popup.css = css;
-					popup.show = showPopup;
-					popup.hide = hidePopup;
+					popup.show = show_popup;
+					popup.hide = hide_popup;
 					
 					var style = document.createElementNS('http://www.w3.org/1999/xhtml', 'style');
 					style.id = 'XTranslate_CSS';
 					style.textContent = evt.data.css;
 					
-					// append to the root node, cause acid3 test otherwise has 97/100
-					(/*document.head ||*/ root).appendChild(style);
-					(/*document.body ||*/ root).appendChild(popup);
+					DOM_apply_bindings();
+					(document.head || root).appendChild(style);
+					(document.body || root).appendChild(popup);
 				break;
 				
 				case 'translate':
-					handleSelection(evt);
+					handle_selection(evt);
 				break;
 				
 				case 'audio':
@@ -229,28 +196,26 @@ document.toString() == '[object HTMLDocument]' && function()
 				break;
 			}
 
-			evt.data.settings && (settings = evt.data.settings);
 			evt.data.userCSS && popup.setAttribute('style', evt.data.userCSS);
 			
-			(function()
-			{
-				var 
-					id = 'XTranslate_custom_CSS',
-					css_rules = evt.data.customCSS,
-					custom_css = document.getElementById(id);
-				
-				if( css_rules ) {
-					custom_css = custom_css || document.createElementNS('http://www.w3.org/1999/xhtml', 'style');
-					custom_css.id = id;
-					custom_css.textContent = css_rules;
-					(document.head || root).appendChild(custom_css);
-				}
-				
-				if( custom_css && css_rules !== undefined && !css_rules ){
-					custom_css.parentNode.removeChild( custom_css );
-				}
-			}());
+			// Update custom CSS
+			var 
+				id = 'XTranslate_custom_CSS',
+				css_rules = evt.data.customCSS,
+				custom_css = document.getElementById(id);
 			
+			if( css_rules ) {
+				custom_css = custom_css || document.createElementNS('http://www.w3.org/1999/xhtml', 'style');
+				custom_css.id = id;
+				custom_css.textContent = css_rules;
+				(document.head || root).appendChild(custom_css);
+			}
+			
+			if( custom_css && css_rules !== undefined && !css_rules ){
+				custom_css.parentNode.removeChild( custom_css );
+			}
+			
+			// Update popup's HTML-content
 			evt.data.html && (
 				top_level || show_in_frame
 					? popup.show( evt.data.html ) 
@@ -298,31 +263,38 @@ document.toString() == '[object HTMLDocument]' && function()
 			}, false)
 		}
 		
-		// DOM-events
-		window.addEventListener('mouseup', handleSelection, false);
-		window.addEventListener('keypress', function( evt )
+		function DOM_apply_bindings()
 		{
-			var key = [];
-			
-			evt.ctrlKey && key.push('Ctrl');
-			evt.shiftKey && key.push('Shift');
-			evt.which && key.push( String.fromCharCode(evt.which).toUpperCase() );
-			
-			settings.trigger.hotkey == key.join('+') &&
-			settings.trigger.type == evt.type && (
-				handleSelection(evt),
-				evt.preventDefault()
-			);
-		}, false);
-		
-		window.addEventListener('click', hidePopup, false);
-		window.addEventListener('keyup', function( evt ){
-			evt.which == 27 && hidePopup(evt); // <ESCAPE>-key
-		}, false);
-
-		window.addEventListener('mouseover', function( evt ) {
-			overnode = evt.target;
-		}, false);
+			[
+				['mouseup', handle_selection],
+				
+				['keypress', function( evt ) {
+					var key = [];
+					
+					evt.ctrlKey && key.push('Ctrl');
+					evt.shiftKey && key.push('Shift');
+					evt.which && key.push( String.fromCharCode(evt.which).toUpperCase() );
+					
+					settings.trigger.hotkey == key.join('+') &&
+					settings.trigger.type == evt.type && (
+						handle_selection(evt),
+						evt.preventDefault()
+					);
+				}],
+				
+				['click', hide_popup],
+				
+				['keyup', function( evt ){
+					evt.which == 27 && hide_popup(evt); // <ESCAPE>-key
+				}],
+				
+				['mouseover', function( evt ) {
+					overnode = evt.target;
+				}]
+			].forEach(function(p){
+				window.addEventListener(p.shift(), p.shift(), false);
+			})
+		}
 		
 	}, false);
 	
