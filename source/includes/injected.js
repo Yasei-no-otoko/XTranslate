@@ -128,18 +128,19 @@ document.toString() == '[object HTMLDocument]' && function()
 		
 		function url_is_excluded( urls )
 		{
-			var location = String(window.location).replace(/https?:\/\/(www\.)?/, '');
+			var location = window.location.href;
 			
 			return !! urls.split('\n')
 				.filter(function( url )
 				{
 					var
 						url = url.trim()
+							.replace(/^https?:\/\/(www\.)?/, '')
 							.replace(/[.]/g, '[.]')
 							.replace(/\*/g, '.*?'),
-						checker = RegExp('^(https?://)?(www[.])?' + url, 'mi');
-					
-					return location.match(checker);
+						checker = RegExp('^(https?://(www[.])?)?' + url, 'mi');
+
+					return checker.test(location);
 				}).shift();
 		}
 		
