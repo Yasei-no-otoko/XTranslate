@@ -354,7 +354,7 @@
 		{
 			"en": "Also you can visit my site",
 			"ru": "Также вы можете посетить мой сайт",
-			"de": "Besuchen Sie auch meine seite",
+			"de": "Besuchen Sie auch meine Seite",
 			"tr": "Web sitemi ziyaret edebilirsin",
 			"pl": "Możesz również odwiedzić moją stronę",
 			"ja": "私のサイトにもアクセスできます",
@@ -416,19 +416,28 @@
 		},
 		{
 			"en": "Exclusions (list of URLs)",
-			"ru": "Исключения (список адресов сайтов)"
+			"ru": "Исключения (список адресов сайтов)",
+			"de": "Ausschlüsse (Liste mit URLs)"
+		},
+		{
+			"en": "Translate the page",
+			"ru": "Перевести страницу",
+			"de": "Ubersetzen Sie die Seite"
 		},
 		{
 			"en": "If you don't want to execute the extension on some pages in the web, you can simply list URLs or them parts below",
-			"ru": "Если вы не хотите выполнять расширение на некоторых страницах в интернете, то просто добавьте URL или его часть в список ниже"
+			"ru": "Если вы не хотите выполнять расширение на некоторых страницах в интернете, то просто добавьте URL или его часть в список ниже",
+			"de": "Wenn Sie nicht möchten, dass die Erweiterung auf bestimmten Webseiten ausgeführt wird, können Sie hier die URLs, oder Teile davon, eingeben"
 		},
 		{
 			"en": "Use [Enter] to separate the addresses",
-			"ru": "Используйте [Enter] для разделения адресов"
+			"ru": "Используйте [Enter] для разделения адресов",
+			"de": "Benutzen Sie die [Enter]-Taste für einen neuen Eintrag"
 		},
 		{
 			"en": "Don't forget reload the page to apply the changes",
-			"ru": "Не забудьте перезагрузить страницу после внесенных изменений"
+			"ru": "Не забудьте перезагрузить страницу после внесенных изменений",
+			"de":"Vergessen Sie nicht die Seite neu zu laden, um die Änderungen anzuwenden"
 		}
 	]
 }
