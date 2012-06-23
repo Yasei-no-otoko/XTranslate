@@ -422,7 +422,7 @@
 		{
 			"en": "Translate the page",
 			"ru": "Перевести страницу",
-			"de": "Ubersetzen Sie die Seite"
+			"de": "Diese Seite übersetzen"
 		},
 		{
 			"en": "If you don't want to execute the extension on some pages in the web, you can simply list URLs or them parts below",
