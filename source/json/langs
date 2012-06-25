@@ -417,27 +417,32 @@
 		{
 			"en": "Exclusions (list of URLs)",
 			"ru": "Исключения (список адресов сайтов)",
-			"de": "Ausschlüsse (Liste mit URLs)"
+			"de": "Ausschlüsse (Liste mit URLs)",
+			"pl": "Wykluczenia (lista adresów)"
 		},
 		{
 			"en": "Translate the page",
 			"ru": "Перевести страницу",
-			"de": "Diese Seite übersetzen"
+			"de": "Diese Seite übersetzen",
+			"pl": "Przetłumacz stronę"
 		},
 		{
 			"en": "If you don't want to execute the extension on some pages in the web, you can simply list URLs or them parts below",
 			"ru": "Если вы не хотите выполнять расширение на некоторых страницах в интернете, то просто добавьте URL или его часть в список ниже",
-			"de": "Wenn Sie nicht möchten, dass die Erweiterung auf bestimmten Webseiten ausgeführt wird, können Sie hier die URLs, oder Teile davon, eingeben"
+			"de": "Wenn Sie nicht möchten, dass die Erweiterung auf bestimmten Webseiten ausgeführt wird, können Sie hier die URLs, oder Teile davon, eingeben",
+			"pl": "Jeśli nie chcesz, aby rozszerzenie działało na niektórych stronach możesz dodać ich adresy do listy"
 		},
 		{
 			"en": "Use [Enter] to separate the addresses",
 			"ru": "Используйте [Enter] для разделения адресов",
-			"de": "Benutzen Sie die [Enter]-Taste für einen neuen Eintrag"
+			"de": "Benutzen Sie die [Enter]-Taste für einen neuen Eintrag",
+			"pl": "Użyj [Enter], aby oddzielić adresy"
 		},
 		{
 			"en": "Don't forget reload the page to apply the changes",
 			"ru": "Не забудьте перезагрузить страницу после внесенных изменений",
-			"de":"Vergessen Sie nicht die Seite neu zu laden, um die Änderungen anzuwenden"
+			"de":"Vergessen Sie nicht die Seite neu zu laden, um die Änderungen anzuwenden",
+			"pl": "Nie zapomnij odświeżyć strony, aby zastosować zmiany"
 		}
 	]
 }
