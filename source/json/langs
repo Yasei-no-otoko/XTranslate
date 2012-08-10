@@ -382,28 +382,33 @@
 			"en": "Additional CSS rules",
 			"ru": "Дополнительные CSS правила",
 			"de": "Zusätzliche CCS-Regeln",
+			"tr": "Eklenmiş CSS kuralları",
 			"pl": "Dodatkowe reguły CSS"
 		},
 		{
 			"en": "for advanced users only",
 			"ru": "для опытных пользователей",
 			"de": "nur für erfahrene Nutzer",
+			"tr": "sadece gelişmiş kullanıcıla için",
 			"pl": "tylko dla zaawansowanych użytkowników"
 		},
 		{
 			"en": "Sample",
 			"ru": "Пример",
 			"de": "Beispiel",
+			"tr": "Örnek",
 			"pl": "Przykład"
 		},
 		{
 			"en": "Settings",
 			"ru": "Настройки",
 			"de": "Einstellungen",
+			"tr": "Ayarlar",
 			"pl": "Ustawienia"
 		},
 		{
 			"en": "User input",
+			"tr": "Kullanıcı girişi",
 			"ru": "Ввод текста",
 			"de": "Benutzereingabe",
 			"pl": "Wprowadź tekst"
@@ -412,36 +417,42 @@
 			"en": "Clear settings",
 			"ru": "Сброс настроек",
 			"de": "Einstellungen löschen",
+			"tr": "Ayarları temizle",
 			"pl": "Resetuj ustawienia"
 		},
 		{
 			"en": "Exclusions (list of URLs)",
 			"ru": "Исключения (список адресов сайтов)",
 			"de": "Ausschlüsse (Liste mit URLs)",
+			"tr": "Hariçler (URL listesi)",
 			"pl": "Wykluczenia (lista adresów)"
 		},
 		{
 			"en": "Translate the page",
 			"ru": "Перевести страницу",
 			"de": "Diese Seite übersetzen",
+			"tr": "Sayfayı çevir",
 			"pl": "Przetłumacz stronę"
 		},
 		{
 			"en": "If you don't want to execute the extension on some pages in the web, you can simply list URLs or them parts below",
 			"ru": "Если вы не хотите выполнять расширение на некоторых страницах в интернете, то просто добавьте URL или его часть в список ниже",
 			"de": "Wenn Sie nicht möchten, dass die Erweiterung auf bestimmten Webseiten ausgeführt wird, können Sie hier die URLs, oder Teile davon, eingeben",
+			"tr": "Eğer eklentiyi webdeki bazı sayfalarda çalıştırmak istemiyorsanız, kolayca URL veya parçalarını aşağıya ekleyebilirsiniz.",
 			"pl": "Jeśli nie chcesz, aby rozszerzenie działało na niektórych stronach możesz dodać ich adresy do listy"
 		},
 		{
 			"en": "Use [Enter] to separate the addresses",
 			"ru": "Используйте [Enter] для разделения адресов",
 			"de": "Benutzen Sie die [Enter]-Taste für einen neuen Eintrag",
+			"tr": "Adresleri ayırmak için [Enter] kullanın.",
 			"pl": "Użyj [Enter], aby oddzielić adresy"
 		},
 		{
 			"en": "Don't forget reload the page to apply the changes",
 			"ru": "Не забудьте перезагрузить страницу после внесенных изменений",
 			"de":"Vergessen Sie nicht die Seite neu zu laden, um die Änderungen anzuwenden",
+			"tr": "Değişiklikleri uygulamak için sayfayı yeniden yüklemeyi unutmayın.",
 			"pl": "Nie zapomnij odświeżyć strony, aby zastosować zmiany"
 		}
 	]
