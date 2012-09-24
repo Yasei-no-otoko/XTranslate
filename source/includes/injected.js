@@ -34,7 +34,8 @@ document.toString() == '[object HTMLDocument]' && function()
 			var
 				type = evt.type,
 				range = document.createRange(),
-				autoselect = selection.rangeCount == 0 && type == 'keypress';
+                selection = window.getSelection(),
+                autoselect = selection.rangeCount == 0 && type == 'keypress';
 
             hide_icon_trigger();
 
@@ -292,7 +293,7 @@ document.toString() == '[object HTMLDocument]' && function()
 			[
 				['mouseup', function (evt) {
                     if(evt.target == icon_trigger) return;
-                    selection = window.getSelection();
+                    selection = selection || window.getSelection();
 
                     if(settings.button.icon_trigger_popup){
                         var text = selection.toString().trim();
