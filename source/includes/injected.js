@@ -9,8 +9,8 @@ document.toString() == '[object HTMLDocument]' && function()
 		var 
 			top_level = window.top == window.self,
 			show_in_frame = window.innerWidth >= 200 && window.innerHeight >= 200,
-			port, settings, 
-			popup, selection, overnode;
+			port, settings,  icon_trigger,
+			popup, selection, range_rect, overnode;
 			
 		function extend( source )
 		{
@@ -31,65 +31,63 @@ document.toString() == '[object HTMLDocument]' && function()
 		
 		function handle_selection( evt )
 		{
-			selection = window.getSelection();
-			
-			var 
+			var
 				type = evt.type,
 				range = document.createRange(),
 				autoselect = selection.rangeCount == 0 && type == 'keypress';
 
-			(type == settings.trigger.type || 
-			(type == 'message' && settings.button.trigger)) && 
-			function()
-			{
-				var text = function( text ) {
-					if( autoselect && overnode )
-					{
-						var name = overnode.nodeName;
-						
-						text = name.match(/input|textarea/i)
-							? overnode.value || overnode.placeholder
-							: [].slice.call( overnode.selectNodes('.//text()') )
-								.map(function( node ){ return node.textContent })
-								.join(' ');
-						
-						range.selectNode( overnode );
-						selection.addRange( range );
-					}
-					return text || String(selection).trim();
-				}();
-				
-				if( text )
-				{
-					popup.compareDocumentPosition(selection.anchorNode || overnode)
-                    !== (document.DOCUMENT_POSITION_FOLLOWING | document.DOCUMENT_POSITION_CONTAINED_BY)
+            hide_icon_trigger();
+
+            if( type == settings.trigger.type ||
+               (type == 'mouseup' && settings.button.icon_trigger_popup))
+            {
+                var text = function( text ) {
+                    if( autoselect && overnode )
+                    {
+                        var name = overnode.nodeName;
+
+                        text = name.match(/input|textarea/i)
+                            ? overnode.value || overnode.placeholder
+                            : [].slice.call( overnode.selectNodes('.//text()') )
+                            .map(function( node ){ return node.textContent })
+                            .join(' ');
+
+                        range.selectNode( overnode );
+                        selection.addRange( range );
+                    }
+                    return text || String(selection).trim();
+                }();
+
+                if( text )
+                {
+                    popup.compareDocumentPosition(selection.anchorNode || overnode)
+                        !== (document.DOCUMENT_POSITION_FOLLOWING | document.DOCUMENT_POSITION_CONTAINED_BY)
                     && port.postMessage(
-						text
-							.replace(/(\s*\n\s*){2,}/g, '\n\n')
-							.replace(/^.*$/gm, function( line ){
-								return line.trim()
-							})
-					);
-				}
-			}();
+                        text
+                            .replace(/(\s*\n\s*){2,}/g, '\n\n')
+                            .replace(/^.*$/gm, function( line ){
+                                return line.trim()
+                            })
+                    );
+                }
+            }
 		}
 		
 		function show_popup( html, position )
 		{
 			var 
 				first = popup.firstChild,
-				pos = position || function(){
-					try {
-						return selection.getRangeAt(0).getBoundingClientRect()
-					} catch(e){
-						return {left: 0, top: 0, bottom: 0, right: 0}
-					}
-				}(),
-				html = function() {
-					var node = document.createElement('div');
-					node.innerHTML = html;
-					return node;
-				}();
+				pos = position || range_rect || function(){
+                    try { return selection.getRangeAt(0).getBoundingClientRect() }
+                    catch(e){return {left: 0, top: 0, bottom: 0, right: 0}}
+                }();
+
+            range_rect = null;
+            html = function() {
+                var node = document.createElement('div');
+                node.innerHTML = html;
+                return node;
+            }();
 
 			first ? popup.replaceChild(html, first) : popup.appendChild(html);
 			popup.css({
@@ -127,6 +125,7 @@ document.toString() == '[object HTMLDocument]' && function()
 		function hide_popup() {
 			!top_level && window.top.postMessage('hide', '*');
 			popup.css('display', 'none');
+            hide_icon_trigger();
 		}
 		
 		function url_is_excluded( urls )
@@ -146,6 +145,12 @@ document.toString() == '[object HTMLDocument]' && function()
 					return checker.test(location);
 				}).shift();
 		}
+
+        function hide_icon_trigger() {
+            if(icon_trigger.parentNode){
+                icon_trigger.parentNode.removeChild(icon_trigger);
+            }
+        }
 		
 		// Messaging handler
 		opera.extension.onmessage = function( evt )
@@ -185,7 +190,7 @@ document.toString() == '[object HTMLDocument]' && function()
 
 						evt.stopPropagation();
 					};
-		
+
 					popup.padding = 5;
 					popup.css = css;
 					popup.show = show_popup;
@@ -198,6 +203,11 @@ document.toString() == '[object HTMLDocument]' && function()
 					DOM_apply_bindings();
 					(document.head || root).appendChild(style);
 					(document.body || root).appendChild(popup);
+
+                    icon_trigger = new Image;
+                    icon_trigger.src = evt.data.images.update;
+                    icon_trigger.className = 'XTranslate_icon_trigger';
+                    icon_trigger.title = 'XTranslate: get the translation';
 				break;
 				
 				case 'translate':
@@ -280,8 +290,29 @@ document.toString() == '[object HTMLDocument]' && function()
 		function DOM_apply_bindings()
 		{
 			[
-				['mouseup', handle_selection],
-				
+				['mouseup', function (evt) {
+                    if(evt.target == icon_trigger) return;
+                    selection = window.getSelection();
+
+                    if(settings.button.icon_trigger_popup){
+                        var text = selection.toString().trim();
+                        if( text ){
+                            var range = selection.getRangeAt(0);
+                            range_rect = range.getBoundingClientRect();
+                            range.collapse(false);
+                            var pos = range.getBoundingClientRect();
+
+                            icon_trigger.style.left = pos.right + 'px';
+                            icon_trigger.style.top = pos.bottom + window.pageYOffset + 'px';
+                            icon_trigger.onmousedown = handle_selection.bind(this, evt);
+                            document.body.appendChild(icon_trigger);
+                        }
+                    }
+                    else {
+                        handle_selection(evt);
+                    }
+				}],
+
 				['keypress', function( evt ) {
 					var key = [];
 					

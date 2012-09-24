@@ -446,6 +446,10 @@
 		{
 			"en": "Autoplay text-to-speech",
 			"ru": "Автоматически воспроизводить текст в речь"
+		},
+		{
+			"en": "Show the icon after selecting the text to get translation",
+			"ru": "Показывать иконку для перевода после выделения текста"
 		}
 	]
 }

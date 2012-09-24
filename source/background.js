@@ -89,13 +89,15 @@ var configure = function __( callback )
 }();
 
 var images = {};
-ajax({
-	binary: true,
-	type: 'image/png',
-	url: 'icons/volume.png',
-	complete: function(){
-		images.volume = this.dataURL; // base64
-	}
+['volume', 'update'].forEach(function (image) {
+    ajax({
+        binary: true,
+        type: 'image/png',
+        url: 'icons/'+ image +'.png',
+        complete: function(){
+            images[image] = this.dataURL; // base64
+        }
+    });
 });
 
 settings.follow('lang.from lang.to', function( value, prop, lang ){
@@ -193,7 +195,8 @@ opera.extension.addEventListener('connect', function(evt)
 		userCSS: userCSS(),
 		customCSS: settings('user.custom.css'),
 		settings: settings(),
-		widget: JSON.stringify(widget)
+		widget: JSON.stringify(widget),
+        images: images
 	});
 }, false );
 
