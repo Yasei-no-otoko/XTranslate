@@ -39,7 +39,7 @@ var configure = function __( callback )
 		'blocks.shut': {
 			"hotkey": false,
 			"vendor": false,
-			"other": true,
+			"other": false,
 			"customization": true,
 			"exclusions": true
 		},
