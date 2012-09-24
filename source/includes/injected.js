@@ -37,7 +37,7 @@ document.toString() == '[object HTMLDocument]' && function()
 				type = evt.type,
 				range = document.createRange(),
 				autoselect = selection.rangeCount == 0 && type == 'keypress';
-				
+
 			(type == settings.trigger.type || 
 			(type == 'message' && settings.button.trigger)) && 
 			function()
@@ -61,11 +61,9 @@ document.toString() == '[object HTMLDocument]' && function()
 				
 				if( text )
 				{
-					popup.compareDocumentPosition(selection.anchorNode || overnode) !== (
-						document.DOCUMENT_POSITION_FOLLOWING | 
-						document.DOCUMENT_POSITION_CONTAINED_BY
-					) &&
-					port.postMessage(
+					popup.compareDocumentPosition(selection.anchorNode || overnode)
+                    !== (document.DOCUMENT_POSITION_FOLLOWING | document.DOCUMENT_POSITION_CONTAINED_BY)
+                    && port.postMessage(
 						text
 							.replace(/(\s*\n\s*){2,}/g, '\n\n')
 							.replace(/^.*$/gm, function( line ){
@@ -92,7 +90,7 @@ document.toString() == '[object HTMLDocument]' && function()
 					node.innerHTML = html;
 					return node;
 				}();
-			
+
 			first ? popup.replaceChild(html, first) : popup.appendChild(html);
 			popup.css({
 				left: pos.left + 'px',
@@ -100,8 +98,13 @@ document.toString() == '[object HTMLDocument]' && function()
 				margin: 0,
 				display: 'block'
 			});
-			
-			// fix position
+
+            if(settings.button.autoplay){
+                var play_sound = html.querySelector('.XTranslate_sound_play');
+                play_sound && play_sound.click();
+            }
+
+            // fix position
 			var
 				win_size = {
 					width: window.innerWidth,
@@ -163,13 +166,23 @@ document.toString() == '[object HTMLDocument]' && function()
 					popup.onclick = function( evt )
 					{
 						var elem = evt.target;
-						
-						elem.className == 'XTranslate_sound_play' &&
-						port.postMessage({
-							action: "get-sound",
-							url: elem.getAttribute('data-url')
-						});
-						
+
+                        if( elem.className == 'XTranslate_sound_play' ){
+                            var
+                                parent_ = elem.parentNode,
+                                obj = parent_.querySelector('object');
+
+                            if(!obj.src){
+                                port.postMessage({
+                                    action: "get-sound",
+                                    url: elem.getAttribute('data-url')
+                                });
+                            } else {
+                                parent_.removeChild(obj);
+                                parent_.appendChild(obj);
+                            }
+                        }
+
 						evt.stopPropagation();
 					};
 		
@@ -192,7 +205,7 @@ document.toString() == '[object HTMLDocument]' && function()
 				break;
 				
 				case 'audio':
-					var sound = popup.querySelector('object, embed');
+					var sound = popup.querySelector('object');
 					sound.src = sound.data = evt.data.track;
 				break;
 			}

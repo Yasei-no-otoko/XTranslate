@@ -63,15 +63,6 @@
 			"es": "Después de presionar una hotkey"
 		},
 		{
-			"en": "Use the button on the toolbar for translation",
-			"ru": "Использовать кнопку на панели инструментов для перевода",
-			"de": "Benutze Toolbar-Button zum Übersetzen",
-			"tr": "Çeviri için araç çubuğunda bir düğme göster",
-			"pl": "Za pomocą przycisku na pasku narzędzi",
-			"ja": "ツールバーのボタンで翻訳する",
-			"es": "Usar el botón de la barra para traducir"
-		},
-		{
 			"en": "Translation",
 			"ru": "Перевод",
 			"de": "Übersetzung",
@@ -414,7 +405,7 @@
 			"pl": "Wprowadź tekst"
 		},
 		{
-			"en": "Clear settings",
+			"en": "Reset settings",
 			"ru": "Сброс настроек",
 			"de": "Einstellungen löschen",
 			"tr": "Ayarları temizle",
@@ -426,13 +417,6 @@
 			"de": "Ausschlüsse (Liste mit URLs)",
 			"tr": "Hariçler (URL listesi)",
 			"pl": "Wykluczenia (lista adresów)"
-		},
-		{
-			"en": "Translate the page",
-			"ru": "Перевести страницу",
-			"de": "Diese Seite übersetzen",
-			"tr": "Sayfayı çevir",
-			"pl": "Przetłumacz stronę"
 		},
 		{
 			"en": "If you don't want to execute the extension on some pages in the web, you can simply list URLs or them parts below",
@@ -454,6 +438,14 @@
 			"de":"Vergessen Sie nicht die Seite neu zu laden, um die Änderungen anzuwenden",
 			"tr": "Değişiklikleri uygulamak için sayfayı yeniden yüklemeyi unutmayın.",
 			"pl": "Nie zapomnij odświeżyć strony, aby zastosować zmiany"
+		},
+		{
+			"en": "Use button on the toolbar for translation current page (will open in new tab)",
+			"ru": "Использовать кнопку на панели инструментов для перевода текущей страницы (откроется в новой вкладке)"
+		},
+		{
+			"en": "Autoplay text-to-speech",
+			"ru": "Автоматически воспроизводить текст в речь"
 		}
 	]
 }

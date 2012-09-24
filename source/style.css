@@ -81,7 +81,7 @@
 	.XTranslate_options .user-css > * { display:table-row; }
 	.XTranslate_options .user-css > * > *:first-child { padding-right:10px; }
 	.XTranslate_options .user-css > * > span { display:table-cell; padding-bottom:10px; vertical-align:top; }
-	.XTranslate_options > dl { display:block; padding:1em; border:1px solid silver; border-radius:10px; }
+    .XTranslate_options > dl { display:block; padding:1em; border:1px solid silver; border-radius:10px; }
 	.XTranslate_options > dl > dt { font-weight:bold; }
 	.XTranslate_options > dl > dd,
 	.XTranslate_options .content { margin:0; padding-left:20px; }
@@ -154,7 +154,8 @@
 	.XTranslate_options .pseudo:hover { color:black; border-bottom-color:black; }
 	.XTranslate_options .button { font-weight:bold; padding:.2em .5em; cursor:pointer; }
 	.XTranslate_options .button[disabled] { cursor:default; }
-	
-	.XTranslate_options .translate_all { padding-bottom:.5em; text-align:center; font-weight:bold; }
 
+    .XTranslate_options hr { height: 1px; overflow: hidden; border: 0; background: black; }
+    .XTranslate_options label.checkbox { padding-left: 25px; display: block; }
+    .XTranslate_options label.checkbox input { margin-left: -20px; }
 

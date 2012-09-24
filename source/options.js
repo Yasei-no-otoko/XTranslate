@@ -600,21 +600,6 @@ function XTranslate_options()
 		};
 	});
 	
-	// Go to the vendor's page for translation url
-	$('.translate_all a').onclick = function()
-	{
-		var 
-			vendor = bg.XTranslate.vendors.current,
-			tab = bg.opera.extension.tabs.getFocused();
-
-		tab && bg.opera.extension.tabs.create({
-			url: vendor.getTranslateThePageURL( tab.url ), 
-			focused: true
-		});
-		
-		return false;
-	};
-
 	// Reset global settings
 	$('.reset').onclick = function(evt)
 	{

@@ -159,9 +159,14 @@ function button()
 	var config = {
 		popup: settings('button.popup'),
 		onclick: function( evt ){
-			opera.extension.broadcastMessage({
-				action: 'translate'
-			});
+    		var
+    			vendor = XTranslate.vendors.current,
+    			tab = opera.extension.tabs.getFocused();
+
+    		tab && opera.extension.tabs.create({
+    			url: vendor.getTranslateThePageURL( tab.url ),
+    			focused: true
+    		});
 		}
 	};
 	delete config[

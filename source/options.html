@@ -33,9 +33,9 @@
 					<input type="text" name="trigger.hotkey" value="" size="10" title="Press Ctrl+[key] for make changes"/>
 				</div>
 				<div>
-					<label>
+					<label class="checkbox">
 						<input type="checkbox" name="button.trigger"/>
-						<span>Use the button on the toolbar for translation</span>
+						<span>Use button on the toolbar for translation current page (will open in new tab)</span>
 					</label>
 				</div>
 			</dd>
@@ -84,15 +84,19 @@
 					<select name="lang.ui.current"></select>
 				</label>
                 <br/>
-				<label>
+				<label class="checkbox">
 					<input type="checkbox" name="button.voice"/>
 					Show the sound-icon of voice translation
 				</label>
-				<br/>
-				<label>
+				<label class="checkbox">
 					<input type="checkbox" name="button.show"/>
 					Show the button on the toolbar
 				</label>
+                <label class="checkbox">
+					<input type="checkbox" name="button.autoplay"/>
+					Autoplay text-to-speech
+				</label>
+                <span class="pseudo reset">Reset settings</span>
 			</dd>
             
         	<i class="toggle"></i>
@@ -207,17 +211,11 @@
         	<textarea rows="5" class="XTranslate_user_input_area"></textarea>
             <div class="XTranslate_user_input_result"></div>
         </dl>
-        
-        <div class="translate_all">
-        	<a href="#" target="_blank">Translate the page</a>
-        </div>
-		
+
 		<hr/>
 		<div class="footer">
 			Special thanks to Google and Opera software.
 			Also you can visit my site <a href="http://mintdesign.ru/">www.mintdesign.ru</a>
-            <span> | </span>
-            <span class="pseudo reset">Clear settings</span>
 		</div>
 	</div>
     
