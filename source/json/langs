@@ -441,15 +441,18 @@
 		},
 		{
 			"en": "Use button on the toolbar for translation current page (will open in new tab)",
-			"ru": "Использовать кнопку на панели инструментов для перевода текущей страницы (откроется в новой вкладке)"
+			"ru": "Использовать кнопку на панели инструментов для перевода текущей страницы (откроется в новой вкладке)",
+			"de": "Button auf Symbolleiste für Übersetzung der aktuellen Seite nutzen (wird in neuem Tab geöffnet)"
 		},
 		{
 			"en": "Autoplay text-to-speech",
-			"ru": "Автоматически воспроизводить текст в речь"
+			"ru": "Автоматически воспроизводить текст в речь",
+			"de": "Text-zu-Sprache automatisch abspielen"
 		},
 		{
 			"en": "Show the icon after selecting the text to get translation",
-			"ru": "Показывать иконку для перевода после выделения текста"
+			"ru": "Показывать иконку для перевода после выделения текста",
+			"de": "Zeige nach dem Auswählen des Textes eine Schaltfläche zum Übersetzen"
 		}
 	]
 }

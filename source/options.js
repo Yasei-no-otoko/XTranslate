@@ -515,6 +515,7 @@ function XTranslate_options()
 					
 					bg.when( response ).then(function( result ) {
 						user_input.result.innerHTML = result.html;
+                        bg.settings('button.autoplay') && $('.XTranslate_sound_play').click();
 					});
 				}
 				else {
@@ -559,14 +560,22 @@ function XTranslate_options()
 		// sound play
 		target.className == 'XTranslate_sound_play' && function()
 		{
-			var get_sound = bg.XTranslate.vendors.current['get-sound']({
-				url: this.getAttribute('data-url')
-			});
-			
-			bg.when( get_sound ).then(function( data ) {
-				var sound = $('.XTranslate_sound object');
-				sound.src = sound.data = data.track;
-			});
+            var sound = $('.XTranslate_sound');
+            var track = $('object', sound);
+
+            if(!track.src){
+                var get_sound = bg.XTranslate.vendors.current['get-sound']({
+                    url: this.dataset.url
+                });
+
+                bg.when( get_sound ).then(function( data ) {
+                    track.src = track.data = data.track;
+                });
+            }
+            else {
+                sound.removeChild(track);
+                sound.appendChild(track);
+            }
 		}.call(target);
 		
 		// similar words in the result
