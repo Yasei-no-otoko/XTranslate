@@ -461,7 +461,8 @@
         },
         {
             "en": "Do translation of the selected word after double clicking",
-            "ru": "Делать перевод выделенного слова по двойному клику"
+            "ru": "Делать перевод выделенного слова по двойному клику",
+            "de": "Nach Doppelklick auf ein Wort dieses übersetzen"
         }
 	]
 }
