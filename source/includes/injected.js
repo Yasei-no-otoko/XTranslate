@@ -40,6 +40,7 @@ document.toString() == '[object HTMLDocument]' && function()
             hide_icon_trigger();
 
             if( type == settings.trigger.type ||
+               (type == 'dblclick' && settings.translate.dblclick) ||
                (type == 'mouseup' && settings.button.icon_trigger_popup))
             {
                 var text = function( text ) {
@@ -314,6 +315,14 @@ document.toString() == '[object HTMLDocument]' && function()
                     }
 				}],
 
+                ['dblclick', function (evt) {
+                    if(settings.translate.dblclick){
+                        handle_selection(evt);
+                        evt.preventDefault();
+                        return false;
+                    }
+                }],
+
 				['keypress', function( evt ) {
 					var key = [];
 					
@@ -338,7 +347,9 @@ document.toString() == '[object HTMLDocument]' && function()
 					overnode = evt.target;
 				}]
 			].forEach(function(p){
-				window.addEventListener(p.shift(), p.shift(), false);
+                var evtName = p.shift();
+                var handler = p.shift();
+				document.addEventListener(evtName, handler, false);
 			})
 		}
 		

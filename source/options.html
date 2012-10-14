@@ -34,16 +34,22 @@
 				</div>
                 <div>
                     <label class="checkbox">
-                        <input type="checkbox" name="button.icon_trigger_popup"/>
-                        <span>Show the icon after selecting the text to get translation</span>
+                        <input type="checkbox" name="translate.dblclick"/>
+                        <span>Do translation of the selected word after double clicking</span>
                     </label>
                 </div>
                 <div>
                     <label class="checkbox">
-                        <input type="checkbox" name="button.trigger"/>
-                        <span>Use button on the toolbar for translation current page (will open in new tab)</span>
+                        <input type="checkbox" name="button.icon_trigger_popup"/>
+                        <span>Show the icon after selecting the text to get translation</span>
                     </label>
                 </div>
+                <!--<div>-->
+                    <!--<label class="checkbox">-->
+                        <!--<input type="checkbox" name="button.trigger"/>-->
+                        <!--<span>Use button on the toolbar for translation current page (will open in new tab)</span>-->
+                    <!--</label>-->
+                <!--</div>-->
 			</dd>
         	<i class="toggle"></i>
 		</dl>
@@ -218,7 +224,11 @@
             <div class="XTranslate_user_input_result"></div>
         </dl>
 
-		<hr/>
+        <div class="translate_all">
+            <a href="#" target="_blank">Translate the page</a>
+        </div>
+
+        <hr/>
 		<div class="footer">
 			Special thanks to Google and Opera software.
 			Also you can visit my site <a href="http://mintdesign.ru/">www.mintdesign.ru</a>

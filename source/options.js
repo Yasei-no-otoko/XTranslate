@@ -24,93 +24,93 @@ function parse( tmpl, data )
 
 function XTranslate_options()
 {
-	var 
+	var
 		bg = opera.extension.bgProcess,
 		header = document.title +' '+ parse('<span class="version">${version}</span>', widget);
-	
+
 	$('h1').innerHTML = header;
 
 	// Tabs
 	var toolbar = $('.toolbar');
-	
+
 	toolbar.chain = toolbar.getAttribute('data-chain');
 	toolbar.active_tab = $('[data-target = "'+ bg.settings(toolbar.chain) +'"]', toolbar) || $('.active', toolbar);
 	toolbar.onclick = function( evt )
 	{
-		var 
+		var
 			target = evt.target || this,
 			is_tab = target.className.indexOf('tab') > -1;
-		
+
 		if( is_tab )
 		{
 			var active_parent_cssview = target.getAttribute('data-target');
 			$('.XTranslate_options').className = 'XTranslate_options '+ active_parent_cssview;
 			bg.settings(toolbar.chain, active_parent_cssview);
-			
-			user_input && 
-			active_parent_cssview == 'XTranslate_tab_user_input' && 
+
+			user_input &&
+			active_parent_cssview == 'XTranslate_tab_user_input' &&
 			user_input.area.focus();
-			
+
 			$('.tab', toolbar).forEach(function( tab ){
 				tab.className = 'tab ' + (tab === target ? 'active' : '');
 			});
 		}
 	};
-	
+
 	toolbar.onclick.call(toolbar.active_tab, {});
-	
+
 	// vendors-list
 	var vendors = function()
 	{
-		var 
+		var
 			vendors = bg.XTranslate.vendors,
 			elem = $('#vendors'),
 			tmpl = elem.innerHTML,
 			html = '';
-		
+
 		vendors.forEach(function( vendor )
 		{
-			html += parse(tmpl, 
+			html += parse(tmpl,
 			{
 				vendor: vendor.name,
 				url: vendor.url,
 				text: vendor.url.replace(/^http[s]?:\/\/([^\/]*)\/?/gi, '$1')
 			});
 		});
-		
+
 		elem.innerHTML = html;
 		return vendors;
 	}();
-	
+
 	// ui language
 	var langs = function()
 	{
-		var 
+		var
 			langs = $('select[name="lang.ui.current"]'),
 			ui = bg.settings('lang.ui'),
 			current = ui.current;
-		
+
 		ui.langs.forEach(function( lang ) {
 			langs.innerHTML += parse('<option value="${code}">${title}</option>', lang);
 		});
-		
+
 		ui['default'] != current && changeUILanguage({
 			from: ui['default'],
 			to: current
 		});
-		
+
 		return langs;
 	}();
-	
+
 	// load themes
 	var updateThemes = function __()
 	{
-		var 
+		var
 			themes = $('select[name="user.theme"]'),
 			theme = bg.settings('user.theme');
-		
+
 		themes.innerHTML = '<option value="">Custom</option>'
-			+ 
+			+
 			bg.settings('user.themes').map(function( theme )
 			{
 				theme.name = theme.name
@@ -119,13 +119,13 @@ function XTranslate_options()
 					.replace(/"/g, "&quot;");
 				return parse('<option value="${name}">${name}</option>', theme);
 			}).join('');
-		
+
 		themes.value = theme;
 		theme == '' && ($('button[name="theme.delete"]').disabled = true);
-			
+
 		return __;
 	}();
-			
+
 	var preview = function()
 	{
 		var popup = $('.XTranslate');
@@ -134,18 +134,18 @@ function XTranslate_options()
 			return __;
 		}();
 	}();
-	
+
 	var updateLangs = function __()
 	{
-		var 
+		var
 			options = '',
 			from = $('select[name="lang.from"]'),
 			to = $('select[name="lang.to"]');
-		
+
 		vendors.current.langs.forEach(function( lang ){
 			options += parse('<option value="${iso}">${name}</option>', lang);
 		});
-		
+
 		[from, to].forEach(function( elem )
 		{
 			var value = bg.settings(elem.name);
@@ -154,11 +154,11 @@ function XTranslate_options()
 			elem.value != value && bg.settings(elem.name, elem.value); // fix, if lang not exists (when we change vendor)
 			updateIcon(elem);
 		});
-		
+
 		// remove auto from "lang.to" if exists
 		var auto = $('option[value="auto"]', to);
 		auto && to.removeChild(auto);
-		
+
 		// fixes when languages are the same
 		if( from.value == to.value )
 		{
@@ -169,7 +169,7 @@ function XTranslate_options()
 				updateIcon(to)
 			);
 		}
-		
+
 		// lock mirror language
 		[
 			$('option[value="'+ to.value +'"]', from),
@@ -177,10 +177,10 @@ function XTranslate_options()
 		].forEach(function( option ){
 			if( option ) option.disabled = true;
 		});
-		
+
 		return __;
 	}();
-	
+
 	function updateIcon( elem )
 	{
 		var value = elem.value;
@@ -188,22 +188,22 @@ function XTranslate_options()
 		icon.src = 'icons/flags/'+ value.split('-').shift() +'.png';
 		icon.alt = value;
 	}
-	
+
 	var updateState = function __( filter )
 	{
 		$('dd input, dd select')
 			.filter(filter || function(){ return true })
 			.forEach(function( elem )
 			{
-				var 
+				var
 					type = elem.type,
 					value = bg.settings(elem.name);
-				
+
 				elem.title = value;
 				elem.name == 'trigger.hotkey' && (value = value.split('+').slice(1).join('+'));
-				
+
 				if( type == 'checkbox' ) {
-					value 
+					value
 						? elem.setAttribute('checked', true)
 						: elem.removeAttribute('checked');
 				}
@@ -213,45 +213,45 @@ function XTranslate_options()
 				else {
 					elem.value = value;
 				}
-				
+
 				// bind handler
 				type == 'range'
 					? (elem.onmouseup = elem.onkeyup = save)
 					: (elem.onchange = save)
 			});
-		
+
 		return __;
 	}();
-	
+
 	function save( evt, custom_val )
 	{
 		var value = this.type == 'checkbox'
 			? this.checked
 			: this.value;
-		
+
 		this.title = custom_val || value;
 		bg.settings(this.name, custom_val || value);
-		
+
 		bg.opera.extension.broadcastMessage({
 			settings: bg.settings(),
 			userCSS: bg.userCSS()
 		});
-		
+
 		this.name == 'vendor' && updateLangs();
 		this.name.match(/user\.css/) && function()
 		{
 			bg.settings('user.theme', '');
 			$('select[name="user.theme"]').value = '';
 		}();
-		
+
 		// update the icon and disabling translation from same to same
 		if( this.name.match(/lang\.(from|to)/) )
 		{
-			var 
+			var
 				list = ['lang.to', 'lang.from'],
 				active = list.splice(list.indexOf(this.name), 1),
 				passive = list.shift();
-			
+
 			$('select[name="'+ passive +'"] option').forEach(function( elem )
 			{
 				elem.value == value
@@ -260,41 +260,41 @@ function XTranslate_options()
 			});
 			updateIcon(this);
 		}
-		
+
 		preview();
 	}
-	
+
 	$('input[name="trigger.hotkey"]').onkeypress = function( evt )
 	{
-		var 
+		var
 			key = ['Ctrl'],
 			code = evt.which,
 			tabKey = code == 9;
-		
+
 		if( !tabKey )
 		{
 			if( evt.ctrlKey ) {
 				evt.shiftKey && key.push('Shift');
 				code && key.push( String.fromCharCode(code).toUpperCase() );
 			}
-			
+
 			if( key.length > 1 ){
 				var hotkey = key.join('+');
 				this.value = key.slice(1).join('+');
 				this.onchange(evt, hotkey);
 			}
-			
+
 			evt.preventDefault();
 		}
 	};
-	
+
 	$('span.arrow').onclick = function( evt )
 	{
-		var 
+		var
 			lang = bg.settings('lang'),
 			from = $('select[name="lang.from"]'),
 			to = $('select[name="lang.to"]');
-		
+
 		if( lang.from != 'auto' )
 		{
 			from.value = lang.to;
@@ -303,36 +303,36 @@ function XTranslate_options()
 			to.onchange(evt);
 		}
 	};
-	
+
 	bg.settings.unfollow('user.theme'); // clear
 	bg.settings.follow('user.theme', function( value, prop, user )
 	{
 		var drop_btn = $('button[name="theme.delete"]');
-		
+
 		if( value )
 		{
-			var 
+			var
 				theme = user.themes.filter(function( theme ){
 					return theme.name == value;
 				}).shift().css;
-			
+
 			bg.settings('user.css', theme);
-			
+
 			updateState(function( input ){
 				return input.name.match(/^user\.css/);
 			});
-			
+
 			drop_btn.removeAttribute('disabled');
 		}
 		else {
 			drop_btn.disabled = true;
 		}
 	});
-	
+
 	// saving theme
 	$('*[name="theme.save"]').onclick = function(evt)
 	{
-		var 
+		var
 			save_btn = this,
 			name = $('input[name="theme.name"]', this.parentNode),
 			error = $('div.error', this.parentNode),
@@ -344,7 +344,7 @@ function XTranslate_options()
 				name.className = 'hidden';
 				error.className = 'error hidden';
 			};
-		
+
 		if( !value ){
 			name.value = hint;
 			name.className = 'hint';
@@ -356,7 +356,7 @@ function XTranslate_options()
 			var theme_exists = bg.settings('user.themes').some(function( theme ){
 				return theme.name == value;
 			});
-			
+
 			if( theme_exists  ) {
 				error.className = 'error';
 				name.className = 'error';
@@ -374,22 +374,22 @@ function XTranslate_options()
 				restore();
 			}
 		}
-		
+
 		name.onfocus = name.onblur = function(evt) {
 			evt.type == 'focus' && this.value == hint && (this.value = '', this.className = '');
-			evt.type.match(/blur|keypress/) && (this.value == hint || !this.value.trim()) && 
+			evt.type.match(/blur|keypress/) && (this.value == hint || !this.value.trim()) &&
 			(
-				this.value = hint, 
+				this.value = hint,
 				this.className = 'hint',
 				error.className = 'error hidden'
 			);
 		};
-		
+
 		name.onkeypress = function(evt){
 			evt.which == 13 && save_btn.onclick();
 		};
 	};
-	
+
 	$('button[name="theme.delete"]').onclick = function(evt)
 	{
 		bg.settings('user.themes', function( themes ){
@@ -400,10 +400,10 @@ function XTranslate_options()
 		bg.settings('user.theme', "");
 		updateThemes();
 	};
-		
+
 	function changeUILanguage( lang )
 	{
-		var 
+		var
 			texts = bg.settings('lang.ui.texts'),
 			textNodes = [].slice.call(document.selectNodes('//text()')).filter(function( node ){
 				return node.textContent.trim();
@@ -413,15 +413,15 @@ function XTranslate_options()
 				node.parentNode.nodeName.toLowerCase() == 'option' && (status = false);
 				return status;
 			};
-		
+
 		texts.forEach(function( text, index )
 		{
 			textNodes.forEach(function( node )
 			{
-				var 
+				var
 					content = node.textContent,
 					data = text[lang.from];
-				
+
 				content.indexOf(data) > -1 && valid(node) && text[lang.to] && (
 					node.textContent = content.replace(function()
 					{
@@ -432,7 +432,7 @@ function XTranslate_options()
 			});
 		});
 	}
-	
+
 	bg.settings.unfollow('lang.ui.current'); // clear for options page only
 	bg.settings.follow('lang.ui.current', function( value, prop, ui, settings, old ){
 		changeUILanguage({
@@ -440,12 +440,12 @@ function XTranslate_options()
 			to: value
 		});
 	});
-	
+
 	// Custom CSS-rules support (for advanced users)
 	var custom_css = $('.custom_css textarea');
 	custom_css.onkeyup = custom_css.update = function __(evt)
 	{
-		var 
+		var
 			id = 'XTranslate_custom_css',
 			style = $('#'+ id),
 			css_rules = bg.settings(custom_css.name) || '',
@@ -465,7 +465,7 @@ function XTranslate_options()
 			});
 			style.textContent = value;
 		}
-		
+
 		return __;
 	}();
 
@@ -478,22 +478,22 @@ function XTranslate_options()
 				var content = $('.custom_css_content', this.parentNode);
 				content.style.display = (content.currentStyle.display == 'none' ? 'inline' : 'none');
 			break;
-			
+
 			case 'sample':
 				custom_css.value = elem.title;
 				custom_css.update();
 			break;
 		}
 	};
-	
+
 	// User input (additional tab in the settings)
-	var user_input = 
+	var user_input =
 	{
 		area: $('.XTranslate_user_input_area'),
 		result: $('.XTranslate_user_input_result'),
 		translate: function(evt, self)
 		{
-			var 
+			var
 				value = this.value,
 				scroll_height = this.scrollHeight,
 				has_scroll = this.offsetHeight - 4 /*border*/ < scroll_height,
@@ -502,17 +502,17 @@ function XTranslate_options()
 					was: ((self.prev || '').match(/\n/g) || []).length,
 					now: (value.match(/\n/g) || []).length
 				};
-			
+
 			// change box's height dependent on the content
 			nl.was !== nl.now && (this.style.height = ((nl.now < nl.min ? nl.min : nl.now) + 1) * self.params.lineHeight + 'px');
 			has_scroll && (this.style.height = scroll_height + 'px');
-			
+
 			// translation
 			if( self.prev !== value )
 			{
 				if( value ){
 					var response = bg.XTranslate.vendors.current.handler(value, true);
-					
+
 					bg.when( response ).then(function( result ) {
 						user_input.result.innerHTML = result.html;
                         bg.settings('button.autoplay') && $('.XTranslate_sound_play').click();
@@ -527,22 +527,20 @@ function XTranslate_options()
 		}
 	};
 
-	setTimeout(function() {
-		user_input.area.focus();
-	}, 10);
-	
+	setTimeout(user_input.area.focus.bind(user_input.area), 0);
+
 	// User input's typing handler
-	user_input.area.onkeypress = function( evt )
+	user_input.area.oninput = function( evt )
 	{
 		var timer = 'XTranslate_user_typing_timer';
 		clearTimeout( this[timer] );
 		this[timer] = setTimeout(user_input.translate.bind(this, evt, user_input), 400);
-		
+
 		if( !user_input.params )
 		{
-			var bS = this.offsetHeight, 
+			var bS = this.offsetHeight,
 				rN = this.getAttribute('rows');
-			
+
 			user_input.params = {
 				boxSize: bS,
 				rowsNum: rN,
@@ -550,13 +548,13 @@ function XTranslate_options()
 			};
 		}
 	};
-	
+
 	user_input.result.onclick = function( evt )
 	{
-		var 
+		var
 			self = this,
 			target = evt.target;
-		
+
 		// sound play
 		target.className == 'XTranslate_sound_play' && function()
 		{
@@ -577,7 +575,7 @@ function XTranslate_options()
                 sound.appendChild(track);
             }
 		}.call(target);
-		
+
 		// similar words in the result
 		target.className == 'XTranslate_sim_word' && function()
 		{
@@ -586,20 +584,20 @@ function XTranslate_options()
 			user_input.area.focus();
 		}.call(target);
 	};
-	
+
 	// Expand/collapse blocks
 	$('dl[data-name]').forEach(function( block )
 	{
-		var 
+		var
 			key = block.getAttribute('data-name'),
 			toggle = $('.toggle', block);
-		
+
 		bg.settings('blocks.shut.'+ key) && (block.className += ' shut');
-		
+
 		block.onclick = function(){
 			this.className.indexOf('shut') > -1 && toggle.onclick();
 		};
-		
+
 		toggle.onclick = function( evt )
 		{
 			var is_shut = block.className.split(' ').indexOf('shut') > -1;
@@ -608,7 +606,7 @@ function XTranslate_options()
 			evt.stopPropagation();
 		};
 	});
-	
+
 	// Reset global settings
 	$('.reset').onclick = function(evt)
 	{
@@ -623,7 +621,22 @@ function XTranslate_options()
 			});
 		}
 	};
-	
+
+    // Go to the vendor's page for translation url
+    $('.translate_all a').onclick = function()
+    {
+        var
+            vendor = bg.XTranslate.vendors.current,
+            tab = bg.opera.extension.tabs.getFocused();
+
+        tab && bg.opera.extension.tabs.create({
+            url: vendor.getTranslateThePageURL( tab.url ),
+            focused: true
+        });
+
+        return false;
+    };
+
 	// List of URLs to exclude applying the extension
 	var exclude_urls = function __( evt )
 	{
@@ -631,13 +644,13 @@ function XTranslate_options()
 			name = this.name,
 			value = bg.settings(name),
 			new_value = this.value.trim();
-			
+
 		// init
 		if( !evt ) {
 			this.onkeyup = __;
 			this.value = new_value = value;
 		}
-		
+
 		if( new_value != value ){
 			bg.settings(name, new_value);
 		}

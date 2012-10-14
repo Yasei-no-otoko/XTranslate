@@ -160,4 +160,5 @@
     .XTranslate_options label.checkbox input { margin-left: -20px; }
 
     .XTranslate_icon_trigger { position: absolute; cursor: pointer; }
+    .XTranslate_options .translate_all { padding-bottom:.5em; text-align:center; }
 

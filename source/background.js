@@ -43,6 +43,9 @@ var configure = function __( callback )
 			"customization": true,
 			"exclusions": true
 		},
+        'translate': {
+          'dblclick': true
+        },
 		'exclude.urls': [
 			'acid3.acidtests.org'
 		].join('\n')

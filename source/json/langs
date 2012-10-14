@@ -453,6 +453,15 @@
 			"en": "Show the icon after selecting the text to get translation",
 			"ru": "Показывать иконку для перевода после выделения текста",
 			"de": "Zeige nach dem Auswählen des Textes eine Schaltfläche zum Übersetzen"
-		}
+		},
+        {
+            "en": "Translate the page",
+            "ru": "Перевести страницу",
+            "de": "Diese Seite übersetzen"
+        },
+        {
+            "en": "Do translation of the selected word after double clicking",
+            "ru": "Делать перевод выделенного слова по двойному клику"
+        }
 	]
 }
