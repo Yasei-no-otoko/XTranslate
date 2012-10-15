@@ -62,15 +62,9 @@ document.toString() == '[object HTMLDocument]' && function()
 
                 if( text )
                 {
-                    popup.compareDocumentPosition(selection.anchorNode || overnode)
-                        !== (document.DOCUMENT_POSITION_FOLLOWING | document.DOCUMENT_POSITION_CONTAINED_BY)
-                    && port.postMessage(
-                        text
-                            .replace(/(\s*\n\s*){2,}/g, '\n\n')
-                            .replace(/^.*$/gm, function( line ){
-                                return line.trim()
-                            })
-                    );
+                    popup.compareDocumentPosition(selection.anchorNode || overnode) !==
+                    (document.DOCUMENT_POSITION_FOLLOWING | document.DOCUMENT_POSITION_CONTAINED_BY) &&
+                    port.postMessage({action: 'translate', text: prepare_text(text)});
                 }
             }
 		}
@@ -152,6 +146,21 @@ document.toString() == '[object HTMLDocument]' && function()
             if(icon_trigger.parentNode){
                 icon_trigger.parentNode.removeChild(icon_trigger);
             }
+        }
+
+        function save_selected_text() {
+            port.postMessage({
+                action: 'save-selected-text',
+                text: prepare_text(window.getSelection().toString())
+            });
+        }
+
+        function prepare_text(text) {
+            return text
+                .replace(/(\s*\n\s*){2,}/g, '\n\n')
+                .replace(/^.*$/gm, function( line ){
+                    return line.trim()
+                });
         }
 		
 		// Messaging handler
@@ -293,6 +302,7 @@ document.toString() == '[object HTMLDocument]' && function()
 		{
 			[
 				['mouseup', function (evt) {
+                    save_selected_text();
                     if(evt.target == icon_trigger) return;
                     selection = selection || window.getSelection();
 
@@ -340,6 +350,7 @@ document.toString() == '[object HTMLDocument]' && function()
 				['click', hide_popup],
 				
 				['keyup', function( evt ){
+                    save_selected_text();
 					evt.which == 27 && hide_popup(evt); // <ESCAPE>-key
 				}],
 				

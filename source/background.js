@@ -1,6 +1,7 @@
 // @project XTranslate (background.js)
 // @url https://github.com/extensible/XTranslate 
 
+var selected_text = '';
 var settings = observable('settings');
 var configure = function __( callback )
 {
@@ -206,18 +207,26 @@ opera.extension.addEventListener('connect', function(evt)
 // messages handling
 opera.extension.addEventListener('message', function(evt)
 {
-	try {
-		var 
-			params = evt.data,
-			handler = params.action || 'handler';
-		when( XTranslate.vendors.current[ handler ]( params ) )
-			.then(function( data ) {
-				evt.source.postMessage(data)
-			});
-	}
-	catch(e){
-		opera.postError(e)
-	}
+    var data = evt.data,
+        action = data.action;
+
+    switch(action){
+        case 'translate':
+        case 'get-sound':
+            if(data.action == 'translate'){
+                action = 'handler';
+                data = data.text;
+            }
+            when( XTranslate.vendors.current[action](data) )
+                .then(function( data ) {
+                    evt.source.postMessage(data)
+                });
+        break;
+
+        case 'save-selected-text':
+            selected_text = data.text;
+        break;
+    }
 }, false );
 
 function userCSSDefault()

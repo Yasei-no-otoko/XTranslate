@@ -530,11 +530,12 @@ function XTranslate_options()
 	setTimeout(user_input.area.focus.bind(user_input.area), 0);
 
 	// User input's typing handler
-	user_input.area.oninput = function( evt )
+    user_input.area.ondrop =
+    user_input.area.oninput = function( evt )
 	{
 		var timer = 'XTranslate_user_typing_timer';
 		clearTimeout( this[timer] );
-		this[timer] = setTimeout(user_input.translate.bind(this, evt, user_input), 400);
+		this[timer] = setTimeout(user_input.translate.bind(this, evt, user_input), 300);
 
 		if( !user_input.params )
 		{
@@ -584,6 +585,11 @@ function XTranslate_options()
 			user_input.area.focus();
 		}.call(target);
 	};
+
+    if(bg.selected_text){
+        user_input.area.value = bg.selected_text;
+        user_input.area.dispatchEvent(new Event('input'));
+    }
 
 	// Expand/collapse blocks
 	$('dl[data-name]').forEach(function( block )
