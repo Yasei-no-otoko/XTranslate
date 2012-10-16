@@ -10,7 +10,7 @@ document.toString() == '[object HTMLDocument]' && function()
 			top_level = window.top == window.self,
 			show_in_frame = window.innerWidth >= 200 && window.innerHeight >= 200,
 			port, settings,  icon_trigger,
-			popup, selection, range_rect, overnode;
+			popup, selection, range_rect, overnode, dblclick, forced_click;
 			
 		function extend( source )
 		{
@@ -149,10 +149,14 @@ document.toString() == '[object HTMLDocument]' && function()
         }
 
         function save_selected_text() {
-            port.postMessage({
-                action: 'save-selected-text',
-                text: prepare_text(window.getSelection().toString())
-            });
+            try {
+                port.postMessage({
+                    action: 'save-selected-text',
+                    text: prepare_text(window.getSelection().toString())
+                });
+            } catch(e){
+                window.location.reload(true);
+            }
         }
 
         function prepare_text(text) {
@@ -325,14 +329,6 @@ document.toString() == '[object HTMLDocument]' && function()
                     }
 				}],
 
-                ['dblclick', function (evt) {
-                    if(settings.translate.dblclick){
-                        handle_selection(evt);
-                        evt.preventDefault();
-                        return false;
-                    }
-                }],
-
 				['keypress', function( evt ) {
 					var key = [];
 					
@@ -348,7 +344,31 @@ document.toString() == '[object HTMLDocument]' && function()
 				}],
 				
 				['click', hide_popup],
-				
+
+//                ['click', function (evt) {
+//                    if(settings.translate.dblclick){
+//                        if(!dblclick) {
+//                            setTimeout(function () { dblclick(); dblclick = null; }, 250);
+//                            dblclick = function () {
+//                                forced_click = true;
+//                                evt.target.click();
+//                                forced_click = false;
+//                            };
+//                        }
+//                        if(!forced_click){
+//                            evt.preventDefault();
+//                        }
+//                    }
+//                }],
+
+                ['dblclick', function (evt) {
+                    if(settings.translate.dblclick){
+                        handle_selection(evt);
+                        dblclick = function () {};
+                        evt.preventDefault();
+                    }
+                }],
+
 				['keyup', function( evt ){
                     save_selected_text();
 					evt.which == 27 && hide_popup(evt); // <ESCAPE>-key
