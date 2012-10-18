@@ -463,6 +463,10 @@
             "en": "Do translation of the selected word after double clicking",
             "ru": "Делать перевод выделенного слова по двойному клику",
             "de": "Nach Doppelklick auf ein Wort dieses übersetzen"
+        },
+        {
+            "en": "Show the results after clicking on the selected text",
+            "ru": "Показывать результаты по клику на выделенном тексте"
         }
 	]
 }
