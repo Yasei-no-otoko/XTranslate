@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" id="https://github.com/extensible/XTranslate" version="2.7.2">
+<widget xmlns="http://www.w3.org/ns/widgets" id="https://github.com/extensible/XTranslate" version="2.7.3">
 	<name>XTranslate</name>
 	<author href="http://www.mintdesign.ru/" email="ixrock@gmail.com">ixrock</author>
 	<icon src="icons/icon-64.png"/>

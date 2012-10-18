@@ -359,7 +359,7 @@ document.toString() == '[object HTMLDocument]' && function()
                             window.getSelection().addRange(range);
                             handle_selection(evt);
                             evt.preventDefault();
-                            return;
+                            return false;
                         }
                     }
 
