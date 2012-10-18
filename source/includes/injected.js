@@ -10,7 +10,7 @@ document.toString() == '[object HTMLDocument]' && function()
 			top_level = window.top == window.self,
 			show_in_frame = window.innerWidth >= 200 && window.innerHeight >= 200,
 			port, settings,  icon_trigger,
-			popup, selection, range_rect, overnode, dblclick, forced_click;
+			popup, selection, range_rect, overnode, range, rect;
 			
 		function extend( source )
 		{
@@ -40,6 +40,7 @@ document.toString() == '[object HTMLDocument]' && function()
             hide_icon_trigger();
 
             if( type == settings.trigger.type ||
+               (type == 'click' && settings.translate.easyclick) ||
                (type == 'dblclick' && settings.translate.dblclick) ||
                (type == 'mouseup' && settings.button.icon_trigger_popup))
             {
@@ -343,23 +344,27 @@ document.toString() == '[object HTMLDocument]' && function()
 					);
 				}],
 				
-				['click', hide_popup],
+                ['mousedown', function (e) {
+                    var s = window.getSelection();
+                    range = s.rangeCount ? s.getRangeAt(0) : null;
+                    rect = range ? range.getBoundingClientRect() : null;
+                }],
 
-//                ['click', function (evt) {
-//                    if(settings.translate.dblclick){
-//                        if(!dblclick) {
-//                            setTimeout(function () { dblclick(); dblclick = null; }, 250);
-//                            dblclick = function () {
-//                                forced_click = true;
-//                                evt.target.click();
-//                                forced_click = false;
-//                            };
-//                        }
-//                        if(!forced_click){
-//                            evt.preventDefault();
-//                        }
-//                    }
-//                }],
+                ['click', function (evt) {
+                    var x = evt.clientX,
+                        y = evt.clientY;
+
+                    if(settings.translate.easyclick){
+                        if(rect && x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom){
+                            window.getSelection().addRange(range);
+                            handle_selection(evt);
+                            evt.preventDefault();
+                            return;
+                        }
+                    }
+
+                    hide_popup();
+                }],
 
                 ['dblclick', function (evt) {
                     if(settings.translate.dblclick){
