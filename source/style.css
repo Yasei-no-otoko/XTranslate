@@ -159,6 +159,6 @@
     .XTranslate_options label.checkbox { padding-left: 25px; display: block; }
     .XTranslate_options label.checkbox input { margin-left: -20px; }
 
-    .XTranslate_icon_trigger { position: absolute; cursor: pointer; }
+    .XTranslate_icon_trigger { position: absolute; cursor: pointer; z-index: 1000; }
     .XTranslate_options .translate_all { padding-bottom:.5em; text-align:center; }
 
