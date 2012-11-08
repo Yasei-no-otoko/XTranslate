@@ -10,7 +10,7 @@ var configure = function __( callback )
 		vendor: 'Google',
 		trigger: {
 			type: 'keypress',
-			hotkey: 'Alt+Shift+X'
+			hotkey: 'Ctrl+Shift+X'
 		},
 		lang: {
 			from: 'auto',

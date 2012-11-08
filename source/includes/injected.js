@@ -316,7 +316,7 @@ document.toString() == '[object HTMLDocument]' && function()
                         if( text ){
                             var range = selection.getRangeAt(0);
                             range_rect = range.getBoundingClientRect();
-                            range.collapse(false);
+                            //range.collapse(false); // unexpected behavior in opera 10.10
                             var pos = range.getBoundingClientRect();
 
                             icon_trigger.style.left = pos.right + 'px';
