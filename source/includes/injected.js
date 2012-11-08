@@ -331,13 +331,16 @@ document.toString() == '[object HTMLDocument]' && function()
 				}],
 
 				['keypress', function( evt ) {
-					var key = [];
-					
-					evt.ctrlKey && key.push('Ctrl');
-					evt.shiftKey && key.push('Shift');
-					evt.which && key.push( String.fromCharCode(evt.which).toUpperCase() );
-					
-					settings.trigger.hotkey == key.join('+') &&
+                    var hotKey = [
+                        evt.ctrlKey && 'Ctrl',
+                        evt.altKey && 'Alt',
+                        evt.shiftKey && 'Shift',
+                        String.fromCharCode(evt.which).toUpperCase()
+                    ]
+                    .filter(function (v) { return v })
+                    .join('+');
+
+					settings.trigger.hotkey == hotKey &&
 					settings.trigger.type == evt.type && (
 						handle_selection(evt),
 						evt.preventDefault()

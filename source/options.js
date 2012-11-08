@@ -199,9 +199,6 @@ function XTranslate_options()
 					type = elem.type,
 					value = bg.settings(elem.name);
 
-				elem.title = value;
-				elem.name == 'trigger.hotkey' && (value = value.split('+').slice(1).join('+'));
-
 				if( type == 'checkbox' ) {
 					value
 						? elem.setAttribute('checked', true)
@@ -266,26 +263,19 @@ function XTranslate_options()
 
 	$('input[name="trigger.hotkey"]').onkeypress = function( evt )
 	{
-		var
-			key = ['Ctrl'],
-			code = evt.which,
-			tabKey = code == 9;
+        var hotKey = [
+            evt.ctrlKey && 'Ctrl',
+            evt.altKey && 'Alt',
+            evt.shiftKey && 'Shift',
+            String.fromCharCode(evt.which).toUpperCase()
+        ]
+        .filter(function (v) { return v })
+        .join('+');
 
-		if( !tabKey )
-		{
-			if( evt.ctrlKey ) {
-				evt.shiftKey && key.push('Shift');
-				code && key.push( String.fromCharCode(code).toUpperCase() );
-			}
+        this.value = hotKey;
+        this.onchange(evt, hotKey);
 
-			if( key.length > 1 ){
-				var hotkey = key.join('+');
-				this.value = key.slice(1).join('+');
-				this.onchange(evt, hotkey);
-			}
-
-			evt.preventDefault();
-		}
+        evt.preventDefault();
 	};
 
 	$('span.arrow').onclick = function( evt )

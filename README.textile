@@ -4,7 +4,7 @@ h3. Description
 
 *English*:
 The main goal of this extension is providing easy work in the web in different languages.
-All that you needed is get a text selection on the page and to press hotkey (Ctrl+Shift+X by default). After that, translated text immediately showing up beside.
+All that you needed is get a text selection on the page and to press hotkey (Alt+Shift+X by default). After that, translated text immediately showing up beside.
 
 The extension already supports:
 - "Google":http://translate.google.com/
@@ -13,7 +13,7 @@ The extension already supports:
 
 *Русский*:
 Главная цель расширения - предоставление легкой работы с веб-страницами на разных языках.
-Всё что вам нужно это выделить текст на странице и нажать сочетание клавиш (Ctrl+Shift+X по-умолчанию). После этого, переведенный текст сразу появляется рядом.
+Всё что вам нужно это выделить текст на странице и нажать сочетание клавиш (Alt+Shift+X по-умолчанию). После этого, переведенный текст сразу появляется рядом.
 
 *Deutsch*:
 Das Hauptziel dieser Erweiterung ist es, Webseiten in verschiedenen Sprachen betrachten zu können.
@@ -21,7 +21,7 @@ Sie brauchen dazu nur einen Text auf einer Webseite zu markieren und dann eine T
 
 *Türkçe*:
 Bu eklentinin temel amacı farklı dillerdeki web sayfalarında kolaylıkla çalışmayı sağlamaktır.
-Yapmanız gereken tüm şey web sayfasında biraz yazı seçmeniz ve kısayola basmanızdır (varsayılan olarak bu kısayol Ctrl+Shift+X). Sonrasında çevirilmiş yazı alt tarafta belirecektir.
+Yapmanız gereken tüm şey web sayfasında biraz yazı seçmeniz ve kısayola basmanızdır (varsayılan olarak bu kısayol Alt+Shift+X). Sonrasında çevirilmiş yazı alt tarafta belirecektir.
 
 *Polski*:
 Głównym zadaniem rozszerzenia jest zapewnienie łatwego przeglądania stron w różnych językach.
@@ -29,11 +29,11 @@ Wszystko, co trzeba zrobić to zaznaczyć tekst na stronie i nacisnąć skrót k
 
 *Español*:
 El objetivo principal de esta extensión es que puedas trabajar fácilmente en la web en diferentes idiomas.
-Todo lo que necesitas hacer es seleccionar un texto en una página y presionar el hotkey (Ctrl+Shift+X por defecto). Después de ésto, se mostrará inmediatamente el texto traducido.
+Todo lo que necesitas hacer es seleccionar un texto en una página y presionar el hotkey (Alt+Shift+X por defecto). Después de ésto, se mostrará inmediatamente el texto traducido.
 
 *日本語*:
 このエクステンションを提供する目的は違う言語で書かれたWebを見るのを簡単にすることです。
-必要な時にはページ上でテキストを選択してホットキー（標準ではCtrl+Shift+X)を押してください。
+必要な時にはページ上でテキストを選択してホットキー（標準ではAlt+Shift+X)を押してください。
 そうすればすぐに翻訳済みのテキストが現れます。
 
 h3. Install

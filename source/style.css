@@ -66,6 +66,7 @@
 	.XTranslate_options button,
 	.XTranslate_options select,
 	.XTranslate_options textarea {
+        resize: none;
 		font: small 
 			"Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "Meiryo UI", "MS UI Gothic", "VL ゴシック", "VL Gothic", 
 			Verdana, Geneva, sans-serif;
@@ -107,8 +108,16 @@
 	.XTranslate_options .toolbar .tab:hover,
 	.XTranslate_options .toolbar .tab.active { border-bottom:1px dashed black; color:black; cursor:pointer; }
 	.XTranslate_options .toolbar .tab.active { cursor:default; border:0; font-weight:bold; }
-	
-	.XTranslate_options > dl { display:none; position:relative; }
+    .XTranslate_options input[name = "trigger.hotkey"]:focus { border-color: black; }
+    .XTranslate_options input[name = "trigger.hotkey"]{
+        border-radius: 15px;
+        border: 1px solid silver;
+        padding: 2px 5px;
+        width: 140px;
+        vertical-align: middle;
+    }
+
+    .XTranslate_options > dl { display:none; position:relative; }
 	.XTranslate_tab_settings > dl.option,
 	.XTranslate_tab_user_input > dl.user_input { display:block; }
 	
