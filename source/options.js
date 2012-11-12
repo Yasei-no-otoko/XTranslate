@@ -261,21 +261,23 @@ function XTranslate_options()
 		preview();
 	}
 
-	$('input[name="trigger.hotkey"]').onkeypress = function( evt )
+	$('input[name="trigger.hotkey"]').onkeydown = function(e)
 	{
-        var hotKey = [
-            evt.ctrlKey && 'Ctrl',
-            evt.altKey && 'Alt',
-            evt.shiftKey && 'Shift',
-            String.fromCharCode(evt.which).toUpperCase()
-        ]
-        .filter(function (v) { return v })
-        .join('+');
+        var hotKey = [];
+        var char = String.fromCharCode(e.which).toUpperCase();
 
-        this.value = hotKey;
-        this.onchange(evt, hotKey);
+        if(char.match(/[a-z0-9]/i)) {
+            e.ctrlKey && hotKey.push('Ctrl');
+            e.altKey && hotKey.push('Alt');
+            e.shiftKey && hotKey.push('Shift');
+            hotKey.push(char);
+            hotKey = hotKey.join('+');
 
-        evt.preventDefault();
+            this.value = hotKey;
+            this.onchange(e, hotKey);
+        }
+
+        e.preventDefault();
 	};
 
 	$('span.arrow').onclick = function( evt )

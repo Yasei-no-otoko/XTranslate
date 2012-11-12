@@ -39,7 +39,8 @@ document.toString() == '[object HTMLDocument]' && function()
 
             hide_icon_trigger();
 
-            if( type == settings.trigger.type ||
+            if(
+               (type == 'keydown' && settings.trigger.type == 'keypress') ||
                (type == 'click' && settings.translate.easyclick) ||
                (type == 'dblclick' && settings.translate.dblclick) ||
                (type == 'mouseup' && settings.button.icon_trigger_popup))
@@ -330,7 +331,7 @@ document.toString() == '[object HTMLDocument]' && function()
                     }
 				}],
 
-				['keypress', function( evt ) {
+				['keydown', function( evt ) {
                     var hotKey = [
                         evt.ctrlKey && 'Ctrl',
                         evt.altKey && 'Alt',
@@ -341,7 +342,7 @@ document.toString() == '[object HTMLDocument]' && function()
                     .join('+');
 
 					settings.trigger.hotkey == hotKey &&
-					settings.trigger.type == evt.type && (
+					settings.trigger.type == 'keypress' && (
 						handle_selection(evt),
 						evt.preventDefault()
 					);
