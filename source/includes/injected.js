@@ -10,8 +10,8 @@ document.toString() == '[object HTMLDocument]' && function()
 			top_level = window.top == window.self,
 			show_in_frame = window.innerWidth >= 200 && window.innerHeight >= 200,
 			port, settings, icon_trigger,
-			popup, selection, overnode, range;
-			
+			popup, selection, overNode, range, autoSelected;
+
 		function extend( source )
 		{
 			[].slice.call(arguments,1).forEach(function( obj ){
@@ -33,10 +33,9 @@ document.toString() == '[object HTMLDocument]' && function()
 		{
 			var
 				type = evt.type,
-				range = document.createRange(),
-                selection = window.getSelection(),
-                autoselect = selection.rangeCount == 0 && type == 'keypress';
+                selection = selection || window.getSelection();
 
+            autoSelected = selection.isCollapsed && type == 'keydown';
             hide_icon_trigger();
 
             if(
@@ -46,24 +45,19 @@ document.toString() == '[object HTMLDocument]' && function()
                (type == 'mouseup' && settings.button.icon_trigger_popup))
             {
                 var text = function( text ) {
-                    if( autoselect && overnode )
+                    if( autoSelected && overNode )
                     {
-                        var name = overnode.nodeName;
-
-                        text = name.match(/input|textarea/i)
-                            ? overnode.value || overnode.placeholder
-                            : [].slice.call( overnode.selectNodes('.//text()') )
-                            .map(function( node ){ return node.textContent })
-                            .join(' ');
-
-                        range.selectNode( overnode );
-                        selection.addRange( range );
+                        text = overNode.nodeName.match(/input|textarea/i)
+                            ? overNode.value || overNode.placeholder
+                            : [].slice.call( overNode.selectNodes('.//text()') )
+                                .map(function( node ){ return node.textContent })
+                                .join(' ');
                     }
-                    return text || String(selection).trim();
+                    return text || selection.toString().trim();
                 }();
 
                 if( text ) {
-                    popup.compareDocumentPosition(selection.anchorNode || overnode) !==
+                    popup.compareDocumentPosition(selection.anchorNode || overNode) !==
                     (document.DOCUMENT_POSITION_FOLLOWING | document.DOCUMENT_POSITION_CONTAINED_BY) &&
                     port.postMessage({action: 'translate', text: prepare_text(text)});
                 }
@@ -75,8 +69,26 @@ document.toString() == '[object HTMLDocument]' && function()
 			var 
 				first = popup.firstChild,
 				pos = position || function(){
-                    try { return selection.getRangeAt(0).getBoundingClientRect() }
-                    catch(e){return {left: 0, top: 0, bottom: 0, right: 0}}
+                    selection = selection || window.getSelection();
+
+                    if(!selection.isCollapsed){
+                        return selection.getRangeAt(0).getBoundingClientRect();
+                    }
+
+                    if(autoSelected && overNode){
+                        selection.selectAllChildren(overNode);
+                        var rect = selection.getRangeAt(0).getClientRects().item(0);
+                        return {
+                            left  : rect.left,
+                            top   : rect.top,
+                            right : rect.left + overNode.offsetWidth,
+                            bottom: rect.top + overNode.offsetHeight,
+                            width : overNode.offsetWidth,
+                            height: overNode.offsetHeight
+                        };
+                    }
+
+                    return {left: 0, top: 0, bottom: 0, right: 0};
                 }();
 
             html = function() {
@@ -87,16 +99,28 @@ document.toString() == '[object HTMLDocument]' && function()
 
 			first ? popup.replaceChild(html, first) : popup.appendChild(html);
 			popup.css({
-				left: pos.left + 'px',
-				top: (pos.bottom + popup.padding) + 'px',
-				margin: 0,
-				display: 'block'
+                left   : pos.left + 'px',
+                top    : (pos.bottom + popup.padding) + 'px',
+                margin : 0,
+                display: 'block'
 			});
 
             if(settings.button.autoplay){
                 var play_sound = html.querySelector('.XTranslate_sound_play');
                 play_sound && play_sound.click();
             }
+
+//            [].slice.call(selection.getRangeAt(0).getClientRects()).forEach(function (pos, i){
+//                // debug
+//                window.$('<div/>').css({
+//                    position: 'fixed',
+//                    background: 'rgba(255,0,0,.4)',
+//                    left: pos.left,
+//                    top: pos.top,
+//                    width: pos.width,
+//                    height: pos.height
+//                }).appendTo(document.body).text(i);
+//            });
 
             // fix position
 			var
@@ -114,8 +138,8 @@ document.toString() == '[object HTMLDocument]' && function()
 					padding: 20
 				};
 			
-			offset.x > 0 && popup.css('marginLeft', -(offset.x + offset.padding) + 'px');
-			offset.y > 0 && popup.css('marginTop', -(offset.y + offset.padding) + 'px');
+//			offset.x > 0 && popup.css('marginLeft', -(offset.x + offset.padding) + 'px');
+//			offset.y > 0 && popup.css('marginTop', -(offset.y + offset.padding) + 'px');
 		}
 		
 		function hide_popup() {
@@ -392,7 +416,7 @@ document.toString() == '[object HTMLDocument]' && function()
 				}],
 				
 				['mouseover', function( evt ) {
-					overnode = evt.target;
+					overNode = evt.target;
 				}]
 			].forEach(function(p){
                 var evtName = p.shift();
