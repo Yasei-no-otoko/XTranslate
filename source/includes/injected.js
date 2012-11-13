@@ -10,7 +10,7 @@ document.toString() == '[object HTMLDocument]' && function()
 			top_level = window.top == window.self,
 			show_in_frame = window.innerWidth >= 200 && window.innerHeight >= 200,
 			port, settings,  icon_trigger,
-			popup, selection, range_rect, overnode, range, rect;
+			popup, selection, range_rect, overnode, range;
 			
 		function extend( source )
 		{
@@ -351,19 +351,23 @@ document.toString() == '[object HTMLDocument]' && function()
                 ['mousedown', function (e) {
                     var s = window.getSelection();
                     range = s.rangeCount ? s.getRangeAt(0) : null;
-                    rect = range ? range.getBoundingClientRect() : null;
                 }],
 
                 ['click', function (evt) {
                     var x = evt.clientX,
                         y = evt.clientY;
 
-                    if(settings.translate.easyclick){
-                        if(rect && x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom){
-                            window.getSelection().addRange(range);
-                            handle_selection(evt);
-                            evt.preventDefault();
-                            return false;
+                    if(settings.translate.easyclick && range){
+                        var rect,
+                            rects = Array.prototype.slice.call(range.getClientRects());
+
+                        while(rect = rects.shift()){
+                            if(rect && x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom){
+                                window.getSelection().addRange(range);
+                                handle_selection(evt);
+                                evt.preventDefault();
+                                return false;
+                            }
                         }
                     }
 
