@@ -9,8 +9,8 @@ document.toString() == '[object HTMLDocument]' && function()
 		var 
 			top_level = window.top == window.self,
 			show_in_frame = window.innerWidth >= 200 && window.innerHeight >= 200,
-			port, settings,  icon_trigger,
-			popup, selection, range_rect, overnode, range;
+			port, settings, icon_trigger,
+			popup, selection, overnode, range;
 			
 		function extend( source )
 		{
@@ -62,8 +62,7 @@ document.toString() == '[object HTMLDocument]' && function()
                     return text || String(selection).trim();
                 }();
 
-                if( text )
-                {
+                if( text ) {
                     popup.compareDocumentPosition(selection.anchorNode || overnode) !==
                     (document.DOCUMENT_POSITION_FOLLOWING | document.DOCUMENT_POSITION_CONTAINED_BY) &&
                     port.postMessage({action: 'translate', text: prepare_text(text)});
@@ -75,12 +74,11 @@ document.toString() == '[object HTMLDocument]' && function()
 		{
 			var 
 				first = popup.firstChild,
-				pos = position || range_rect || function(){
+				pos = position || function(){
                     try { return selection.getRangeAt(0).getBoundingClientRect() }
                     catch(e){return {left: 0, top: 0, bottom: 0, right: 0}}
                 }();
 
-            range_rect = null;
             html = function() {
                 var node = document.createElement('div');
                 node.innerHTML = html;
@@ -307,22 +305,28 @@ document.toString() == '[object HTMLDocument]' && function()
 		function DOM_apply_bindings()
 		{
 			[
-				['mouseup', function (evt) {
+				['mouseup', function __(evt) {
                     save_selected_text();
-                    if(evt.target == icon_trigger) return;
                     selection = selection || window.getSelection();
+
+                    if(__.icon_trigger_clicked){
+                        __.icon_trigger_clicked = false;
+                        return false;
+                    }
 
                     if(settings.button.icon_trigger_popup){
                         var text = selection.toString().trim();
                         if( text ){
                             var range = selection.getRangeAt(0);
-                            range_rect = range.getBoundingClientRect();
-                            //range.collapse(false); // unexpected behavior in opera 10.10
-                            var pos = range.getBoundingClientRect();
+                            var pos = [].slice.call(range.getClientRects()).pop();
 
                             icon_trigger.style.left = pos.right + 'px';
                             icon_trigger.style.top = pos.bottom + window.pageYOffset + 'px';
-                            icon_trigger.onmousedown = handle_selection.bind(this, evt);
+                            icon_trigger.onmousedown = function (e) {
+                                __.icon_trigger_clicked = true;
+                                handle_selection(evt);
+                                e.preventDefault();
+                            };
                             document.body.appendChild(icon_trigger);
                         }
                     }
