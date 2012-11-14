@@ -44,17 +44,9 @@ document.toString() == '[object HTMLDocument]' && function()
                (type == 'dblclick' && settings.translate.dblclick) ||
                (type == 'mouseup' && settings.button.icon_trigger_popup))
             {
-                var text = function( text ) {
-                    if( autoSelected && overNode )
-                    {
-                        text = overNode.nodeName.match(/input|textarea/i)
-                            ? overNode.value || overNode.placeholder
-                            : [].slice.call( overNode.selectNodes('.//text()') )
-                                .map(function( node ){ return node.textContent })
-                                .join(' ');
-                    }
-                    return text || selection.toString().trim();
-                }();
+                var text = autoSelected && overNode
+                    ? overNode.value || overNode.placeholder || overNode.textContent
+                    : selection.toString();
 
                 if( text ) {
                     popup.compareDocumentPosition(selection.anchorNode || overNode) !==
@@ -76,8 +68,18 @@ document.toString() == '[object HTMLDocument]' && function()
                     }
 
                     if(autoSelected && overNode){
-                        selection.selectAllChildren(overNode);
+                        if(overNode.hasChildNodes()) {
+                            selection.selectAllChildren(overNode);
+                        }
+                        else {
+                            // textarea, input
+                            var range = document.createRange();
+                            range.selectNode(overNode);
+                            selection.addRange(range);
+                        }
+
                         var rect = selection.getRangeAt(0).getClientRects().item(0);
+                        selection.getRangeAt(0).collapse(false);
                         return {
                             left  : rect.left,
                             top   : rect.top,
@@ -110,17 +112,18 @@ document.toString() == '[object HTMLDocument]' && function()
                 play_sound && play_sound.click();
             }
 
-//            [].slice.call(selection.getRangeAt(0).getClientRects()).forEach(function (pos, i){
-//                // debug
-//                window.$('<div/>').css({
-//                    position: 'fixed',
-//                    background: 'rgba(255,0,0,.4)',
-//                    left: pos.left,
-//                    top: pos.top,
-//                    width: pos.width,
-//                    height: pos.height
-//                }).appendTo(document.body).text(i);
-//            });
+            /*[].slice.call(selection.getRangeAt(0).getClientRects()).forEach(function (pos, i){
+                // debug
+                window.$('<div/>').css({
+                    position  : 'fixed',
+                    background: 'rgba(255,0,0,.4)',
+                    left      : pos.left,
+                    top       : pos.top,
+                    width     : pos.width,
+                    height    : pos.height,
+                    zIndex    : 1000
+                }).appendTo(document.body).text(i);
+            });*/
 
             // fix position
 			var
@@ -138,8 +141,8 @@ document.toString() == '[object HTMLDocument]' && function()
 					padding: 20
 				};
 			
-//			offset.x > 0 && popup.css('marginLeft', -(offset.x + offset.padding) + 'px');
-//			offset.y > 0 && popup.css('marginTop', -(offset.y + offset.padding) + 'px');
+			offset.x > 0 && popup.css('marginLeft', -(offset.x + offset.padding) + 'px');
+			offset.y > 0 && popup.css('marginTop', -(offset.y + offset.padding) + 'px');
 		}
 		
 		function hide_popup() {
@@ -160,7 +163,7 @@ document.toString() == '[object HTMLDocument]' && function()
 							.replace(/^https?:\/\/(www\.)?/, '')
 							.replace(/[.]/g, '[.]')
 							.replace(/\*/g, '.*?'),
-						checker = RegExp('^(https?://(www[.])?)?' + url, 'mi');
+						checker = new RegExp('^(https?://(www[.])?)?' + url, 'mi');
 
 					return checker.test(location);
 				}).shift();
