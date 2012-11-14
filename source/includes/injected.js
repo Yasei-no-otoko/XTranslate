@@ -78,16 +78,41 @@ document.toString() == '[object HTMLDocument]' && function()
 
                         // calculate correct rectangle
                         var nodeRect = overNode.getBoundingClientRect();
-                        var selRects = selection.getRangeAt(0).getClientRects();
+                        var selRects = [].slice.call(selection.getRangeAt(0).getClientRects());
 
-                        var validRects = [].slice.call(selRects).filter(function (rect) {
-                            return (
-                                rect.left >= nodeRect.left &&
-                                rect.right <= nodeRect.right &&
-                                rect.top >= nodeRect.top &&
-                                rect.bottom <= nodeRect.bottom
-                            );
-                        });
+                        var getValidRects = function (nodeRect) {
+                            var rects = selRects.filter(function (rect) {
+                                return (
+                                    rect.left >= nodeRect.left &&
+                                    rect.right <= nodeRect.right &&
+                                    rect.top >= nodeRect.top &&
+                                    rect.bottom <= nodeRect.bottom
+                                );
+                            });
+                            return rects.length ? rects : null;
+                        };
+
+                        var validRects = getValidRects(nodeRect) || getValidRects(function () {
+                            var node = overNode;
+                            var rect = extend({}, nodeRect, {
+                                left: 0,
+                                top: 0,
+                                width: node.offsetWidth,
+                                height: node.offsetHeight
+                            });
+                            while(node.offsetParent){
+                                rect.left += node.offsetLeft;
+                                rect.top += node.offsetTop;
+                                node = node.offsetParent;
+                            }
+
+                            rect.top -= window.pageYOffset;
+                            rect.left -= window.pageXOffset;
+                            rect.right = rect.left + rect.width;
+                            rect.bottom = rect.top + rect.height;
+
+                            return rect;
+                        }()) || [];
 
                         var rect = validRects.reduce(function (val, rect) {
                             val.left = val.left == null ? rect.left : Math.min(val.left, rect.left);
@@ -100,7 +125,7 @@ document.toString() == '[object HTMLDocument]' && function()
                         rect.width = rect.right - rect.left;
                         rect.height = rect.bottom - rect.top;
 
-                        return validRects.length > 0 ? rect : selRects[0] || nodeRect;
+                        return validRects.length ? rect : nodeRect;
                     }
 
                     return {left: 0, top: 0, bottom: 0, right: 0};
@@ -127,10 +152,9 @@ document.toString() == '[object HTMLDocument]' && function()
 
 //            !selection.isCollapsed &&
 //            [].slice.call(selection.getRangeAt(0).getClientRects()).forEach(function (pos, i){
-//                // debug
 //                window.$('<div/>').css({
 //                    position  : 'fixed',
-//                    background: 'rgba(255,0,0,.4)',
+//                    background: 'rgba(255,0,0,.5)',
 //                    left      : pos.left,
 //                    top       : pos.top,
 //                    width     : pos.width,
