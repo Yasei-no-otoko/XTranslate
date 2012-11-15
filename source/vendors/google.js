@@ -60,10 +60,14 @@ XTranslate.vendors.add(
                                     '<img src="'+ images.volume +'" data-url="'+ sound_url +'" class="XTranslate_sound_play" alt="" />',
                                     '<object width="1" height="1"></object>',
                                 '</span>',
-                                data[4]
-                                    .map(function( chunk ){ return chunk[0] })
-                                    .join(' ')
-                                    .replace(/</g, '&lt;'),
+
+                                data[4].map(function( chunk ) {
+                                    chunk = chunk.shift();
+                                    /^[A-ZА-Я0-9]/i.test(chunk) && chunk.length > 1 && (chunk = " "+ chunk);
+                                    return chunk;
+                                }).join('')
+                                .replace(/</g, '&lt;'),
+
                              '</div>',
                             function()
                             {

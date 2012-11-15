@@ -10,7 +10,7 @@ document.toString() == '[object HTMLDocument]' && function()
             top_level = window.top == window.self,
             show_in_frame = window.innerWidth >= 200 && window.innerHeight >= 200,
             port, settings, icon_trigger,
-            popup, selection, overNode, range, autoSelected;
+            popup, selection, over_node, range, auto_selected;
 
         function extend( source )
         {
@@ -32,12 +32,12 @@ document.toString() == '[object HTMLDocument]' && function()
 
         function handle_selection( evt )
         {
-            var
+            var text,
                 type = evt.type,
                 selection = selection || window.getSelection();
 
             if(popup.css('display') !== 'none') return;
-            autoSelected = selection.isCollapsed && type == 'keydown';
+            auto_selected = selection.isCollapsed && type == 'keydown';
             hide_icon_trigger();
 
             if(
@@ -46,12 +46,26 @@ document.toString() == '[object HTMLDocument]' && function()
                (type == 'dblclick' && settings.translate.dblclick) ||
                (type == 'mouseup' && settings.button.icon_trigger_popup))
             {
-                var text = autoSelected && overNode
-                    ? overNode.value || overNode.placeholder || overNode.textContent
-                    : selection.toString();
-
-                text && port.postMessage({action: 'translate', text: prepare_text(text)});
+                if(text = get_selection()){
+                    port.postMessage({action: 'translate', text: text});
+                }
             }
+        }
+
+        function get_selection() {
+            var selection = window.getSelection();
+
+            if(auto_selected && over_node){
+                return over_node.value || over_node.placeholder || over_node.innerText;
+            }
+            else if(selection.rangeCount > 0){
+                var fragment = selection.getRangeAt(0).cloneContents().childNodes;
+                return Array.prototype.slice.call(fragment).map(function (node) {
+                    return node.innerText || node.textContent;
+                }).join('');
+            }
+
+            return '';
         }
 
         function show_popup( html, position )
@@ -65,19 +79,19 @@ document.toString() == '[object HTMLDocument]' && function()
                         return selection.getRangeAt(0).getBoundingClientRect();
                     }
 
-                    if(autoSelected && overNode){
-                        if(overNode.hasChildNodes()) {
-                            selection.selectAllChildren(overNode);
+                    if(auto_selected && over_node){
+                        if(over_node.hasChildNodes()) {
+                            selection.selectAllChildren(over_node);
                         }
                         else {
                             // textarea, input
                             var range = document.createRange();
-                            range.selectNode(overNode);
+                            range.selectNode(over_node);
                             selection.addRange(range);
                         }
 
                         // calculate correct rectangle
-                        var nodeRect = overNode.getBoundingClientRect();
+                        var nodeRect = over_node.getBoundingClientRect();
                         var selRects = [].slice.call(selection.getRangeAt(0).getClientRects());
 
                         var getValidRects = function (nodeRect) {
@@ -93,7 +107,7 @@ document.toString() == '[object HTMLDocument]' && function()
                         };
 
                         var validRects = getValidRects(nodeRect) || getValidRects(function () {
-                            var node = overNode;
+                            var node = over_node;
                             var rect = extend({}, nodeRect, {
                                 left: 0,
                                 top: 0,
@@ -131,13 +145,9 @@ document.toString() == '[object HTMLDocument]' && function()
                     return {left: 0, top: 0, bottom: 0, right: 0};
                 }();
 
-            html = function() {
-                var node = document.createElement('div');
-                node.innerHTML = html;
-                return node;
-            }();
-
-            first ? popup.replaceChild(html, first) : popup.appendChild(html);
+            var node = document.createElement('div');
+            node.innerHTML = html;
+            first ? popup.replaceChild(node, first) : popup.appendChild(node);
             popup.css({
                 left   : pos.left + 'px',
                 top    : (pos.bottom + popup.padding) + 'px',
@@ -146,7 +156,7 @@ document.toString() == '[object HTMLDocument]' && function()
             });
 
             if(settings.button.autoplay){
-                var play_sound = html.querySelector('.XTranslate_sound_play');
+                var play_sound = node.querySelector('.XTranslate_sound_play');
                 play_sound && play_sound.click();
             }
 
@@ -216,19 +226,11 @@ document.toString() == '[object HTMLDocument]' && function()
             try {
                 port.postMessage({
                     action: 'save-selected-text',
-                    text: prepare_text(window.getSelection().toString())
+                    text: get_selection()
                 });
             } catch(e){
                 window.location.reload(true);
             }
-        }
-
-        function prepare_text(text) {
-            return text
-                .replace(/(\s*\n\s*){2,}/g, '\n\n')
-                .replace(/^.*$/gm, function( line ){
-                    return line.trim()
-                });
         }
 
         // Messaging handler
@@ -379,7 +381,7 @@ document.toString() == '[object HTMLDocument]' && function()
                     }
 
                     if(settings.button.icon_trigger_popup){
-                        var text = selection.toString().trim();
+                        var text = get_selection();
                         if( text ){
                             var range = selection.getRangeAt(0);
                             var pos = [].slice.call(range.getClientRects()).pop();
@@ -458,7 +460,7 @@ document.toString() == '[object HTMLDocument]' && function()
                 }],
 
                 ['mouseover', function( evt ) {
-                    overNode = evt.target;
+                    over_node = evt.target;
                 }]
             ].forEach(function(p){
                 var evtName = p.shift();
