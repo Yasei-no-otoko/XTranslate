@@ -53,19 +53,24 @@ document.toString() == '[object HTMLDocument]' && function()
         }
 
         function get_selection() {
+            var text = '';
             var selection = window.getSelection();
 
             if(auto_selected && over_node){
-                return over_node.value || over_node.placeholder || over_node.innerText;
+                var type = over_node.nodeName.toLowerCase();
+                if(type.match(/textarea|input/)) text = over_node.value || over_node.placeholder;
+                else if(type == 'img') text = over_node.title || over_node.alt;
+                else text = over_node.innerText;
             }
+
             else if(selection.rangeCount > 0){
-                var fragment = selection.getRangeAt(0).cloneContents().childNodes;
-                return Array.prototype.slice.call(fragment).map(function (node) {
+                var nodes = selection.getRangeAt(0).cloneContents().childNodes;
+                text = Array.prototype.slice.call(nodes).map(function (node) {
                     return node.innerText || node.textContent;
                 }).join('');
             }
 
-            return '';
+            return text.replace(/(\s*\n\s*\n\s*)+/g, '\n');
         }
 
         function show_popup( html, position )
@@ -423,10 +428,10 @@ document.toString() == '[object HTMLDocument]' && function()
                     range = s.rangeCount ? s.getRangeAt(0) : null;
                 }],
 
-                ['click', function (evt) {
+                ['click', function (e) {
                     var
-                        x = evt.clientX,
-                        y = evt.clientY,
+                        x = e.clientX,
+                        y = e.clientY,
                         popup_is_hidden = popup.css('display') == 'none';
 
                     if(settings.translate.easyclick && range && popup_is_hidden){
@@ -436,8 +441,8 @@ document.toString() == '[object HTMLDocument]' && function()
                         while(rect = rects.shift()){
                             if(rect && x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom){
                                 window.getSelection().addRange(range);
-                                handle_selection(evt);
-                                evt.preventDefault();
+                                handle_selection(e);
+                                e.preventDefault();
                                 return false;
                             }
                         }
