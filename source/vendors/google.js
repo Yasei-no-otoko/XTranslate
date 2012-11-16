@@ -54,7 +54,7 @@ XTranslate.vendors.add(
                     !sound_lang && (sound_url += lang.iso);
 
                     var html = [
-                        '<div class="XTranslate_result Powered_by_Google" title="Translated from '+ lang.name +' ('+ data[2] +')">',
+                        '<div class="XTranslate_result Powered_by_Google" title="Translated from '+ lang.name +' ('+ data[2] +')" tabindex="0">',
                             '<div class="XTranslate_result_main">',
                                 '<span class="XTranslate_sound" style="'+ sound_display +'">',
                                     '<img src="'+ images.volume +'" data-url="'+ sound_url +'" class="XTranslate_sound_play" alt="" />',

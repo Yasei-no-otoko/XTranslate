@@ -264,13 +264,13 @@ function XTranslate_options()
 	$('input[name="trigger.hotkey"]').onkeydown = function(e)
 	{
         var hotKey = [];
-        var char = String.fromCharCode(e.which).toUpperCase();
+        var symbol = String.fromCharCode(e.which).toUpperCase();
 
-        if(char.match(/[a-z0-9]/i)) {
+        if(symbol.match(/[a-z0-9]/i)) {
             e.ctrlKey && hotKey.push('Ctrl');
             e.altKey && hotKey.push('Alt');
             e.shiftKey && hotKey.push('Shift');
-            hotKey.push(char);
+            hotKey.push(symbol);
             hotKey = hotKey.join('+');
 
             this.value = hotKey;
@@ -653,5 +653,99 @@ function XTranslate_options()
 			bg.settings(name, new_value);
 		}
 	}.bind($('*[name="exclude.urls"]'))();
-}
 
+    // Custom scrollbar
+    setTimeout(function () {
+        var timer;
+
+        var popup = $('.XTranslate_result');
+        var scroll = {
+            parent: $('.XTranslate_scroll'),
+            bar: $('.XTranslate_scroll_bar'),
+            arrow: {
+                up: $('.XTranslate_scroll_arrow_up'),
+                down: $('.XTranslate_scroll_arrow_down')
+            },
+            get top(){ return parseInt(scroll.bar.style.top || 0) }
+        };
+
+        var height = {
+            parent: scroll.parent.offsetHeight,
+            offset: popup.offsetHeight,
+            scroll: popup.scrollHeight,
+            arrows: parseInt(scroll.bar.currentStyle.marginTop) * 2, // arrows + margins
+            get bar(){ return Math.round(height.offset / height.scroll * height.offset) - height.arrows }
+        };
+
+        if(height.offset < height.scroll){
+            scroll.bar.style.height = height.bar + 'px';
+
+            var max_popup_top = height.scroll - height.offset;
+            var max_scroll_top = height.parent - height.bar - height.arrows;
+            var k = max_popup_top / max_scroll_top;
+            var arrows_scroll_step = Math.round(max_scroll_top *.1);
+            var page_scroll_step = Math.round(height.offset * .9 / k);
+
+            function mouseDown(e) {
+                this.mousepos = { x: e.clientX, y: e.clientY };
+                this.mousemove = mouseMove.bind(this);
+                document.addEventListener('mouseup', mouseUp, false);
+                document.addEventListener('mousemove', scroll.bar.mousemove, false);
+            }
+
+            function mouseUp(){
+                document.removeEventListener('mouseup', mouseUp, false);
+                document.removeEventListener('mousemove', scroll.bar.mousemove, false);
+            }
+
+            function mouseMove(e){
+                window.getSelection().removeAllRanges();
+                var mouse = { x: e.clientX, y: e.clientY };
+                var offset = mouse.y - this.mousepos.y;
+                var before = scroll.top;
+                var after = scrollBarUpdate(offset);
+                if(before != after) this.mousepos.y = mouse.y;
+            }
+
+            function scrollBarUpdate(offset) {
+                var scrollTop = scroll.top;
+                if(offset < 0) scrollTop = Math.max(0, scrollTop + offset);
+                else scrollTop = Math.min(max_scroll_top, scrollTop + offset);
+
+                scroll.bar.style.top = scrollTop + 'px';
+                popup.scrollTop = scrollTop * k;
+                scroll.parent.style.top = Math.floor(scrollTop * k) + 'px';
+
+                return scrollTop;
+            }
+
+            function scrollArrowsHandler(e, dir) {
+                var direction = dir || this == scroll.arrow.up ? -1 : 1;
+                var step = direction * arrows_scroll_step;
+                scrollBarUpdate(step);
+                timer = setInterval(scrollBarUpdate.bind(this, step), 150);
+            }
+
+            function scrollKeysHandler(e) {
+                var code = e.which;
+                var isKey = {
+                    ARROW_UP  : code == 38,
+                    ARROW_DOWN: code == 40,
+                    HOME      : code == 36,
+                    END       : code == 35,
+                    PAGE_UP   : code == 33,
+                    PAGE_DOWN : code == 34
+                };
+
+                e.preventDefault();
+            }
+
+            scroll.bar.addEventListener('mousedown', mouseDown, false);
+            scroll.arrow.up.addEventListener('mousedown', scrollArrowsHandler, false);
+            scroll.arrow.down.addEventListener('mousedown', scrollArrowsHandler, false);
+            popup.addEventListener('keydown', scrollKeysHandler, false);
+            document.addEventListener('mouseup', function () { clearInterval(timer) }, false);
+        }
+    }, 0);
+
+}
