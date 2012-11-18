@@ -656,7 +656,7 @@ function XTranslate_options()
 
     // Custom scrollbar
     setTimeout(function () {
-        var timer;
+        var scrollTimer, scrollKeyPressed;
 
         var popup = $('.XTranslate_result');
         var scroll = {
@@ -719,32 +719,60 @@ function XTranslate_options()
                 return scrollTop;
             }
 
-            function scrollArrowsHandler(e, dir) {
-                var direction = dir || this == scroll.arrow.up ? -1 : 1;
-                var step = direction * arrows_scroll_step;
+            function scrollHandler(dir, step) {
+                if(dir instanceof Event){
+                    var args = [].slice.call(arguments, 1);
+                    dir = args.shift();
+                    step = args.shift();
+                }
+                dir = dir || (this == scroll.arrow.up ? -1 : 1);
+                step = dir * (step || arrows_scroll_step);
                 scrollBarUpdate(step);
-                timer = setInterval(scrollBarUpdate.bind(this, step), 150);
+                scrollTimer = setInterval(scrollBarUpdate.bind(this, step), 150);
             }
 
-            function scrollKeysHandler(e) {
-                var code = e.which;
-                var isKey = {
-                    ARROW_UP  : code == 38,
-                    ARROW_DOWN: code == 40,
-                    HOME      : code == 36,
-                    END       : code == 35,
-                    PAGE_UP   : code == 33,
-                    PAGE_DOWN : code == 34
-                };
+            function scrollWithKeys(e) {
+                if(!scrollKeyPressed) {
+                    var stop = true;
+                    switch(e.which){
+                        case 38: // ARROW UP
+                            scrollHandler(-1, arrows_scroll_step);
+                            break;
+                        case 40: // ARROW DOWN
+                            scrollHandler(+1, arrows_scroll_step);
+                            break;
+                        case 36: // HOME
+                            scrollBarUpdate(-max_scroll_top);
+                            break;
+                        case 35: // END
+                            scrollBarUpdate(+max_scroll_top);
+                            break;
+                        case 33: // PAGE UP
+                            scrollHandler(-1, page_scroll_step);
+                            break;
+                        case 34: // PAGE DOWN
+                            scrollHandler(+1, page_scroll_step);
+                            break;
+                        default:
+                            stop = false;
+                    }
+                    stop && e.preventDefault();
+                    scrollKeyPressed = true;
+                }
+                else e.preventDefault();
+            }
 
-                e.preventDefault();
+            function scrollTimerClear(e) {
+                clearInterval(scrollTimer);
+                scrollKeyPressed = false;
             }
 
             scroll.bar.addEventListener('mousedown', mouseDown, false);
-            scroll.arrow.up.addEventListener('mousedown', scrollArrowsHandler, false);
-            scroll.arrow.down.addEventListener('mousedown', scrollArrowsHandler, false);
-            popup.addEventListener('keydown', scrollKeysHandler, false);
-            document.addEventListener('mouseup', function () { clearInterval(timer) }, false);
+            scroll.arrow.up.addEventListener('mousedown', scrollHandler, false);
+            scroll.arrow.down.addEventListener('mousedown', scrollHandler, false);
+            popup.addEventListener('keydown', scrollWithKeys, false);
+            popup.addEventListener('keyup', scrollTimerClear, false);
+            document.addEventListener('mouseup', scrollTimerClear, false);
         }
     }, 0);
 
