@@ -185,8 +185,9 @@
         transition: right .2s;
     }
     .XTranslate_scroll:hover { opacity: 1; }
-    .XTranslate:hover .XTranslate_scroll { right: 0; }
     .XTranslate_result_scrolled { padding-right: 25px; }
+    .XTranslate_result_scrolled .XTranslate_scroll { display: block; }
+    .XTranslate:hover .XTranslate_result_scrolled .XTranslate_scroll { right: 0; }
 
     .XTranslate_scroll_arrow_up,
     .XTranslate_scroll_arrow_down,

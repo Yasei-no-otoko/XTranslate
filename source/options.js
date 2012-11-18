@@ -673,18 +673,21 @@ function XTranslate_options()
             parent: scroll.parent.offsetHeight,
             offset: popup.offsetHeight,
             scroll: popup.scrollHeight,
+            arrow : parseInt(scroll.arrow.up.currentStyle.height),
             arrows: parseInt(scroll.bar.currentStyle.marginTop) * 2, // arrows + margins
             get bar(){ return Math.round(height.offset / height.scroll * height.offset) - height.arrows }
         };
 
         if(height.offset < height.scroll){
+            popup.classList.add('XTranslate_result_scrolled');
             scroll.bar.style.height = height.bar + 'px';
 
             var max_popup_top = height.scroll - height.offset;
             var max_scroll_top = height.parent - height.bar - height.arrows;
             var k = max_popup_top / max_scroll_top;
             var arrows_scroll_step = Math.round(max_scroll_top *.1);
-            var page_scroll_step = Math.round(height.offset * .9 / k);
+            var page_scroll_step = Math.round(max_scroll_top * .9);
+            var wheel_scroll_step = Math.round(max_scroll_top *.2);
 
             function mouseDown(e) {
                 this.mousepos = { x: e.clientX, y: e.clientY };
@@ -731,7 +734,7 @@ function XTranslate_options()
                 scrollTimer = setInterval(scrollBarUpdate.bind(this, step), 150);
             }
 
-            function scrollWithKeys(e) {
+            function scrollKeysHandler(e) {
                 if(!scrollKeyPressed) {
                     var stop = true;
                     switch(e.which){
@@ -762,17 +765,38 @@ function XTranslate_options()
                 else e.preventDefault();
             }
 
-            function scrollTimerClear(e) {
+            function scrollTimerClear() {
                 clearInterval(scrollTimer);
                 scrollKeyPressed = false;
+            }
+
+            function mouseWheel(e) {
+                var step = e.wheelDelta / -120 * wheel_scroll_step;
+                if(popup.contains(e.target)){
+                    scrollBarUpdate(step);
+                    e.preventDefault();
+                }
+            }
+
+            function scrollClick(e) {
+                if(e.target == scroll.parent){
+                    var mouse = e.offsetY - height.arrow;
+                    var top = scroll.top;
+                    var bottom = top + height.bar;
+                    mouse < top && scrollHandler(-1, page_scroll_step);
+                    mouse > bottom && scrollHandler(+1, page_scroll_step);
+                    scrollTimerClear();
+                }
             }
 
             scroll.bar.addEventListener('mousedown', mouseDown, false);
             scroll.arrow.up.addEventListener('mousedown', scrollHandler, false);
             scroll.arrow.down.addEventListener('mousedown', scrollHandler, false);
-            popup.addEventListener('keydown', scrollWithKeys, false);
+            scroll.parent.addEventListener('click', scrollClick, false);
+            popup.addEventListener('keydown', scrollKeysHandler, false);
             popup.addEventListener('keyup', scrollTimerClear, false);
             document.addEventListener('mouseup', scrollTimerClear, false);
+            document.addEventListener('mousewheel', mouseWheel, false);
         }
     }, 0);
 
