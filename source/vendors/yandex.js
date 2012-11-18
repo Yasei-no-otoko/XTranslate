@@ -82,7 +82,7 @@ XTranslate.vendors.add(
 							content = !error ? action.content.call(this, data) : response;
 							
 						var html = [
-							'<div class="XTranslate_result Powered_by_Yandex" tabindex="0">',
+							'<div class="XTranslate_result Powered_by_Yandex" tabindex="-1">',
 								content,
 							'</div>'
 						].join('');

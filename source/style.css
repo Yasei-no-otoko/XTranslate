@@ -172,17 +172,22 @@
     .XTranslate_icon_trigger { position: absolute; cursor: pointer; z-index: 1000; }
     .XTranslate_options .translate_all { padding-bottom:.5em; text-align:center; }
 
-    .XTranslate_result { padding-right: 25px; }
     .XTranslate_scroll {
         position: absolute;
         top: 0;
-        right: 0;
         margin: 2px;
         width: 15px;
         height: 98%;
-        background: rgba(0,0,0,.1);
+        background: rgba(0,0,0,.15);
         border-radius: 2px;
+        opacity: .7;
+        right: -20px;
+        transition: right .2s;
     }
+    .XTranslate_scroll:hover { opacity: 1; }
+    .XTranslate:hover .XTranslate_scroll { right: 0; }
+    .XTranslate_result_scrolled { padding-right: 25px; }
+
     .XTranslate_scroll_arrow_up,
     .XTranslate_scroll_arrow_down,
     .XTranslate_scroll_bar {
@@ -191,18 +196,18 @@
         width: 15px;
         height: 15px;
         border-radius: 2px;
-        background: white;
-        opacity: .7;
+        background: rgba(255, 255, 255, .75);
         box-shadow: 0 0 2px black;
+        box-sizing: border-box;
     }
     .XTranslate_scroll_arrow_up { top: 0; }
     .XTranslate_scroll_arrow_down { bottom: 0; }
     .XTranslate_scroll_bar { margin-top: 17px; top: 0; height: 20%; }
 
-    .XTranslate_scroll_arrow_up:hover,
-    .XTranslate_scroll_arrow_down:hover,
-    .XTranslate_scroll_bar:hover {
-        opacity: 1;
+    .XTranslate_scroll_arrow_up:focus,
+    .XTranslate_scroll_arrow_down:focus,
+    .XTranslate_scroll_bar:focus {
+        background: white;
     }
 
     .XTranslate_scroll_arrow_up:after,

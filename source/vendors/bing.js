@@ -31,7 +31,7 @@ XTranslate.vendors.add(
 				complete: function( response )
 				{
 					var html = [
-						'<div class="XTranslate_result Powered_by_Bing" tabindex="0">',
+						'<div class="XTranslate_result Powered_by_Bing" tabindex="-1">',
 							String(JSON.parse(response)).replace(/</g, '&lt;'),
 						'</div>'
 					].join('');
