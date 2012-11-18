@@ -33,6 +33,7 @@
         max-height: 200px;
         overflow: hidden;
         display: block;
+        box-sizing: border-box;
     }
 
 	.XTranslate_wordtype:last-child > dd { padding-bottom:0; }
@@ -175,18 +176,18 @@
     .XTranslate_scroll {
         position: absolute;
         top: 0;
+        right: 0;
         margin: 2px;
         width: 15px;
         height: 98%;
         background: rgba(0,0,0,.15);
         border-radius: 2px;
         opacity: .7;
-        right: -20px;
         transition: right .2s;
     }
+    .XTranslate_scroll_autohide { right: -20px; }
     .XTranslate_scroll:hover { opacity: 1; }
     .XTranslate_result_scrolled { padding-right: 25px; }
-    .XTranslate_result_scrolled .XTranslate_scroll { display: block; }
     .XTranslate:hover .XTranslate_result_scrolled .XTranslate_scroll { right: 0; }
 
     .XTranslate_scroll_arrow_up,

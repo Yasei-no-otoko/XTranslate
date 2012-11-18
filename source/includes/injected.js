@@ -165,18 +165,8 @@ document.toString() == '[object HTMLDocument]' && function()
                 play_sound && play_sound.click();
             }
 
-//            !selection.isCollapsed &&
-//            [].slice.call(selection.getRangeAt(0).getClientRects()).forEach(function (pos, i){
-//                window.$('<div/>').css({
-//                    position  : 'fixed',
-//                    background: 'rgba(255,0,0,.5)',
-//                    left      : pos.left,
-//                    top       : pos.top,
-//                    width     : pos.width,
-//                    height    : pos.height,
-//                    zIndex    : 1000
-//                }).appendTo(document.body).text(i);
-//            });
+            // create custom scroll
+            XTranslate_scrollBarCreate();
 
             // fix position
             var
