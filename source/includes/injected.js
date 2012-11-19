@@ -474,6 +474,7 @@ document.toString() == '[object HTMLDocument]' && function()
                 document.addEventListener(evtName, handler, false);
             });
 
+            // fix popup's position when window changes his size
             window.addEventListener('resize', function __() {
                 clearTimeout(__.timer);
                 __.timer = setTimeout(function () {

@@ -41,9 +41,6 @@ function XTranslate_scrollBarCreate() {
         };
 
         scroll.bar.style.height = height.bar + 'px';
-        setTimeout(function () {
-            scroll.parent.classList.add('XTranslate_scroll_autohide');
-        }, 500);
 
         // build
         var max_popup_top = height.scroll - height.offset;
@@ -155,13 +152,19 @@ function XTranslate_scrollBarCreate() {
             }
         }
 
+        function scrollAutoHide(e) {
+            scroll.parent.classList.add('XTranslate_scroll_autohide');
+            this.removeEventListener(e.type, scrollAutoHide, false);
+        }
+
         scroll.bar.addEventListener('mousedown', mouseDown, false);
         scroll.arrow.up.addEventListener('mousedown', scrollHandler, false);
         scroll.arrow.down.addEventListener('mousedown', scrollHandler, false);
         scroll.parent.addEventListener('click', scrollClick, false);
         popup.addEventListener('keydown', scrollKeyManager, false);
         popup.addEventListener('keyup', scrollTimerClear, false);
+        popup.addEventListener('mouseleave', scrollAutoHide, false);
         document.addEventListener('mouseup', scrollTimerClear, false);
         document.addEventListener('mousewheel', mouseWheel, false);
     }
-};
+}
