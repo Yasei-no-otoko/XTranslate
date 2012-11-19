@@ -165,33 +165,44 @@ document.toString() == '[object HTMLDocument]' && function()
                 play_sound && play_sound.click();
             }
 
-            // create custom scroll
             XTranslate_scrollBarCreate();
-
-            // fix position
-            var
-                win_size = {
-                    width: window.innerWidth,
-                    height: window.innerHeight
-                },
-                popup_size = {
-                    width: popup.offsetWidth,
-                    height: popup.offsetHeight
-                },
-                offset = {
-                    x: pos.left + popup_size.width - win_size.width,
-                    y: pos.bottom + popup_size.height - win_size.height,
-                    padding: 20
-                };
-
-            offset.x > 0 && popup.css('marginLeft', -(offset.x + offset.padding) + 'px');
-            offset.y > 0 && popup.css('marginTop', -(offset.y + offset.padding) + 'px');
+            popup_fix_position();
         }
 
         function hide_popup() {
             !top_level && window.top.postMessage('hide', '*');
             popup.css('display', 'none');
             hide_icon_trigger();
+        }
+
+        function popup_fix_position() {
+            var
+                root = document.documentElement,
+                win_size = {
+                    width : root.clientWidth - 10,
+                    height: root.clientHeight - 10
+                },
+                popup_size = {
+                    width : popup.offsetWidth,
+                    height: popup.offsetHeight
+                },
+                pos = {
+                    left: parseInt(popup.css('left')),
+                    top : parseInt(popup.css('top')),
+                    get right () { return pos.left + popup_size.width },
+                    get bottom () { return pos.top + popup_size.height }
+                };
+
+            var content = popup.querySelector('.XTranslate_result');
+            content.style.width = content.offsetWidth + 'px';
+            content.style.height = content.offsetHeight + 'px';
+
+            if(pos.right > win_size.width){
+                popup.css('marginLeft', -(pos.right - win_size.width) + 'px');
+            }
+            if(pos.bottom > win_size.height){
+                popup.css('marginTop', -(pos.bottom - win_size.height) + 'px');
+            }
         }
 
         function url_is_excluded( urls )
@@ -219,10 +230,12 @@ document.toString() == '[object HTMLDocument]' && function()
 
         function save_selected_text() {
             try {
-                port.postMessage({
-                    action: 'save-selected-text',
-                    text: get_selection()
-                });
+                setTimeout(function () {
+                    port.postMessage({
+                        action: 'save-selected-text',
+                        text: get_selection()
+                    });
+                }, 0);
             } catch(e){
                 window.location.reload(true);
             }
@@ -444,13 +457,11 @@ document.toString() == '[object HTMLDocument]' && function()
                 ['dblclick', function (evt) {
                     if(settings.translate.dblclick){
                         handle_selection(evt);
-                        dblclick = function () {};
                         evt.preventDefault();
                     }
                 }],
 
                 ['keyup', function( evt ){
-                    save_selected_text();
                     evt.which == 27 && hide_popup(evt); // <ESCAPE>-key
                 }],
 
@@ -461,7 +472,15 @@ document.toString() == '[object HTMLDocument]' && function()
                 var evtName = p.shift();
                 var handler = p.shift();
                 document.addEventListener(evtName, handler, false);
-            })
+            });
+
+            window.addEventListener('resize', function __() {
+                clearTimeout(__.timer);
+                __.timer = setTimeout(function () {
+                    popup.css('display') !== 'none' &&
+                    popup_fix_position();
+                }, 150);
+            }, false);
         }
 
     }, false);
