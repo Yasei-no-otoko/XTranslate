@@ -40,23 +40,21 @@
 
         function handle_selection( evt )
         {
-            var text,
-                type = evt.type,
+            var type = evt.type,
                 selection = selection || window.getSelection();
 
             if(popup.css('display') !== 'none') return;
             auto_selected = selection.isCollapsed && type == 'keydown';
             hide_icon_trigger();
 
-            if(
+            if( (type == settings.trigger.type) ||
                 (type == 'keydown' && settings.trigger.type == 'keypress') ||
-                    (type == 'click' && settings.translate.easyclick) ||
-                    (type == 'dblclick' && settings.translate.dblclick) ||
-                    (type == 'mouseup' && settings.button.icon_trigger_popup))
+                (type == 'click' && settings.translate.easyclick) ||
+                (type == 'dblclick' && settings.translate.dblclick) ||
+                (type == 'mouseup' && settings.button.icon_trigger_popup))
             {
-                if(text = get_selection()){
-                    port.postMessage({action: 'translate', text: text});
-                }
+                var text = get_selection();
+                text && port.postMessage({action: 'translate', text: text});
             }
         }
 
@@ -71,11 +69,8 @@
                 else text = over_node.innerText;
             }
 
-            else if(selection.rangeCount > 0){
-                var nodes = selection.getRangeAt(0).cloneContents().childNodes;
-                text = Array.prototype.slice.call(nodes).map(function (node) {
-                    return node.innerText || node.textContent;
-                }).join('');
+            else if(!selection.isCollapsed){
+                text = selection.toString();
             }
 
             return text.replace(/(\s*\n\s*\n\s*)+/g, '\n');
@@ -186,8 +181,8 @@
         function popup_fix_position() {
             var
                 win_size = {
-                    width : window.innerWidth - 10,
-                    height: window.innerHeight - 10
+                    width : window.innerWidth  - 20,
+                    height: window.innerHeight - 20
                 },
                 popup_size = {
                     width : popup.offsetWidth,
@@ -484,16 +479,6 @@
                     var handler = p.shift();
                     document.addEventListener(evtName, handler, false);
                 });
-
-            // fix popup's position when window changes his size
-            window.addEventListener('resize', function __() {
-                clearTimeout(__.timer);
-                __.timer = setTimeout(function () {
-                    popup.css('display') !== 'none' &&
-                    popup_fix_position();
-                }, 150);
-            }, false);
         }
-
     }
 })();
