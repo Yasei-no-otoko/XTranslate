@@ -182,49 +182,53 @@ function button()
 settings('button.show') && opera.contexts.toolbar.addItem( XTranslate.button );
 XTranslate.updateButton();
 
-// init
-opera.extension.addEventListener('connect', function(evt)
-{
-	evt.source.postMessage(
-	{
-		action: 'init',
-		css: function() {
-			return [].slice.call(document.styleSheets[0].cssRules).map(function( rule ){
-				return rule.cssText;
-			}).join('\n');
-		}(),
-		userCSS: userCSS(),
-		customCSS: settings('user.custom.css'),
-		settings: settings(),
-		widget: JSON.stringify(widget),
-        images: images
-	});
-}, false );
+// initial data
+function init() {
+    return {
+        action: 'init',
+        widget: JSON.stringify(widget),
+        css: function() {
+            return [].slice.call(document.styleSheets[0].cssRules).map(function( rule ){
+                return rule.cssText;
+            }).join('\n');
+        }(),
+        userCSS  : userCSS(),
+        customCSS: settings('user.custom.css'),
+        settings : settings(),
+        images   : images
+    };
+}
 
 // messages handling
-opera.extension.addEventListener('message', function(evt)
+opera.extension.onmessage = function(evt)
 {
     var data = evt.data,
-        action = data.action;
+        action = data.action,
+        port = evt.source;
 
     switch(action){
+        case 'init':
+            port.postMessage(init());
+            break;
+
         case 'translate':
         case 'get-sound':
             if(data.action == 'translate'){
                 action = 'handler';
                 data = data.text;
             }
-            when( XTranslate.vendors.current[action](data) )
-                .then(function( data ) {
-                    evt.source.postMessage(data)
-                });
-        break;
+
+            var ready = XTranslate.vendors.current[action](data);
+            when(ready).then(function( data ) {
+                port.postMessage(data)
+            });
+            break;
 
         case 'save-selected-text':
             selected_text = data.text;
-        break;
+            break;
     }
-}, false );
+};
 
 function userCSSDefault()
 {

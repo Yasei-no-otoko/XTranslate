@@ -1,16 +1,24 @@
 // @project XTranslate (injected.js)
-// @url https://github.com/extensible/XTranslate 
+// @url https://github.com/extensible/XTranslate
 
-document.toString() == '[object HTMLDocument]' && function()
-{
-    var type = document.location.protocol == 'file:' ? 'load' : 'DOMContentLoaded';
-    window.addEventListener(type, function()
+(function (){
+    var inited = false;
+
+    window.addEventListener('load', init, false);
+    document.addEventListener('DOMContentLoaded', init, false);
+
+    function init()
     {
+        if(inited || !document.body) return;
+
         var
             top_level = window.top == window.self,
             show_in_frame = window.innerWidth >= 200 && window.innerHeight >= 200,
             port, settings, icon_trigger,
             popup, selection, over_node, range, auto_selected;
+
+        opera.extension.postMessage({action: 'init'});
+        inited = true;
 
         function extend( source )
         {
@@ -41,10 +49,10 @@ document.toString() == '[object HTMLDocument]' && function()
             hide_icon_trigger();
 
             if(
-               (type == 'keydown' && settings.trigger.type == 'keypress') ||
-               (type == 'click' && settings.translate.easyclick) ||
-               (type == 'dblclick' && settings.translate.dblclick) ||
-               (type == 'mouseup' && settings.button.icon_trigger_popup))
+                (type == 'keydown' && settings.trigger.type == 'keypress') ||
+                    (type == 'click' && settings.translate.easyclick) ||
+                    (type == 'dblclick' && settings.translate.dblclick) ||
+                    (type == 'mouseup' && settings.button.icon_trigger_popup))
             {
                 if(text = get_selection()){
                     port.postMessage({action: 'translate', text: text});
@@ -103,10 +111,10 @@ document.toString() == '[object HTMLDocument]' && function()
                             var rects = selRects.filter(function (rect) {
                                 return (
                                     rect.left >= nodeRect.left &&
-                                    rect.right <= nodeRect.right &&
-                                    rect.top >= nodeRect.top &&
-                                    rect.bottom <= nodeRect.bottom
-                                );
+                                        rect.right <= nodeRect.right &&
+                                        rect.top >= nodeRect.top &&
+                                        rect.bottom <= nodeRect.bottom
+                                    );
                             });
                             return rects.length ? rects : null;
                         };
@@ -177,10 +185,9 @@ document.toString() == '[object HTMLDocument]' && function()
 
         function popup_fix_position() {
             var
-                root = document.documentElement,
                 win_size = {
-                    width : root.clientWidth - 10,
-                    height: root.clientHeight - 10
+                    width : window.innerWidth - 10,
+                    height: window.innerHeight - 10
                 },
                 popup_size = {
                     width : popup.offsetWidth,
@@ -216,7 +223,7 @@ document.toString() == '[object HTMLDocument]' && function()
                         .replace(/^https?:\/\/(www\.)?/, '')
                         .replace(/[.]/g, '[.]')
                         .replace(/\*/g, '.*?'),
-                    checker = new RegExp('^(https?://(www[.])?)?' + url, 'mi');
+                        checker = new RegExp('^(https?://(www[.])?)?' + url, 'mi');
 
                     return checker.test(location);
                 }).shift();
@@ -240,6 +247,10 @@ document.toString() == '[object HTMLDocument]' && function()
                 window.location.reload(true);
             }
         }
+
+        opera.extension.addEventListener('disconnect', function (e) {
+            window.location.reload();
+        }, false);
 
         // Messaging handler
         opera.extension.onmessage = function( evt )
@@ -297,16 +308,16 @@ document.toString() == '[object HTMLDocument]' && function()
                     icon_trigger.src = evt.data.images.update;
                     icon_trigger.className = 'XTranslate_icon_trigger';
                     icon_trigger.title = 'XTranslate: get the translation';
-                break;
+                    break;
 
                 case 'translate':
                     handle_selection(evt);
-                break;
+                    break;
 
                 case 'audio':
                     var sound = popup.querySelector('object');
                     sound.src = sound.data = evt.data.track;
-                break;
+                    break;
             }
 
             evt.data.userCSS && popup.setAttribute('style', evt.data.userCSS);
@@ -338,7 +349,7 @@ document.toString() == '[object HTMLDocument]' && function()
                         pos  : extend({}, selection.getRangeAt(0).getBoundingClientRect()),
                         html : evt.data.html
                     }, '*')
-            );
+                );
         };
 
         // Extra handling for iframes
@@ -416,14 +427,14 @@ document.toString() == '[object HTMLDocument]' && function()
                         evt.shiftKey && 'Shift',
                         String.fromCharCode(evt.which).toUpperCase()
                     ]
-                    .filter(function (v) { return v })
-                    .join('+');
+                        .filter(function (v) { return v })
+                        .join('+');
 
                     settings.trigger.hotkey == hotKey &&
-                    settings.trigger.type == 'keypress' && (
+                        settings.trigger.type == 'keypress' && (
                         handle_selection(evt),
-                        evt.preventDefault()
-                    );
+                            evt.preventDefault()
+                        );
                 }],
 
                 ['mousedown', function (e) {
@@ -469,10 +480,10 @@ document.toString() == '[object HTMLDocument]' && function()
                     over_node = evt.target;
                 }]
             ].forEach(function(p){
-                var evtName = p.shift();
-                var handler = p.shift();
-                document.addEventListener(evtName, handler, false);
-            });
+                    var evtName = p.shift();
+                    var handler = p.shift();
+                    document.addEventListener(evtName, handler, false);
+                });
 
             // fix popup's position when window changes his size
             window.addEventListener('resize', function __() {
@@ -484,6 +495,5 @@ document.toString() == '[object HTMLDocument]' && function()
             }, false);
         }
 
-    }, false);
-
-}();
+    }
+})();

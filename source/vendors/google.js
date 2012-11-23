@@ -61,7 +61,7 @@ XTranslate.vendors.add(
                                     '<object width="1" height="1"></object>',
                                 '</span>',
 
-                                data[4].map(function( chunk ) {
+                                (data[4] || data[0]).map(function( chunk ) {
                                     chunk = chunk.shift();
                                     /^[A-ZА-Я0-9]/i.test(chunk) && chunk.length > 1 && (chunk = " "+ chunk);
                                     return chunk;
