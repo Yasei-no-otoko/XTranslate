@@ -4,231 +4,248 @@
 */
 
 /* Popup */
-	.XTranslate * { margin:0; padding:0; line-height:inherit; color:inherit; font:inherit; border:none; outline:none; width:auto; height:auto; }
-	.XTranslate {
-		width: auto;
-		position:fixed;
-		left:0;
-		top:0;
-		padding:1em;
-		display:none;
-		z-index:100000;
-		white-space:pre-line;
-		text-align:left;
+.XTranslate {
+    width: auto;
+    position:fixed;
+    left:0;
+    top:0;
+    padding:1em;
+    display:none;
+    z-index:100000;
+    white-space:pre-line;
+    text-align:left;
 
-		font:13px/120% Verdana, Geneva, sans-serif;
-		color:#fff;
-		text-shadow:1px 1px 0 #8B11FF;
+    font:13px/120% Verdana, Geneva, sans-serif;
+    color:#fff;
+    text-shadow:1px 1px 0 #8B11FF;
 
-		background-color:#b05ebd;
-		background-image: -o-linear-gradient(top, #b05ebd 0%, #8B11FF 70%);
-		box-shadow:0 0 10px #b05ebd;
-		border-radius:10px;
-		border:1px solid #8B11FF;
-	}
+    background-color:#b05ebd;
+    background-image: -o-linear-gradient(top, #b05ebd 0%, #8B11FF 70%);
+    box-shadow:0 0 10px #b05ebd;
+    border-radius:10px;
+    border:1px solid #8B11FF;
+}
 
-	.XTranslate_result {
-        position: relative;
-        max-width: 300px;
-        max-height: 200px;
-        overflow: hidden;
-        display: block;
-        box-sizing: border-box;
-    }
+/* reset styles */
+.XTranslate * {
+    position: static;
+    margin: 0;
+    padding: 0;
+    line-height: inherit;
+    color: inherit;
+    font: inherit;
+    border: none;
+    outline: none;
+    width: auto;
+    height: auto;
+    float: none;
+}
 
-	.XTranslate_wordtype:last-child > dd { padding-bottom:0; }
+.XTranslate_result {
+    position: relative;
+    max-width: 300px;
+    max-height: 200px;
+    overflow: hidden;
+    display: block;
+    box-sizing: border-box;
+}
 
-	.XTranslate_wordtype dt {
-		font-weight:bold;
-		font-style:normal;
-	}
-	.XTranslate_wordtype dd {
-		padding-left:2em;
-		padding-bottom:.7em;
-		margin:0;
-	}
-	.XTranslate_sound img {
-		background: white;
-		padding: 3px;
-		border-radius: 20px;
-		opacity: .6;
-		cursor: pointer;
-		display: inline-block;
-		vertical-align:middle;
-		margin-right:5px;
-	}
-	.XTranslate_sound img:hover { opacity:1; }
-	.XTranslate_sound object,
-	.XTranslate_sound embed { position:absolute; visibility:hidden; }
+.XTranslate_wordtype:last-child > dd { padding-bottom:0; }
+
+.XTranslate_wordtype dt {
+    font-weight:bold;
+    font-style:normal;
+}
+.XTranslate_wordtype dd {
+    padding-left:2em;
+    padding-bottom:.7em;
+    margin:0;
+}
+.XTranslate_sound img {
+    background: white;
+    padding: 3px;
+    border-radius: 20px;
+    opacity: .6;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align:middle;
+    margin-right:5px;
+}
+.XTranslate_sound img:hover { opacity:1; }
+.XTranslate_sound object,
+.XTranslate_sound embed { position:absolute; visibility:hidden; }
 
 /* Options */
-	.XTranslate_options,
-	.XTranslate_options h1,
-	.XTranslate_options input,
-	.XTranslate_options button,
-	.XTranslate_options select,
-	.XTranslate_options textarea {
-        resize: none;
-		font: small
-			"Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "Meiryo UI", "MS UI Gothic", "VL ゴシック", "VL Gothic",
-			Verdana, Geneva, sans-serif;
-	}
 
-	.XTranslate_body .hidden { display:none; }
-	.XTranslate_body { text-align:center; }
-	.XTranslate_options { position:relative; display:inline-block; text-align:left; max-width:380px; }
-	.XTranslate_options h1 { font-weight:bold; min-height:20px; }
-	.XTranslate_options h1 span { font-weight:normal; font:10px Arial, Helvetica, sans-serif; }
-	.XTranslate_options .popup_demo { position:static; display:inline-block; margin:1em 0 !important; }
-	.XTranslate_options .user-css { display:table; }
-	.XTranslate_options .user-css > * { display:table-row; }
-	.XTranslate_options .user-css > * > *:first-child { padding-right:10px; }
-	.XTranslate_options .user-css > * > span { display:table-cell; padding-bottom:10px; vertical-align:top; }
-    .XTranslate_options > dl { display:block; padding:1em; border:1px solid silver; border-radius:10px; }
-	.XTranslate_options > dl > dt { font-weight:bold; }
-	.XTranslate_options > dl > dd,
-	.XTranslate_options .content { margin:0; padding-left:20px; }
-	.XTranslate_options .content > * { vertical-align:middle; }
-	.XTranslate_options #langs select { width:115px; }
-	.XTranslate_options span.arrow { display:inline-block; line-height:100%; padding:0 2px; cursor:pointer; }
-	.XTranslate_options div.footer a { color:black; text-decoration:none }
-	.XTranslate_options div.footer a:hover { text-decoration:underline; }
-	.XTranslate_options input.error { outline:2px solid red; }
-	.XTranslate_options input.hint { color:silver; }
-	.XTranslate_options div.error { color:red; text-align:center; }
-	.XTranslate_options .nobr { white-space:nowrap; }
-	.XTranslate_options label { cursor:pointer; }
+.XTranslate_options,
+.XTranslate_options h1,
+.XTranslate_options input,
+.XTranslate_options button,
+.XTranslate_options select,
+.XTranslate_options textarea {
+    resize: none;
+    font: small
+        "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "Meiryo UI", "MS UI Gothic", "VL ゴシック", "VL Gothic",
+        Verdana, Geneva, sans-serif;
+}
 
-	.XTranslate_options .custom_css,
-	.XTranslate_options .vspace { padding:10px 0; }
-	.XTranslate_options .custom_css_trigger { border-bottom:1px dotted black; cursor:pointer; display:inline-block; }
-	.XTranslate_options .custom_css_content { display:none; }
-	.XTranslate_options .custom_css .sample { cursor:pointer; font-style:italic; border-bottom:1px dotted black; }
+.XTranslate_body .hidden { display:none; }
+.XTranslate_body { text-align:center; }
+.XTranslate_options { position:relative; display:inline-block; text-align:left; max-width:380px; }
+.XTranslate_options h1 { font-weight:bold; min-height:20px; }
+.XTranslate_options h1 span { font-weight:normal; font:10px Arial, Helvetica, sans-serif; }
+.XTranslate_options .popup_demo { position:static; display:inline-block; margin:1em 0 !important; }
+.XTranslate_options .user-css { display:table; }
+.XTranslate_options .user-css > * { display:table-row; }
+.XTranslate_options .user-css > * > *:first-child { padding-right:10px; }
+.XTranslate_options .user-css > * > span { display:table-cell; padding-bottom:10px; vertical-align:top; }
+.XTranslate_options > dl { display:block; padding:1em; border:1px solid silver; border-radius:10px; }
+.XTranslate_options > dl > dt { font-weight:bold; }
+.XTranslate_options > dl > dd,
+.XTranslate_options .content { margin:0; padding-left:20px; }
+.XTranslate_options .content > * { vertical-align:middle; }
+.XTranslate_options #langs select { width:115px; }
+.XTranslate_options span.arrow { display:inline-block; line-height:100%; padding:0 2px; cursor:pointer; }
+.XTranslate_options div.footer a { color:black; text-decoration:none }
+.XTranslate_options div.footer a:hover { text-decoration:underline; }
+.XTranslate_options input.error { outline:2px solid red; }
+.XTranslate_options input.hint { color:silver; }
+.XTranslate_options div.error { color:red; text-align:center; }
+.XTranslate_options .nobr { white-space:nowrap; }
+.XTranslate_options label { cursor:pointer; }
 
-	.XTranslate_options .toolbar { position:absolute; right:0; top:.5em; }
-	.XTranslate_options .toolbar .tab { color:silver; border-bottom:1px dashed silver; margin-right:.5em; }
-	.XTranslate_options .toolbar .tab:hover,
-	.XTranslate_options .toolbar .tab.active { border-bottom:1px dashed black; color:black; cursor:pointer; }
-	.XTranslate_options .toolbar .tab.active { cursor:default; border:0; font-weight:bold; }
-    .XTranslate_options input[name = "trigger.hotkey"]:focus { border-color: black; }
-    .XTranslate_options input[name = "trigger.hotkey"]{
-        border-radius: 15px;
-        border: 1px solid silver;
-        padding: 2px 5px;
-        width: 140px;
-        vertical-align: middle;
-    }
+.XTranslate_options .custom_css,
+.XTranslate_options .vspace { padding:10px 0; }
+.XTranslate_options .custom_css_trigger { border-bottom:1px dotted black; cursor:pointer; display:inline-block; }
+.XTranslate_options .custom_css_content { display:none; }
+.XTranslate_options .custom_css .sample { cursor:pointer; font-style:italic; border-bottom:1px dotted black; }
 
-    .XTranslate_options > dl { display:none; position:relative; }
-	.XTranslate_tab_settings > dl.option,
-	.XTranslate_tab_user_input > dl.user_input { display:block; }
+.XTranslate_options .toolbar { position:absolute; right:0; top:.5em; }
+.XTranslate_options .toolbar .tab { color:silver; border-bottom:1px dashed silver; margin-right:.5em; }
+.XTranslate_options .toolbar .tab:hover,
+.XTranslate_options .toolbar .tab.active { border-bottom:1px dashed black; color:black; cursor:pointer; }
+.XTranslate_options .toolbar .tab.active { cursor:default; border:0; font-weight:bold; }
+.XTranslate_options input[name = "trigger.hotkey"]:focus { border-color: black; }
+.XTranslate_options input[name = "trigger.hotkey"]{
+    border-radius: 15px;
+    border: 1px solid silver;
+    padding: 2px 5px;
+    width: 140px;
+    vertical-align: middle;
+}
 
-	.XTranslate_user_input_area { width:99%; min-height: 75px; border:1px solid silver; border-radius:5px; margin:1px; }
-	.XTranslate_user_input_area:focus { border:2px solid gray; margin:0; }
-	.XTranslate_user_input_result { margin-top:1em; }
-	.XTranslate_user_input_result:empty { margin:0; }
-	.XTranslate_user_input_result .XTranslate_result { max-height:none; max-width:none; word-wrap:break-word; white-space:pre-line; }
+.XTranslate_options > dl { display:none; position:relative; }
+.XTranslate_tab_settings > dl.option,
+.XTranslate_tab_user_input > dl.user_input { display:block; }
 
-	.XTranslate_words_list { width:100%; }
-	.XTranslate_words_list,
-	.XTranslate_words_list td {
-		border-collapse:collapse;
-		vertical-align:top;
-		padding-bottom:.5em;
-		word-wrap:break-word;
-	}
-	.XTranslate_word { width:35%; padding-right:.5em; padding-left:1em; }
-	.XTranslate_similars { color:gray; }
-	.XTranslate_sim_word { border-bottom:1px dotted gray; cursor:pointer; }
-	.XTranslate_sim_word:hover { color:black; border-bottom-color:black; }
+.XTranslate_user_input_area { width:99%; min-height: 75px; border:1px solid silver; border-radius:5px; margin:1px; }
+.XTranslate_user_input_area:focus { border:2px solid gray; margin:0; }
+.XTranslate_user_input_result { margin-top:1em; }
+.XTranslate_user_input_result:empty { margin:0; }
+.XTranslate_user_input_result .XTranslate_result { max-height:none; max-width:none; word-wrap:break-word; white-space:pre-line; }
 
-	.XTranslate_tab_settings .toggle {
-		position:absolute; right:0; top:0; margin:.5em;
-		border:1px solid transparent; border-radius:2px;
-		width:1em; height:1em; line-height:1em; text-align:center;
-		cursor:pointer; display:block !important;
-		color:gray;
-	}
-	.XTranslate_tab_settings dl.shut > dt:hover,
-	.XTranslate_tab_settings dl.shut > dt:hover ~ .toggle,
-	.XTranslate_tab_settings .toggle:hover {
-		border-color:black; color:black;
-	}
-	.XTranslate_tab_settings .toggle:before { content: "−"; }
-	.XTranslate_tab_settings dl.shut { padding:.5em 1em; cursor:pointer; }
-	.XTranslate_tab_settings dl.shut > dt { color:gray; }
-	.XTranslate_tab_settings dl.shut .toggle:before { content: "+"; }
-	.XTranslate_tab_settings dl.shut > * { display:none; }
-	.XTranslate_tab_settings dl.shut > dt { display:block; }
+.XTranslate_words_list { width:100%; }
+.XTranslate_words_list,
+.XTranslate_words_list td {
+    border-collapse:collapse;
+    vertical-align:top;
+    padding-bottom:.5em;
+    word-wrap:break-word;
+}
+.XTranslate_word { width:35%; padding-right:.5em; padding-left:1em; }
+.XTranslate_similars { color:gray; }
+.XTranslate_sim_word { border-bottom:1px dotted gray; cursor:pointer; }
+.XTranslate_sim_word:hover { color:black; border-bottom-color:black; }
 
-	.XTranslate_options .pseudo { color:gray; border-bottom:1px dotted gray; cursor:pointer; }
-	.XTranslate_options .pseudo:hover { color:black; border-bottom-color:black; }
-	.XTranslate_options .button { font-weight:bold; padding:.2em .5em; cursor:pointer; }
-	.XTranslate_options .button[disabled] { cursor:default; }
+.XTranslate_tab_settings .toggle {
+    position:absolute; right:0; top:0; margin:.5em;
+    border:1px solid transparent; border-radius:2px;
+    width:1em; height:1em; line-height:1em; text-align:center;
+    cursor:pointer; display:block !important;
+    color:gray;
+}
+.XTranslate_tab_settings dl.shut > dt:hover,
+.XTranslate_tab_settings dl.shut > dt:hover ~ .toggle,
+.XTranslate_tab_settings .toggle:hover {
+    border-color:black; color:black;
+}
+.XTranslate_tab_settings .toggle:before { content: "−"; }
+.XTranslate_tab_settings dl.shut { padding:.5em 1em; cursor:pointer; }
+.XTranslate_tab_settings dl.shut > dt { color:gray; }
+.XTranslate_tab_settings dl.shut .toggle:before { content: "+"; }
+.XTranslate_tab_settings dl.shut > * { display:none; }
+.XTranslate_tab_settings dl.shut > dt { display:block; }
 
-    .XTranslate_options hr { height: 1px; overflow: hidden; border: 0; background: black; }
-    .XTranslate_options label.checkbox { padding-left: 25px; display: block; }
-    .XTranslate_options label.checkbox input { margin-left: -20px; }
+.XTranslate_options .pseudo { color:gray; border-bottom:1px dotted gray; cursor:pointer; }
+.XTranslate_options .pseudo:hover { color:black; border-bottom-color:black; }
+.XTranslate_options .button { font-weight:bold; padding:.2em .5em; cursor:pointer; }
+.XTranslate_options .button[disabled] { cursor:default; }
 
-    .XTranslate_icon_trigger { position: absolute; cursor: pointer; z-index: 1000; }
-    .XTranslate_options .translate_all { padding-bottom:.5em; text-align:center; }
+.XTranslate_options hr { height: 1px; overflow: hidden; border: 0; background: black; }
+.XTranslate_options label.checkbox { padding-left: 25px; display: block; }
+.XTranslate_options label.checkbox input { margin-left: -20px; }
 
-    .XTranslate_scroll {
-        position: absolute;
-        top: 0;
-        right: 0;
-        margin: 2px;
-        width: 15px;
-        height: 98%;
-        background: rgba(0,0,0,.15);
-        border-radius: 2px;
-        opacity: .7;
-        transition: right .2s;
-    }
-    .XTranslate_scroll_autohide { right: -20px; }
-    .XTranslate_scroll:hover { opacity: 1; }
-    .XTranslate_result_scrolled { padding-right: 25px; }
-    .XTranslate:hover .XTranslate_result_scrolled .XTranslate_scroll { right: 0; }
+.XTranslate_icon_trigger { position: absolute; cursor: pointer; z-index: 1000; }
+.XTranslate_options .translate_all { padding-bottom:.5em; text-align:center; }
 
-    .XTranslate_scroll_arrow_up,
-    .XTranslate_scroll_arrow_down,
-    .XTranslate_scroll_bar {
-        position: absolute;
-        left: 0;
-        width: 15px;
-        height: 15px;
-        border-radius: 2px;
-        background: rgba(255, 255, 255, .75);
-        box-shadow: 0 0 2px black;
-        box-sizing: border-box;
-    }
-    .XTranslate_scroll_arrow_up { top: 0; }
-    .XTranslate_scroll_arrow_down { bottom: 0; }
-    .XTranslate_scroll_bar { margin-top: 17px; top: 0; height: 20%; }
+/* Custom scrollbar */
 
-    .XTranslate_scroll_arrow_up:focus,
-    .XTranslate_scroll_arrow_down:focus,
-    .XTranslate_scroll_bar:focus {
-        background: white;
-    }
+.XTranslate_scroll {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 2px;
+    width: 15px;
+    height: 98%;
+    background: rgba(0,0,0,.15);
+    border-radius: 2px;
+    opacity: .7;
+    transition: right .2s;
+}
+.XTranslate_scroll_autohide { right: -20px; }
+.XTranslate_scroll:hover { opacity: 1; }
+.XTranslate_result_scrolled { padding-right: 25px; }
+.XTranslate:hover .XTranslate_result_scrolled .XTranslate_scroll { right: 0; }
 
-    .XTranslate_scroll_arrow_up:after,
-    .XTranslate_scroll_arrow_down:after {
-        position: absolute;
-        left: 4px;
-        content: "";
-        width: 0;
-        height: 0;
-    }
-    .XTranslate_scroll_arrow_up:after {
-        border-left: 4px solid transparent;
-        border-right: 4px solid transparent;
-        border-bottom: 4px solid black;
-        top: 35%;
-    }
-    .XTranslate_scroll_arrow_down:after {
-        border-left: 4px solid transparent;
-        border-right: 4px solid transparent;
-        border-top: 4px solid black;
-        top: 45%;
-    }
+.XTranslate_scroll_arrow_up,
+.XTranslate_scroll_arrow_down,
+.XTranslate_scroll_bar {
+    position: absolute;
+    left: 0;
+    width: 15px;
+    height: 15px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, .75);
+    box-shadow: 0 0 2px black;
+    box-sizing: border-box;
+}
+.XTranslate_scroll_arrow_up { top: 0; }
+.XTranslate_scroll_arrow_down { bottom: 0; }
+.XTranslate_scroll_bar { margin-top: 17px; top: 0; height: 20%; }
+
+.XTranslate_scroll_arrow_up:focus,
+.XTranslate_scroll_arrow_down:focus,
+.XTranslate_scroll_bar:focus {
+    background: white;
+}
+
+.XTranslate_scroll_arrow_up:after,
+.XTranslate_scroll_arrow_down:after {
+    position: absolute;
+    left: 4px;
+    content: "";
+    width: 0;
+    height: 0;
+}
+.XTranslate_scroll_arrow_up:after {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 4px solid black;
+    top: 35%;
+}
+.XTranslate_scroll_arrow_down:after {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid black;
+    top: 45%;
+}
