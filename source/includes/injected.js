@@ -170,6 +170,7 @@
 
             XTranslate_scrollBarCreate();
             popup_fix_position();
+            auto_selected = null;
         }
 
         function hide_popup() {
@@ -231,24 +232,20 @@
         }
 
         function save_selected_text() {
-            try {
-                setTimeout(function () {
-                    port.postMessage({
-                        action: 'save-selected-text',
-                        text: get_selection()
-                    });
-                }, 0);
-            } catch(e){
-                window.location.reload(true);
-            }
+            setTimeout(function () {
+                port.postMessage({
+                    action: 'save-selected-text',
+                    text: get_selection()
+                });
+            }, 0);
         }
 
-        opera.extension.addEventListener('disconnect', function (e) {
+        opera.extension.addEventListener('disconnect', function () {
             window.location.reload();
         }, false);
 
         // Messaging handler
-        opera.extension.onmessage = function( evt )
+        opera.extension.addEventListener('message', function(evt)
         {
             evt.data.settings && (settings = evt.data.settings);
 
@@ -345,7 +342,7 @@
                         html : evt.data.html
                     }, '*')
                 );
-        };
+        }, false);
 
         // Extra handling for iframes
         if( top_level )
@@ -457,6 +454,7 @@
                         }
                     }
 
+                    save_selected_text();
                     hide_popup();
                 }],
 
