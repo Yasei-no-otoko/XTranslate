@@ -131,7 +131,6 @@ window.XTranslate =
 	vendors: function()
 	{
 		var vendors = [];
-		
 		vendors.__defineGetter__('current', function()
 		{
 			var vendor = settings('vendor');
@@ -144,16 +143,21 @@ window.XTranslate =
 			this.push( vendor );
 			vendor.loadData();
 		};
-		
 		return vendors;
 	}(),
-	button: button(),
+
+    button: button(),
+
 	updateButton: function( lang ){
-		var 
-			lang = lang || settings('lang'),
-			arrow = String.fromCharCode(8594);
+        lang = lang || settings('lang');
+        var arrow = String.fromCharCode(8594);
+
+        var flag = lang.to.toLowerCase();
+        if(flag == 'zh-chs') flag = 'zh-cn'; // chinese simplified
+        if(flag == 'zh-cht') flag = 'zh-tw'; // chinese traditional
+
 		this.button.title = 'XTranslate ('+ [lang.from.toUpperCase(), arrow, lang.to.toUpperCase()].join(' ') + ')';
-		this.button.icon = 'icons/flags/'+ lang.to.split('-').shift() +'.png';
+		this.button.icon = 'icons/flags/'+ flag +'.png';
 	}
 };
 

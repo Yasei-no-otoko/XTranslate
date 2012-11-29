@@ -183,10 +183,13 @@ function XTranslate_options()
 
 	function updateIcon( elem )
 	{
-		var value = elem.value;
+		var flag = elem.value;
 		var icon = $('img[name="'+ elem.name +'"]');
-		icon.src = 'icons/flags/'+ value.split('-').shift() +'.png';
-		icon.alt = value;
+
+        if(flag == 'zh-chs') flag = 'zh-cn'; // chinese simplified
+        if(flag == 'zh-cht') flag = 'zh-tw'; // chinese traditional
+
+        icon.src = 'icons/flags/'+ flag +'.png';
 	}
 
 	var updateState = function __( filter )
