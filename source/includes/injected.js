@@ -53,7 +53,7 @@
                 (type == 'dblclick' && settings.translate.dblclick) ||
                 (type == 'mouseup' && settings.button.icon_trigger_popup))
             {
-                var text = get_selection();
+                var text = evt.text || get_selection();
                 text && port.postMessage({action: 'translate', text: text});
             }
         }
@@ -263,21 +263,31 @@
                     popup.onclick = function( evt )
                     {
                         var elem = evt.target;
+                        switch (elem.className){
+                            case 'XTranslate_sound_play':
+                                var
+                                    parent_ = elem.parentNode,
+                                    obj = parent_.querySelector('object');
 
-                        if( elem.className == 'XTranslate_sound_play' ){
-                            var
-                                parent_ = elem.parentNode,
-                                obj = parent_.querySelector('object');
+                                if(!obj.src){
+                                    port.postMessage({
+                                        action: "get-sound",
+                                        url: elem.getAttribute('data-url')
+                                    });
+                                } else {
+                                    parent_.removeChild(obj);
+                                    parent_.appendChild(obj);
+                                }
+                            break;
 
-                            if(!obj.src){
-                                port.postMessage({
-                                    action: "get-sound",
-                                    url: elem.getAttribute('data-url')
+                            case 'XTranslate_word_proposal':
+                                hide_popup();
+                                selection.addRange(range);
+                                handle_selection({
+                                    type: settings.trigger.type,
+                                    text: elem.textContent
                                 });
-                            } else {
-                                parent_.removeChild(obj);
-                                parent_.appendChild(obj);
-                            }
+                            break;
                         }
 
                         evt.stopPropagation();
@@ -424,7 +434,7 @@
 
                     settings.trigger.hotkey == hotKey &&
                         settings.trigger.type == 'keypress' && (
-                        handle_selection(evt),
+                            handle_selection(evt),
                             evt.preventDefault()
                         );
                 }],

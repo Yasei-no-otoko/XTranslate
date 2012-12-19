@@ -249,3 +249,17 @@
     border-top: 4px solid black;
     top: 45%;
 }
+
+.XTranslate_word_correction {
+    margin-bottom: 1px;
+    display: block;
+}
+.XTranslate_word_proposal {
+    font-weight: bold;
+    border-bottom: 1px dotted transparent;
+    cursor: pointer;
+}
+
+.XTranslate_options .XTranslate_word_proposal {
+    border-bottom-color: black !important;
+}

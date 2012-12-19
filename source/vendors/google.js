@@ -15,6 +15,7 @@ XTranslate.vendors.add(
             url = vendor.url +
             [
                 '/translate_a/t?client=t',
+                'sc=1', // spelling correction
                 'sl='+ lang.from,
                 'hl='+ lang.to,
                 'tl='+ lang.to,
@@ -67,6 +68,16 @@ XTranslate.vendors.add(
                                     return chunk;
                                 }).join('')
                                 .replace(/</g, '&lt;'),
+
+                                (data[7]
+                                    ? '<span class="XTranslate_word_correction">' +
+                                        localization('Maybe, you mean') +
+                                        ' <b class="XTranslate_word_proposal" style="border-bottom-color: '
+                                            + settings('user.css.text.color') +'">'
+                                            + data[7][1] +
+                                        '</b>?' +
+                                      '</span>'
+                                    : ''),
 
                              '</div>',
                             function()

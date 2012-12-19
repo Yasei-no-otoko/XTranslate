@@ -572,7 +572,7 @@ function XTranslate_options()
 		}.call(target);
 
 		// similar words in the result
-		target.className == 'XTranslate_sim_word' && function()
+		target.className.match(/\bXTranslate_(sim_word|word_proposal)\b/) && function()
 		{
 			user_input.area.value = this.innerHTML;
 			user_input.translate.call(user_input.area, evt, user_input)

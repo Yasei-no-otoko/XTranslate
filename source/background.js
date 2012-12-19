@@ -341,3 +341,16 @@ function color( color, opacity )
 
 	return color;
 }
+
+var localization = function (text) {
+    var base_lang = 'en',
+        ui_lang = settings('lang.to'),
+        texts = settings('lang.ui.texts');
+
+    for(var i = 0; i < texts.length; i++){
+        if(texts[i][base_lang] == text && texts[i][ui_lang]){
+            return texts[i][ui_lang];
+        }
+    }
+    return text;
+};
