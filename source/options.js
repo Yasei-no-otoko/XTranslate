@@ -485,10 +485,11 @@ function XTranslate_options()
 	{
 		area: $('.XTranslate_user_input_area'),
 		result: $('.XTranslate_user_input_result'),
-		translate: function(evt, self)
+		translate: function __(evt, self, params)
 		{
+            params = params || {};
 			var
-				value = this.value,
+				value = params.text || this.value,
 				scroll_height = this.scrollHeight,
 				has_scroll = this.offsetHeight - 4 /*border*/ < scroll_height,
 				nl = {
@@ -502,22 +503,31 @@ function XTranslate_options()
 			has_scroll && (this.style.height = scroll_height + 'px');
 
 			// translation
-			if( self.prev !== value )
-			{
-				if( value ){
-					var response = bg.XTranslate.vendors.current.handler(value, true);
+            if( value ){
+                var data = {text: value, lang: params.lang, ss: true};
+                var response = bg.XTranslate.vendors.current.handler(data);
 
-					bg.when( response ).then(function( result ) {
-						user_input.result.innerHTML = result.html;
+                bg.when( response ).then(function(result) {
+                    if(result.swap){
+                        __.call(this, evt, self, {
+                            text: result.text,
+                            lang: {
+                                from: bg.settings('lang.to'),
+                                to: bg.settings('lang.from')
+                            }
+                        });
+                    }
+                    else {
+                        user_input.result.innerHTML = result.html;
                         bg.settings('button.autoplay') && $('.XTranslate_sound_play').click();
-					});
-				}
-				else {
-					user_input.result.innerHTML = '';
-				}
+                    }
+                });
+            }
+            else {
+                user_input.result.innerHTML = '';
+            }
 
-				self.prev = value;
-			}
+            self.prev = value;
 		}
 	};
 

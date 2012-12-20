@@ -219,7 +219,10 @@ opera.extension.onmessage = function(evt)
         case 'get-sound':
             if(data.action == 'translate'){
                 action = 'handler';
-                data = data.text;
+                data = {
+                    text: data.text,
+                    lang: data.lang
+                };
             }
 
             var ready = XTranslate.vendors.current[action](data);

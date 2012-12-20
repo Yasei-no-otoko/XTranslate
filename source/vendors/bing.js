@@ -6,13 +6,12 @@ XTranslate.vendors.add(
 	name: 'Bing',
 	url: 'http://microsofttranslator.com/',
 
-	handler: function( text )
+	handler: function(params)
 	{
-		var 
-			id = 'C99C654F52B9010F7B789D98343831212B58CB34',
+		var id = 'C99C654F52B9010F7B789D98343831212B58CB34',
 			url = 'http://api.microsofttranslator.com/v2/ajax.svc/Translate',
 			lang = settings('lang'),
-			text = encodeURIComponent(text);
+			text = encodeURIComponent(params.text);
 		
 		// for bing's auto-detecting language we have to send empty string
 		lang.from == 'auto' && (lang.from = '');

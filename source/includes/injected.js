@@ -54,7 +54,7 @@
                 (type == 'mouseup' && settings.button.icon_trigger_popup))
             {
                 var text = evt.text || get_selection();
-                text && port.postMessage({action: 'translate', text: text});
+                text && port.postMessage({action: 'translate', text: text, lang: evt.lang});
             }
         }
 
@@ -240,6 +240,17 @@
             }, 0);
         }
 
+        function make_translation(text, lang) {
+            hide_popup();
+            selection.isCollapsed && range && selection.addRange(range);
+
+            handle_selection({
+                type: settings.trigger.type,
+                text: text,
+                lang: lang || settings.lang
+            });
+        }
+
         opera.extension.addEventListener('disconnect', function () {
             window.location.reload();
         }, false);
@@ -281,12 +292,7 @@
                             break;
 
                             case 'XTranslate_word_proposal':
-                                hide_popup();
-                                selection.addRange(range);
-                                handle_selection({
-                                    type: settings.trigger.type,
-                                    text: elem.textContent
-                                });
+                                make_translation(elem.textContent);
                             break;
                         }
 
@@ -341,7 +347,7 @@
                 custom_css.parentNode.removeChild( custom_css );
             }
 
-            // Update popup's HTML-content
+            // show popup with updated html-data
             evt.data.html && (
                 top_level || show_in_frame
                     ? popup.show( evt.data.html )
@@ -352,6 +358,14 @@
                         html : evt.data.html
                     }, '*')
                 );
+
+            // swap languages on the fly
+            if(evt.data.swap){
+                make_translation(evt.data.text, {
+                    from: settings.lang.to,
+                    to: settings.lang.from
+                });
+            }
         }, false);
 
         // Extra handling for iframes

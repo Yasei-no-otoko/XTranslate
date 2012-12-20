@@ -6,12 +6,13 @@ XTranslate.vendors.add(
     name: 'Google',
     url: 'http://translate.google.com',
 
-    handler: function( text, show_similars )
+    handler: function(params)
     {
-        var
-            vendor = this,
-            lang = settings('lang'),
-            text = encodeURIComponent(text),
+        var vendor = this,
+            lang = params.lang || settings('lang'),
+            lang_to = lang.to,
+            text_originally = params.text,
+            text = encodeURIComponent(params.text),
             url = vendor.url +
             [
                 '/translate_a/t?client=t',
@@ -92,7 +93,7 @@ XTranslate.vendors.add(
                                                 '<dl class="XTranslate_wordtype">',
                                                     '<dt>'+ wordtype[0] +'</dt>',
 
-                                                    ! show_similars
+                                                    ! params.ss // show similar
                                                     ? '<dd>'+ wordtype[1].join(', ') +'</dd>'
                                                     : [
                                                         '<table class="XTranslate_words_list">',
@@ -122,10 +123,16 @@ XTranslate.vendors.add(
                         '</div>'
                     ].join('');
 
+                    var text = data[0][0][0];
+                    var lang_to_possible = data.slice(-2)[0][0][0];
+                    var sc = data[7]; // spelling correction
+
                     dfr.resolve({
+                        swap: !sc && (lang_to_possible == lang_to || text == text_originally),
+                        text: text,
                         html: html,
                         response: response,
-                        json: JSON.stringify(data, null, 5)
+                        json: JSON.stringify(data, null, 2)
                     });
                 }
             });

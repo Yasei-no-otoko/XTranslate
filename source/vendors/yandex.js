@@ -6,9 +6,9 @@ XTranslate.vendors.add(
 	name: 'Yandex',
 	url: 'http://translate.yandex.net',
 
-	handler: function( selection )
+	handler: function(params)
 	{
-		var 
+		var selection = params.text,
 			lang = settings('lang'),
 			text = encodeURIComponent( selection ),
 			
@@ -76,8 +76,7 @@ XTranslate.vendors.add(
 				complete: function( response )
 				{
 					try {
-						var 
-							error = this.status != 200,
+						var error = this.status != 200,
 							data = !error ? action.data.call(this, response) : response,
 							content = !error ? action.content.call(this, data) : response;
 							
