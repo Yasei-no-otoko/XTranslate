@@ -10,8 +10,6 @@ XTranslate.vendors.add(
     {
         var vendor = this,
             lang = params.lang || settings('lang'),
-            lang_to = lang.to,
-            text_originally = params.text,
             text = encodeURIComponent(params.text),
             url = vendor.url +
             [
@@ -123,12 +121,19 @@ XTranslate.vendors.add(
                         '</div>'
                     ].join('');
 
+                    lang = settings('lang');
                     var text = data[0][0][0];
-                    var lang_to_possible = data.slice(-2)[0][0][0];
-                    var sc = data[7]; // spelling correction
+                    var lang_source_maybe = data[8] && data[8][0][0];
+                    var swap
+                        = !data[7] // spelling correction
+                        && vendor.prevRequest != url
+                        && (lang_source_maybe == lang.to || lang.from == 'auto')
+                        && text == params.text;
+
+                    vendor.prevRequest = url;
 
                     dfr.resolve({
-                        swap: !sc && (lang_to_possible == lang_to || text == text_originally),
+                        swap: swap,
                         text: text,
                         html: html,
                         response: response,

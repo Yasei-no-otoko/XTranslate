@@ -240,15 +240,20 @@
             }, 0);
         }
 
-        function make_translation(text, lang) {
+        function make_translation(text, lang, delay) {
             hide_popup();
+
+            selection = selection || window.getSelection();
             selection.isCollapsed && range && selection.addRange(range);
 
-            handle_selection({
+            var data = {
                 type: settings.trigger.type,
                 text: text,
                 lang: lang || settings.lang
-            });
+            };
+
+            if(delay === undefined) handle_selection(data);
+            else setTimeout(handle_selection.bind(this, data), delay);
         }
 
         opera.extension.addEventListener('disconnect', function () {
